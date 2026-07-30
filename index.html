@@ -1030,7 +1030,7 @@
             ctx.direction = 'rtl'; ctx.textAlign = 'right';
             ctx.fillStyle = '#edf1f6'; roundRect(ctx, 146, ay+10, 778, 10, 5, true, false);
             const g = ctx.createLinearGradient(146, ay+15, 924, ay+15); g.addColorStop(0, '#17bfd0'); g.addColorStop(1, '#0d438d'); ctx.fillStyle = g; roundRect(ctx, 146, ay+10, 778*(value/100), 10, 5, true, false);
-            ay += 40;
+            ay += 44;
           });
 
           const panels = [
@@ -1046,7 +1046,7 @@
             let ly = p.y+82;
             p.items.forEach(item => {
               ctx.fillStyle = '#0d438d'; ctx.beginPath(); ctx.arc(p.x+panelWidth-30, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
-              ly = wrapTextLimited(ctx, item, p.x+panelWidth-48, ly, 334, 28, '400 18px "IBM Plex Sans Arabic"', '#6b7486', 2) + 18;
+              ly = wrapTextLimited(ctx, item, p.x+panelWidth-48, ly, 334, 30, '400 18px "IBM Plex Sans Arabic"', '#6b7486', 2) + 44;
             });
           });
 
