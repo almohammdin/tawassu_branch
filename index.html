@@ -1,1 +1,933 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>توسّع | أداة تقييم قرارات توسع الفروع</title><meta property="og:title" content="توسّع | أداة تقييم قرارات توسع الفروع"><meta property="og:description" content="أسئلة تفاعلية ومؤشر خطر لقرار الفرع"><meta property="og:image" content="https://almohammdin.github.io/tawassu_branch/logo.png"><link rel="icon" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><style>:root{--n:#0d438d;--d:#102d59;--g:#c9a84c;--m:#687483;--l:#e4e7e9;--bg:#f7f5ef}*{box-sizing:border-box}body{margin:0;font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:#172334}.shell{width:min(1060px,calc(100% - 28px));margin:auto}img{max-width:100%;display:block}.accent{height:6px;background:linear-gradient(90deg,#18bfd0,var(--n),var(--g))}.header{position:sticky;top:0;z-index:90;background:#fffefdee;backdrop-filter:blur(15px);border-bottom:1px solid var(--l)}.head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 0}.brand{display:flex;align-items:center;gap:14px}.brand img{width:130px;height:80px;object-fit:contain}.brand strong{color:var(--d);display:block}.brand small{color:var(--m)}button{font:inherit}.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer}.primary{background:var(--n);color:#fff}.secondary{background:#fff;color:var(--n);border:1px solid #cfd5db}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;padding:34px 0 18px}.card{background:#fff;border:1px solid rgba(11,26,43,.1);border-radius:22px;box-shadow:0 7px 28px rgba(11,26,43,.045)}.copy{padding:32px}.tag{display:inline-block;background:#eef4ff;color:var(--n);padding:7px 11px;border-radius:99px;font-size:13px;font-weight:700}.copy h1{font-size:clamp(32px,5vw,50px);line-height:1.3;color:var(--d);margin:15px 0 8px}.copy p,.mode p{color:var(--m);line-height:1.85}.logoBox{padding:24px;display:grid;place-items:center;text-align:center}.logoBox img{height:290px;object-fit:contain}.logoBox h2{color:var(--d);font-size:20px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mode{padding:20px;position:relative}.mode h3{color:var(--d);margin:7px 0}.badge{display:inline-block;background:#eef4ff;color:var(--n);padding:6px 10px;border-radius:99px;font-size:12px;font-weight:700}.lock{position:absolute;left:14px;top:14px;background:#fff5d8;color:#775a18;padding:7px 10px;border-radius:99px;font-size:12px;font-weight:700}.tool{padding:50px 0 75px}.stepHead span{color:#8c6b19;font-size:12px;font-weight:700}.stepHead h2{color:var(--d);font-size:36px;margin:4px 0}.stepHead p{color:var(--m);margin:0}.progress{position:sticky;top:96px;z-index:80;margin:20px 0;padding:15px 18px;border:1px solid rgba(201,168,76,.34);border-radius:15px;background:#fffffff2;box-shadow:0 14px 36px rgba(11,26,43,.12);backdrop-filter:blur(18px)}.pc{display:flex;justify-content:space-between;color:var(--m);font-size:12px;margin-bottom:8px}.pc strong{color:var(--d)}.track{height:7px;border-radius:99px;background:#e7eaed;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--g),#8f6d1a);display:block;transition:.25s}.step{display:none}.step.on{display:block}.module{background:#fff;border:1px solid rgba(11,26,43,.1);border-radius:18px;overflow:hidden;box-shadow:0 7px 28px rgba(11,26,43,.045)}.q{padding:22px;border-bottom:1px solid #eceff1}.q:last-child{border-bottom:0}.qt{display:grid;grid-template-columns:31px 1fr;gap:12px}.num{width:28px;height:28px;display:grid;place-items:center;background:var(--d);color:#fff;border-radius:8px;font-size:12px;font-weight:700}.q h3{margin:0;font-size:16px;line-height:1.7}.answers{margin-right:43px;margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.ans{min-height:46px;border:1px solid #d8dde2;border-radius:9px;background:#fff;color:#566270;font-weight:600;font-size:12px;cursor:pointer}.ans.sel{border-color:var(--g);background:#fff9e9;color:var(--d)}.sticky{position:sticky;bottom:16px;z-index:60;margin-top:24px;padding:14px 15px;display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fffffff1;border:1px solid rgba(11,26,43,.12);border-radius:15px;box-shadow:0 18px 45px rgba(11,26,43,.12)}.sticky span{color:var(--m);font-size:13px}.result{display:none}.result.on{display:block}.status{padding:27px;border-top:5px solid var(--s);margin-bottom:14px}.status h2{color:var(--s);font-size:34px;margin:0}.status p{color:#596675;line-height:1.8}.rh{display:flex;justify-content:space-between;color:var(--d);font-weight:700}.rh strong{font-size:27px;color:var(--s)}.risk{direction:ltr;height:16px;border-radius:99px;background:linear-gradient(90deg,#16815d 0 25%,#c7a51f 25% 50%,#d97a23 50% 75%,#c24b4b 75%);position:relative}.ptr{position:absolute;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--d)}.labels{display:flex;justify-content:space-between;color:var(--m);font-size:11px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.box{padding:18px}.box h3{color:var(--d);margin-top:0}.box ul{color:var(--m);line-height:1.8}.axis{margin-bottom:13px}.at{display:flex;justify-content:space-between;color:var(--d);font-weight:700}.al{height:9px;background:#e7eaed;border-radius:99px;overflow:hidden}.al i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--n))}.footer{padding:20px 0 34px}.foot{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.owner{display:flex;align-items:center;gap:12px}.owner img{width:135px;height:52px;object-fit:contain}.social{display:flex;align-items:center;gap:9px}.social strong{direction:ltr;color:var(--d)}.social a{width:40px;height:40px;border:1px solid var(--l);border-radius:50%;display:grid;place-items:center;color:var(--n)}.social svg{width:18px;height:18px;fill:currentColor}.stage{position:fixed;right:-200vw;top:0}.share{width:1080px;min-height:1350px;padding:60px;background:#f7f5ef}.sp{background:#fff;border:1px solid var(--l);border-radius:26px;padding:32px;margin-bottom:18px}.overlay{position:fixed;inset:0;z-index:200;background:#0b1a2bbb;display:grid;place-items:center;padding:18px}.overlay[hidden]{display:none}.modal{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:20px;padding:15px}.modal img{width:100%}@media(max-width:800px){.hero,.modes,.grid2{grid-template-columns:1fr}.answers{margin-right:0;grid-template-columns:1fr 1fr}.brand img{width:105px}.header .primary{display:none}.progress{top:111px}}</style></head><body><div class="accent"></div><header class="header"><div class="shell head"><div class="brand"><img src="logo.png" alt="شعار توسع"><span><strong>أداة تقييم قرارات توسع الفروع</strong><small>تقييم موقع واحد قبل التوقيع</small></span></div><button class="btn primary" onclick="go()">ابدأ التقييم</button></div></header><main class="shell"><section class="hero"><article class="card copy"><span class="tag">بدون أرقام حساسة</span><h1>هل هذا الفرع مناسب أم لا؟</h1><p>أجب عن الأسئلة باختيار الإجابة الأقرب لواقع الفرع، ثم اعرض النتيجة لتحصل على مؤشر خطر وأسباب القرار وما يحتاج إلى حسم قبل التوقيع.</p><p><button class="btn primary" onclick="go()">ابدأ التقييم الآن</button></p></article><aside class="card logoBox"><img src="logo.png"><h2>أداة تقييم قرارات توسع الفروع</h2></aside></section><section class="modes"><article class="card mode"><span class="badge">متاحة الآن</span><h3>أداة توسع</h3><p>اختر الإجابة الأقرب لواقع الفرع في كل سؤال، ثم اضغط «اعرض النتيجة».</p></article><article class="card mode"><span class="lock">🔒 قريبا</span><span class="badge">مقفلة حاليا</span><h3>النسخة المتقدمة</h3><p>قراءة مالية وتشغيلية أوسع بصيغة تراعي الخصوصية.</p></article></section><section class="tool" id="tool"><div class="stepHead"><span id="cnt">الخطوة 1 من 3</span><h2 id="ttl">عرّف لنا الفرع</h2><p id="sub">ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.</p></div><div class="progress"><div class="pc"><span id="pt">0 من 3</span><strong id="pp">0%</strong></div><div class="track"><i class="fill" id="fill"></i></div></div><div id="steps"></div><div class="sticky"><span id="hint">أجب عن جميع الأسئلة الظاهرة.</span><div><button class="btn secondary" id="prev" onclick="back()" style="display:none">السابق</button> <button class="btn primary" id="next" onclick="forward()">التالي</button></div></div><section class="result" id="result"><article class="card status" id="status"><h2 id="level"></h2><p id="summary"></p><div class="rh"><span>مؤشر خطر قرار الفرع</span><strong id="score"></strong></div><div class="risk"><i class="ptr" id="pointer"></i></div><div class="labels"><span>خطر منخفض</span><span>خطر متوسط</span><span>خطر مرتفع</span></div></article><div class="grid2"><article class="card box" id="axes"></article><article class="card box"><h3>التوصية التنفيذية</h3><ul id="rec"></ul></article><article class="card box"><h3>الإشارات المطمئنة</h3><ul id="good"></ul></article><article class="card box"><h3>مصادر الخطر وأولويات الحسم</h3><ul id="bad"></ul></article></div><p><button class="btn primary" onclick="image()">معاينة صورة النتيجة</button> <button class="btn secondary" onclick="resetAll()">تقييم جديد</button></p></section></section></main><footer class="footer"><div class="shell card foot"><div class="owner"><img src="https://almohammdin.github.io/ADsChek/assets/images/naif-logo.svg"><span><strong>تطوير وإشراف نايف المحمدي</strong><small>الإصدار 2.1</small></span></div><nav class="social"><strong>Almohammdin</strong><a href="https://x.com/almohammdin"><svg viewBox="0 0 24 24"><path d="M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Z"/></svg></a><a href="https://www.linkedin.com/in/almohammdin/"><svg viewBox="0 0 24 24"><path d="M5 8H1v14h4V8Zm-2-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm19 12c0-4-2-6-5-6-2 0-3 1-4 2V8H9v14h4v-7c0-2 0-4 3-4 2 0 2 2 2 4v7h4v-8Z"/></svg></a><a href="https://www.snapchat.com/add/almohammdin"><svg viewBox="0 0 24 24"><path d="M12 2c-3 0-5 2-5 6v2c-2 1-3 0-3 1 0 1 1 1 2 2-1 2-2 3-4 4 2 1 3 1 4 1 1 0 1 2 2 2 2-1 3-1 4-1s2 0 4 1c1 0 1-2 2-2 1 0 2 0 4-1-2-1-3-2-4-4 1-1 2-1 2-2 0-1-1 0-3-1V8c0-4-2-6-5-6Z"/></svg></a><a href="https://linktr.ee/almohammdin"><svg viewBox="0 0 24 24"><path d="m12 0 2 6 4-4 2 2-4 4h6v3h-6l4 4-2 2-6-6-6 6-2-2 4-4H2V8h6L4 4l2-2 4 4V0h2Zm-2 15h4v9h-4v-9Z"/></svg></a></nav></div></footer><div class="stage" id="stage"></div><div class="overlay" id="overlay" hidden><div class="modal"><p><button class="btn secondary" onclick="download()">تنزيل</button> <button class="btn secondary" onclick="closeImg()">إغلاق</button></p><img id="preview"></div></div><script>const Q=[[['activity','ما طبيعة النشاط؟',['مطعم','مقهى','كشك','تجزئة'],[42,32,28,24],'market'],['model','ما نمط المبيعات الغالب؟',['المحلي','متوازن','التوصيل'],[50,35,40],'location'],['place','أين يقع الفرع؟',['شارع تجاري','مجمع','مركز حي','مستقل'],[38,44,26,34],'location']],[['parking','كيف تقيم المواقف؟',['وفيرة','مقبولة','ضعيفة','لم أتحقق'],[8,34,78,56],'location'],['courier','دخول مندوبي التوصيل؟',['سهل','مقبول','صعب','غير واضح'],[10,32,78,52],'location'],['visibility','وضوح الواجهة؟',['قوي','مقبول','ضعيف'],[12,30,70],'location'],['area','نشاط المنطقة؟',['عال','متوسط','ضعيف','غير واضح'],[14,32,74,55],'market'],['competition','كثافة المنافسين؟',['منخفضة','متوسطة','مرتفعة'],[16,38,72],'market']],[['permission','هل السماح بالنشاط محسوم؟',['مؤكد','تحت التحقق','مؤشرات منع'],[4,58,100],'ops'],['rent','كيف يبدو الإيجار؟',['مريح','مقبول','مرتفع','لم أقدره'],[12,34,72,56],'deal'],['grace','فترة السماح؟',['كافية','محدودة','لا توجد','غير واضحة'],[10,42,74,55],'deal'],['increase','الزيادة السنوية؟',['معقولة','مرتفعة','مقلقة','غير واضحة'],[18,55,82,58],'deal'],['infra','جاهزية الكهرباء والتهوية؟',['جاهزة','تعديلات','أعمال جوهرية','لم أحسمها'],[10,34,82,60],'ops'],['downside','إذا انخفض الأداء؟',['متماسك','يمكن احتواؤه','ضغط واضح','لم أختبر'],[12,34,74,58],'deal']]];let S={s:0,a:{},r:null,img:null};const T=[['عرّف لنا الفرع','ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.'],['الموقع والسوق','أجب عن أسئلة الوصول والحركة والمنافسة.'],['الصفقة والجاهزية','قراءة نوعية دون أرقام حساسة.']];function go(){tool.scrollIntoView({behavior:'smooth'})}function render(){steps.innerHTML=Q.map((g,si)=>`<section class="step ${si===S.s?'on':''}"><div class="module">${g.map((q,i)=>`<article class="q"><div class="qt"><span class="num">${i+1}</span><h3>${q[1]}</h3></div><div class="answers">${q[2].map((o,j)=>`<button class="ans ${S.a[q[0]]===j?'sel':''}" onclick="ans('${q[0]}',${j})">${o}</button>`).join('')}</div></article>`).join('')}</div></section>`).join('');cnt.textContent=`الخطوة ${S.s+1} من 3`;ttl.textContent=T[S.s][0];sub.textContent=T[S.s][1];prev.style.display=S.s?'inline-block':'none';next.textContent=S.s===2?'اعرض النتيجة':'التالي';prog()}function ans(k,v){S.a[k]=v;render()}function prog(){let g=Q[S.s],d=g.filter(q=>S.a[q[0]]!==undefined).length,p=Math.round(d/g.length*100);pt.textContent=`${d} من ${g.length}`;pp.textContent=p+'%';fill.style.width=p+'%'}function forward(){if(!Q[S.s].every(q=>S.a[q[0]]!==undefined)){hint.textContent='أكمل جميع الأسئلة الظاهرة أولا.';return}hint.textContent='أجب عن جميع الأسئلة الظاهرة.';if(S.s<2){S.s++;render();go()}else calc()}function back(){if(S.s){S.s--;render();go()}}function avg(a){return Math.round(a.reduce((x,y)=>x+y,0)/a.length)}function calc(){let a={location:[],deal:[],ops:[],market:[]},g=[],b=[];Q.flat().forEach(q=>{let i=S.a[q[0]],v=q[3][i];a[q[4]].push(v);if(v<=18)g.push(q[1]+' — '+q[2][i]);if(v>=55)b.push(q[1]+' — '+q[2][i])});let sc={location:avg(a.location),deal:avg(a.deal),ops:avg(a.ops),market:avg(a.market)},z=Math.round(sc.location*.35+sc.deal*.25+sc.ops*.25+sc.market*.15);if(S.a.permission===2||S.a.infra===2)z=Math.max(z,84);let l,c,s,r;if(z<25){l='خطر منخفض';c='#16815d';s='القراءة مطمئنة مع بقاء التحقق المعتاد.';r=['ثبت الشروط كتابة.','زر الموقع وقت الذروة.']}else if(z<50){l='خطر محدود';c='#668b2b';s='القرار جيد مع نقاط تحتاج إلى حسم.';r=['عالج النقاط المؤثرة.','تحقق من العناصر غير الواضحة.']}else if(z<70){l='خطر متوسط';c='#b98512';s='القرار مرتبط بحسم شروط مؤثرة.';r=['لا تتعجل التوقيع.','ركز على أعلى مصادر الخطر.']}else if(z<85){l='خطر مرتفع';c='#c8661a';s='توجد تعارضات قوية تحتاج معالجة جوهرية.';r=['اطلب تغييرا ملموسا.','أعد النظر إذا تعذر خفض الخطر.']}else{l='خطر حرج';c='#c24b4b';s='لا يدعم الوضع الحالي التقدم الآمن.';r=['أوقف القرار حتى حسم الموانع.','انتقل لبديل إذا تعذر الحل.']}S.r={z,sc,l,c,s,r,g,b};show()}function list(id,a,f){document.getElementById(id).innerHTML=(a.length?a:[f]).slice(0,5).map(x=>'<li>'+x+'</li>').join('')}function show(){let r=S.r;result.classList.add('on');status.style.setProperty('--s',r.c);level.textContent=r.l;summary.textContent=r.s;score.textContent=r.z+'%';pointer.style.left=r.z+'%';axes.innerHTML='<h3>مصادر الخطر حسب المحاور</h3>'+Object.entries({location:'الموقع والوصول',deal:'الصفقة والمرونة',ops:'الجاهزية التشغيلية',market:'السوق والمنافسة'}).map(([k,n])=>`<div class="axis"><div class="at"><span>${n}</span><span>${r.sc[k]}/100</span></div><div class="al"><i style="width:${r.sc[k]}%"></i></div></div>`).join('');list('rec',r.r,'أكمل التحقق.');list('good',r.g,'لم تظهر إشارات مطمئنة قوية.');list('bad',r.b,'لم تظهر مخاطر كبيرة.');result.scrollIntoView({behavior:'smooth'})}function resetAll(){S={s:0,a:{},r:null,img:null};result.classList.remove('on');render();go()}async function image(){if(!S.r)return;let r=S.r;stage.innerHTML=`<div class="share" id="share"><section class="sp" style="display:flex;justify-content:space-between;align-items:center"><img src="logo.png" style="width:240px"><img src="https://almohammdin.github.io/ADsChek/assets/images/naif-logo.svg" style="width:170px"></section><section class="sp" style="border-top:7px solid ${r.c}"><h1 style="font-size:56px;color:${r.c}">${r.l}</h1><p style="font-size:28px">${r.s}</p><strong style="font-size:78px;color:#0d438d">${r.z}%</strong><div class="risk"><i class="ptr" style="left:${r.z}%"></i></div></section><section class="sp"><h2>مصادر الخطر حسب المحاور</h2>${Object.entries({location:'الموقع والوصول',deal:'الصفقة والمرونة',ops:'الجاهزية التشغيلية',market:'السوق والمنافسة'}).map(([k,n])=>`<p><b>${n}: ${r.sc[k]}/100</b></p><div class="al"><i style="width:${r.sc[k]}%"></i></div>`).join('')}</section><section class="sp"><h2>أهم ما يحتاج إلى حسم</h2><ul style="font-size:25px;line-height:1.9">${(r.b.length?r.b:r.r).map(x=>'<li>'+x+'</li>').join('')}</ul></section></div>`;await document.fonts.ready;await new Promise(x=>setTimeout(x,700));try{let c=await html2canvas(share,{backgroundColor:'#f7f5ef',scale:1,useCORS:true,width:1080,windowWidth:1080}),blob=await new Promise(x=>c.toBlob(x,'image/png')),url=URL.createObjectURL(blob);S.img=url;preview.src=url;overlay.hidden=false}catch(e){alert('تعذر تجهيز الصورة. حاول مرة أخرى.')}stage.innerHTML=''}function closeImg(){overlay.hidden=true}function download(){if(!S.img)return;let a=document.createElement('a');a.href=S.img;a.download='Tawassu-Result.png';a.click()}render();</script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e1a">
+  <title>توسّع | أداة تقييم قرارات توسع الفروع</title>
+  <meta name="description" content="أداة تفاعلية تساعد على تقييم قرار فرع واحد من خلال أسئلة ذكية دون إدخال أرقام حساسة.">
+  <meta property="og:title" content="توسّع | أداة تقييم قرارات توسع الفروع">
+  <meta property="og:description" content="أجب عن الأسئلة واحصل على مؤشر خطر قرار الفرع مع تفسير مباشر وأولويات حسم قبل التوقيع.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://almohammdin.github.io/tawassu_branch/assets/tawassu-social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="توسّع | أداة تقييم قرارات توسع الفروع">
+  <meta name="twitter:description" content="أداة تقييم قرار فرع واحد بمؤشر خطر واضح وتوصيات عملية قبل التوقيع.">
+  <meta name="twitter:image" content="https://almohammdin.github.io/tawassu_branch/assets/tawassu-social-preview.png">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5ef;
+      --surface: #ffffff;
+      --surface-2: #fbfcfe;
+      --ink: #0a0e1a;
+      --ink-soft: #25314d;
+      --muted: #6b7486;
+      --line: #e3e7ee;
+      --navy: #0d438d;
+      --teal: #17bfd0;
+      --gold: #c9a84c;
+      --good: #1f8b5f;
+      --mid: #d09a21;
+      --bad: #c54747;
+      --danger-bg: #fff2f2;
+      --warn-bg: #fff8e8;
+      --good-bg: #eef8f2;
+      --shadow: 0 16px 42px rgba(10,14,26,.08);
+      --r-xl: 26px;
+      --r-lg: 20px;
+      --r-md: 14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(23,191,208,.08), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(201,168,76,.08), transparent 22%),
+        linear-gradient(180deg, #fbfcff 0%, var(--bg) 100%);
+      color: var(--ink);
+    }
+    img { max-width: 100%; display: block; }
+    button, input, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1120px, calc(100% - 28px)); margin: 0 auto; }
+    .accent { height: 5px; background: linear-gradient(90deg, var(--teal), var(--navy), var(--gold)); }
+    .site-header { position: sticky; top: 0; z-index: 30; backdrop-filter: blur(14px); background: rgba(255,255,255,.88); border-bottom: 1px solid rgba(227,231,238,.95); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .brand img { width: 136px; height: 72px; object-fit: contain; flex: 0 0 auto; }
+    .brand-copy strong { display: block; color: var(--ink); font-size: 1.13rem; line-height: 1.35; }
+    .brand-copy span { display: block; color: var(--muted); font-size: .88rem; margin-top: 3px; }
+    .btn {
+      border: 0; cursor: pointer; border-radius: 15px; padding: 13px 18px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px; transition: .18s ease;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--navy), #0b356f); color: #fff; box-shadow: 0 12px 24px rgba(13,67,141,.18); }
+    .btn-secondary { background: #fff; color: var(--ink-soft); border: 1px solid var(--line); }
+    .btn-ghost { background: transparent; color: var(--navy); padding-inline: 0; }
+    .btn:hover { transform: translateY(-1px); }
+    .hero { padding: 28px 0 18px; }
+    .hero-card { background: rgba(255,255,255,.95); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 30px; padding: 26px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: center; }
+    .hero-logo { background: linear-gradient(180deg, rgba(13,67,141,.03), rgba(23,191,208,.03)); border: 1px solid #eef2f7; border-radius: 24px; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 250px; }
+    .hero-logo img { width: min(470px, 100%); }
+    .hero-copy .eyebrow { display: inline-flex; padding: 8px 12px; border-radius: 999px; background: rgba(13,67,141,.08); color: var(--navy); font-size: .86rem; font-weight: 700; }
+    .hero-copy h1 { margin: 14px 0 10px; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.16; color: var(--ink); }
+    .hero-copy p { margin: 0; color: var(--muted); line-height: 1.95; font-size: 1rem; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+    .tool-section { padding: 6px 0 24px; }
+    .tool-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); overflow: hidden; }
+    .tool-head { padding: 22px 24px 18px; border-bottom: 1px solid var(--line); }
+    .tool-head h2 { margin: 0; font-size: 1.35rem; color: var(--ink); }
+    .tool-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.8; }
+    .mode-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+    .mode-pill { position: relative; border: 1px solid var(--line); border-radius: 18px; padding: 15px 16px; background: var(--surface-2); }
+    .mode-pill strong { color: var(--ink); display: block; }
+    .mode-pill span { color: var(--muted); font-size: .9rem; display: block; margin-top: 4px; }
+    .mode-pill.active { border-color: rgba(13,67,141,.22); background: linear-gradient(180deg, rgba(13,67,141,.05), rgba(23,191,208,.04)); }
+    .mode-pill.locked { opacity: .95; }
+    .lock-badge { position: absolute; inset-inline-start: 14px; top: 12px; display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.18); color: #7c5d11; border: 1px solid rgba(201,168,76,.34); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
+    .progress-zone { padding: 18px 24px 0; }
+    .progress-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+    .progress-top .copy strong { display: block; color: var(--ink); }
+    .progress-top .copy span { color: var(--muted); font-size: .9rem; }
+    .progress-stats { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-weight: 700; }
+    .progress-stats b { color: var(--gold); font-size: 1.05rem; }
+    .bar-track { height: 14px; border-radius: 999px; background: #edf1f6; overflow: hidden; border: 1px solid #e4eaf1; }
+    .bar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--gold) 0%, #d9bb73 30%, var(--navy) 100%); transition: width .25s ease; }
+
+    .questions-wrap { padding: 20px 24px 12px; }
+    .step-hint { color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
+    .question-list { display: grid; gap: 14px; }
+    .question-card { border: 1px solid var(--line); border-radius: 18px; padding: 16px; background: #fff; }
+    .question-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .q-badge { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, rgba(13,67,141,.1), rgba(23,191,208,.1)); color: var(--navy); font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+    .question-head h3 { margin: 0; font-size: 1.05rem; color: var(--ink); line-height: 1.55; }
+    .question-head p { margin: 4px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+    .options { display: grid; gap: 10px; }
+    .options.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .options.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .options.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .choice { min-height: 84px; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: #fff; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; text-align: right; transition: .18s ease; }
+    .choice strong { color: var(--ink); display: block; }
+    .choice small { color: var(--muted); display: block; margin-top: 5px; line-height: 1.55; }
+    .dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #c8d3e0; margin-top: 2px; flex: 0 0 auto; position: relative; }
+    .choice:hover { border-color: rgba(13,67,141,.26); transform: translateY(-1px); }
+    .choice.selected { border-color: rgba(13,67,141,.34); background: rgba(13,67,141,.05); box-shadow: 0 0 0 3px rgba(13,67,141,.06); }
+    .choice.selected .dot { border-color: var(--navy); }
+    .choice.selected .dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--navy); }
+    .actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 0 24px 24px; }
+    .actions .meta { color: var(--muted); font-size: .9rem; }
+    .actions .group { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .results { display: none; border-top: 1px solid var(--line); background: linear-gradient(180deg, rgba(13,67,141,.02), transparent); }
+    .results.show { display: block; }
+    .result-inner { padding: 24px; }
+    .result-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 16px; }
+    .panel { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 18px; }
+    .risk-chip { display: inline-flex; padding: 8px 12px; border-radius: 999px; font-size: .85rem; font-weight: 700; }
+    .risk-good { background: var(--good-bg); color: var(--good); }
+    .risk-mid { background: var(--warn-bg); color: #9f7300; }
+    .risk-bad { background: var(--danger-bg); color: var(--bad); }
+    .score-block { display: flex; justify-content: space-between; gap: 14px; align-items: start; flex-wrap: wrap; margin-top: 14px; }
+    .score-no { font-size: 3.4rem; line-height: 1; color: var(--navy); font-weight: 800; }
+    .score-copy h4 { margin: 0 0 8px; color: var(--ink); font-size: 1.28rem; }
+    .score-copy p { margin: 0; color: var(--muted); line-height: 1.85; }
+    .risk-scale { margin-top: 20px; }
+    .risk-scale .head { display: flex; justify-content: space-between; color: var(--ink-soft); font-weight: 700; margin-bottom: 8px; gap: 12px; }
+    .scale-track { position: relative; height: 14px; border-radius: 999px; overflow: hidden; background: linear-gradient(270deg, #1f8b5f 0 25%, #d09a21 25% 55%, #c54747 55% 100%); }
+    .pointer { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 4px solid var(--ink); box-shadow: 0 3px 10px rgba(0,0,0,.18); }
+    .scale-labels { display: flex; justify-content: space-between; font-size: .82rem; color: var(--muted); margin-top: 8px; }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
+    .fact { border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); padding: 14px; }
+    .fact span { display: block; color: var(--muted); font-size: .8rem; margin-bottom: 6px; }
+    .fact strong { color: var(--ink); font-size: 1rem; }
+    .blockers { display: none; margin-top: 18px; background: var(--danger-bg); border: 1px solid #f2c9c9; border-radius: 18px; padding: 15px 16px; }
+    .blockers.show { display: block; }
+    .blockers strong { color: #992f2f; display: block; }
+    .blockers ul { margin: 10px 0 0; padding-right: 18px; color: #8b3737; line-height: 1.8; }
+    .axis-list { display: grid; gap: 12px; }
+    .axis-card { border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+    .axis-head { display: flex; justify-content: space-between; gap: 12px; color: var(--ink); font-weight: 700; margin-bottom: 8px; }
+    .axis-track { height: 10px; background: #edf1f6; border-radius: 999px; overflow: hidden; }
+    .axis-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--teal), var(--navy)); transition: width .25s ease; }
+    .lists { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+    .list-panel h5 { margin: 0 0 10px; font-size: 1rem; color: var(--ink); }
+    .list-panel ul { margin: 0; padding-right: 18px; color: var(--muted); line-height: 1.85; display: grid; gap: 8px; }
+    .result-actions { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+
+    .site-footer { padding: 8px 0 36px; }
+    .footer-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 24px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .footer-main { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .footer-main img { width: 126px; height: auto; }
+    .footer-copy strong { display: block; color: var(--ink); }
+    .footer-copy span { display: block; color: var(--muted); font-size: .88rem; margin-top: 3px; }
+    .footer-social { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .footer-social strong { direction: ltr; font-size: .95rem; color: var(--ink-soft); }
+    .footer-social a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--navy); display: inline-flex; align-items: center; justify-content: center; }
+    .footer-social svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .preview-overlay { position: fixed; inset: 0; z-index: 80; background: rgba(10,14,26,.66); display: grid; place-items: center; padding: 16px; }
+    .preview-overlay[hidden] { display: none; }
+    .preview-card { width: min(1100px, 100%); max-height: 92vh; overflow: auto; background: #fff; border-radius: 22px; box-shadow: 0 28px 70px rgba(0,0,0,.26); padding: 16px; }
+    .preview-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .preview-head h4 { margin: 0; color: var(--ink); }
+    .preview-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .preview-image { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--bg); }
+    .preview-image img { width: 100%; height: auto; }
+
+    .toast { position: fixed; inset-inline-start: 20px; bottom: 20px; background: rgba(10,14,26,.94); color: #fff; border-radius: 14px; padding: 12px 14px; box-shadow: 0 18px 34px rgba(10,14,26,.26); opacity: 0; transform: translateY(12px); transition: .18s ease; z-index: 90; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .hero-card, .result-grid, .lists, .mode-bar { grid-template-columns: 1fr; }
+      .facts { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .header-inner { flex-direction: column; align-items: stretch; }
+      .brand img { width: 118px; height: 68px; }
+      .hero-card { grid-template-columns: 1fr; padding: 20px; }
+      .hero-logo { min-height: 210px; }
+      .tool-head, .progress-zone, .questions-wrap, .actions, .result-inner { padding-inline: 16px; }
+      .options.cols-2, .options.cols-3, .options.cols-4, .facts { grid-template-columns: 1fr; }
+      .choice { min-height: auto; }
+      .footer-card { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="accent"></div>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top">
+        <img src="assets/tawassu-logo.png" alt="شعار توسّع">
+        <div class="brand-copy">
+          <strong>أداة تقييم قرارات توسع الفروع</strong>
+          <span>تقييم فرع واحد | أسئلة ذكية | بدون أرقام حساسة</span>
+        </div>
+      </a>
+      <button class="btn btn-primary" type="button" data-jump="tool">ابدأ التقييم</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-card">
+        <div class="hero-logo">
+          <img src="assets/tawassu-logo.png" alt="شعار توسّع">
+        </div>
+        <div class="hero-copy">
+          <span class="eyebrow">نسخة مهنية مطورة بعد المراجعة</span>
+          <h1>جاوب على الأسئلة ودع الأداة ترتب لك الصورة قبل قرار التوقيع</h1>
+          <p>هذه النسخة تركّز على سؤال واحد: هل هذا الفرع مناسب أم لا؟ تعبي الإجابات الأقرب لواقع الموقع، والأداة تعطيك مؤشر خطر واضح، وأسباب النتيجة، وأهم ما يجب حسمه قبل التوقيع.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" data-jump="tool">ابدأ الآن</button>
+            <button class="btn btn-secondary" type="button" data-jump="results">اذهب إلى النتيجة</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section shell" id="tool">
+      <div class="tool-card">
+        <div class="tool-head">
+          <h2>محرك تقييم قرار الفرع</h2>
+          <p>اختر الإجابة الأقرب لواقع الفرع في كل سؤال. الأسئلة تتكيّف مع طبيعة النشاط ونمط المبيعات ونوع الموقع. بعد ذلك ستحصل على قراءة مباشرة مرتبة حسب شدة المخاطر.</p>
+          <div class="mode-bar">
+            <div class="mode-pill active">
+              <strong>أداة توسّع</strong>
+              <span>المسار الحالي لتقييم قرار فرع واحد</span>
+            </div>
+            <div class="mode-pill locked">
+              <div class="lock-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                قريبا
+              </div>
+              <strong>النسخة المتقدمة</strong>
+              <span>قراءة أعمق ستضاف لاحقا</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-zone">
+          <div class="progress-top">
+            <div class="copy">
+              <strong id="stepTitle">الخطوة 1 من 3: تعريف الفرع</strong>
+              <span id="stepHint">ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.</span>
+            </div>
+            <div class="progress-stats">
+              <span>المكتمل</span>
+              <b id="progressPercent">0%</b>
+              <span id="progressCount">0 / 0</span>
+            </div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+        </div>
+
+        <div class="questions-wrap">
+          <div class="step-hint" id="stepIntro">أجب عن الأسئلة الظاهرة فقط. لا توجد حاجة لإدخال مبالغ أو أرقام مالية حساسة في هذه النسخة.</div>
+          <div class="question-list" id="questionList"></div>
+        </div>
+
+        <div class="actions">
+          <div class="meta">التقييم الحالي: فرع واحد | قراءة استرشادية عملية قبل التوقيع</div>
+          <div class="group">
+            <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
+            <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
+          </div>
+        </div>
+
+        <section class="results" id="results">
+          <div class="result-inner">
+            <div class="result-grid">
+              <article class="panel">
+                <span class="risk-chip risk-mid" id="riskChip">نتيجة مبدئية</span>
+                <div class="score-block">
+                  <div>
+                    <div class="score-no" id="scoreNo">0</div>
+                  </div>
+                  <div class="score-copy">
+                    <h4 id="decisionTitle">مؤشر خطر قرار الفرع</h4>
+                    <p id="decisionSummary">اعرض النتيجة بعد إكمال الأسئلة.</p>
+                  </div>
+                </div>
+
+                <div class="risk-scale">
+                  <div class="head"><span>مؤشر الخطر</span><strong id="scoreText">0 من 100</strong></div>
+                  <div class="scale-track"><span class="pointer" id="pointer"></span></div>
+                  <div class="scale-labels"><span>خطر منخفض</span><span>خطر متوسط</span><span>خطر مرتفع</span></div>
+                </div>
+
+                <div class="facts">
+                  <div class="fact"><span>التوصية</span><strong id="decisionOut">—</strong></div>
+                  <div class="fact"><span>أولوية الحسم</span><strong id="priorityOut">—</strong></div>
+                  <div class="fact"><span>الموانع</span><strong id="blockerCountOut">—</strong></div>
+                  <div class="fact"><span>الأسئلة المجابة</span><strong id="answeredOut">—</strong></div>
+                </div>
+
+                <div class="blockers" id="blockersBox">
+                  <strong>عناصر يجب حسمها قبل التوقيع</strong>
+                  <ul id="blockersList"></ul>
+                </div>
+              </article>
+
+              <article class="panel">
+                <h4 style="margin:0 0 14px; color:var(--ink);">مصادر الخطر حسب المحاور</h4>
+                <div class="axis-list">
+                  <div class="axis-card"><div class="axis-head"><span>الموقع والوصول</span><span id="axisLocationTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisLocationBar"></div></div></div>
+                  <div class="axis-card"><div class="axis-head"><span>الصفقة والمرونة</span><span id="axisDealTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisDealBar"></div></div></div>
+                  <div class="axis-card"><div class="axis-head"><span>الجاهزية التشغيلية</span><span id="axisOpsTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisOpsBar"></div></div></div>
+                  <div class="axis-card"><div class="axis-head"><span>السوق والتعارض</span><span id="axisMarketTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisMarketBar"></div></div></div>
+                </div>
+              </article>
+            </div>
+
+            <div class="lists">
+              <article class="panel list-panel"><h5>أبرز الإشارات المطمئنة</h5><ul id="goodList"><li>ستظهر بعد التقييم.</li></ul></article>
+              <article class="panel list-panel"><h5>أبرز مصادر الخطر</h5><ul id="badList"><li>ستظهر بعد التقييم.</li></ul></article>
+              <article class="panel list-panel"><h5>أولويات التفاوض أو التحقق</h5><ul id="actionList"><li>ستظهر بعد التقييم.</li></ul></article>
+              <article class="panel list-panel"><h5>التوصية التنفيذية</h5><ul id="recommendList"><li>ستظهر بعد التقييم.</li></ul></article>
+            </div>
+
+            <div class="result-actions">
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn btn-primary" type="button" id="previewBtn">معاينة صورة النتيجة</button>
+                <button class="btn btn-secondary" type="button" id="resetBtn">تقييم جديد</button>
+              </div>
+              <button class="btn btn-ghost" type="button" data-jump="top">العودة لأعلى الصفحة</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-card">
+      <div class="footer-main">
+        <img src="assets/naif-signature.png" alt="نايف المحمدي">
+        <div class="footer-copy">
+          <strong>تطوير وإشراف نايف المحمدي</strong>
+          <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
+        </div>
+      </div>
+      <div class="footer-social">
+        <strong>Almohammdin</strong>
+        <a href="https://x.com/almohammdin" target="_blank" rel="noopener" aria-label="X">
+          <svg viewBox="0 0 24 24"><path d="M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/almohammdin/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z"/></svg>
+        </a>
+        <a href="https://www.snapchat.com/add/almohammdin" target="_blank" rel="noopener" aria-label="Snapchat">
+          <svg viewBox="0 0 24 24"><path d="M12 2.1c-3.1 0-5.2 2.5-5.2 5.7 0 .8.1 1.7.2 2.4-.4.2-1 .3-1.5.1-.8-.3-1.3 1-.5 1.5.4.3 1.1.5 1.5.7-.5 1.2-1.5 2.3-3.1 3-.6.3-.5 1.2.1 1.4 1 .4 2 .5 2.8.7.3.1.5.7.8 1.2.2.3.6.4 1 .3.8-.2 1.6-.5 2.9-.5s2.1.3 2.9.5c.4.1.8 0 1-.3.3-.5.5-1.1.8-1.2.8-.2 1.8-.3 2.8-.7.6-.2.7-1.1.1-1.4-1.6-.7-2.6-1.8-3.1-3 .4-.2 1.1-.4 1.5-.7.8-.5.3-1.8-.5-1.5-.5.2-1.1.1-1.5-.1.1-.7.2-1.6.2-2.4 0-3.2-2.1-5.7-5.2-5.7Z"/></svg>
+        </a>
+        <a href="https://linktr.ee/almohammdin" target="_blank" rel="noopener" aria-label="Linktree">
+          <svg viewBox="0 0 24 24"><path d="M13.736 5.852 17.644 2l1.92 1.92-3.852 3.736h5.644v2.736h-5.66l3.868 3.752-1.92 1.92-5.276-5.28-5.276 5.28-1.92-1.92 3.868-3.752H3.38V7.656h5.644L5.172 3.92 7.092 2l3.932 3.852V0h2.712v5.852ZM11.024 24v-8.604h2.712V24h-2.712Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="preview-overlay" id="previewOverlay" hidden>
+    <div class="preview-card">
+      <div class="preview-head">
+        <h4>معاينة صورة النتيجة</h4>
+        <div class="preview-actions">
+          <button class="btn btn-secondary" type="button" id="downloadBtn">تنزيل الصورة</button>
+          <button class="btn btn-secondary" type="button" id="shareBtn">مشاركة الصورة</button>
+          <button class="btn btn-ghost" type="button" id="closePreviewBtn">إغلاق</button>
+        </div>
+      </div>
+      <div class="preview-image"><img id="previewImage" alt="صورة نتيجة التقييم"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = 'tawassu_assessment_pro_v3';
+      const state = { step: 1, totalSteps: 3, answers: {}, result: null, preparedImage: null };
+      const $ = s => document.querySelector(s);
+      const $$ = s => [...document.querySelectorAll(s)];
+
+      const STEP_COPY = {
+        1: { title: 'الخطوة 1 من 3: تعريف الفرع', hint: 'ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.', intro: 'هذه المرحلة تضبط منطق الأسئلة التالية حتى تكون أقرب لواقع القرار.' },
+        2: { title: 'الخطوة 2 من 3: الموقع والسوق', hint: 'أسئلة متكيّفة حسب ما اخترته في البداية.', intro: 'ركز على واقع الموقع والحركة والوصول والسوق المحيط، وليس على الانطباع العام فقط.' },
+        3: { title: 'الخطوة 3 من 3: الصفقة والجاهزية', hint: 'قراءة نوعية للشروط والمرونة والجاهزية التشغيلية.', intro: 'هنا نقيس الضغط المتوقع على القرار دون طلب أرقام حساسة.' }
+      };
+
+      const QUESTIONS = {
+        1: [
+          { id:'activityType', domain:'market', title:'ما طبيعة النشاط الأقرب لهذا الفرع؟', help:'اختيارك يساعد في ضبط بعض الأسئلة التشغيلية والتجارية.', options:[
+            { value:'restaurant', label:'مطعم', note:'احتياج تشغيلي أعلى', risk:42, rationale:'الأنشطة الغذائية الثقيلة تحتاج جاهزية أعلى.' },
+            { value:'cafe', label:'مقهى', note:'مرونة أعلى نسبيا', risk:30, rationale:'المقهى أقل تعقيدا من المطعم في بعض المتطلبات.' },
+            { value:'kiosk', label:'كشك أو وحدة صغيرة', note:'تشغيل أخف', risk:24, rationale:'الوحدة الصغيرة أخف من ناحية الالتزامات.' },
+            { value:'retail', label:'تجزئة أو خدمة', note:'متطلبات تشغيل أخف', risk:22, rationale:'متطلبات التشغيل عادة أخف من المطاعم.' }
+          ] },
+          { id:'salesModel', domain:'location', title:'ما النمط الغالب للمبيعات المتوقعة؟', help:'نمط المبيعات يحدد أهمية المواقف أو التوصيل أو الاستلام.', options:[
+            { value:'local', label:'اعتماد أكبر على المحلي والجلسات', note:'المواقف والوصول أهم', risk:50 },
+            { value:'balanced', label:'توازن بين المحلي والاستلام والتوصيل', note:'توازن في الموقع والخدمة', risk:35 },
+            { value:'delivery', label:'اعتماد أكبر على التوصيل والاستلام', note:'الوصول للمندوبين أهم', risk:40 }
+          ] },
+          { id:'locationType', domain:'location', title:'ما نوع الموقع؟', help:'نوع الموقع يغير منطق الحركة والقيود والتكلفة.', options:[
+            { value:'street', label:'شارع تجاري مفتوح', note:'الواجهة والمواقف مهمتان', risk:38 },
+            { value:'mall', label:'داخل مجمع أو وجهة', note:'حركة الزوار والقيود أهم', risk:44 },
+            { value:'neighborhood', label:'مركز حي أو مجمع خدمات', note:'خدمة متكررة وقرب من السكان', risk:26 },
+            { value:'destination', label:'وجهة مستقلة', note:'يعتمد أكثر على الجذب والسمعة', risk:34 }
+          ] }
+        ],
+        2: [
+          { id:'parking', domain:'location', title:'كيف تقيم المواقف وقت الذروة؟', help:'سؤال مهم إذا كان للمحلي حضور مؤثر.', when:s=>s.salesModel!=='delivery', options:[
+            { value:'strong', label:'وفيرة وسهلة', risk:8, good:'المواقف مناسبة لطبيعة الفرع.', action:'حافظ على وضوح الدخول والخروج ولا تكتفِ بعدد المواقف فقط.' },
+            { value:'fair', label:'مقبولة مع بعض الضغط', risk:32, action:'اختبر الموقع وقت الذروة وتأكد من خطة الاستلام السريع.' },
+            { value:'weak', label:'ضعيفة أو مربكة', risk:78, bad:'المواقف لا تدعم الاعتماد على المحلي.', action:'إعادة النظر أو إيجاد حل واضح للمواقف والاستلام.' },
+            { value:'unknown', label:'لم أتحقق بعد', risk:56, bad:'المواقف غير محسومة بعد.', action:'زيارة ميدانية في وقت الذروة مطلوبة قبل التوقيع.' }
+          ] },
+          { id:'courierAccess', domain:'location', title:'ما مستوى سهولة دخول مندوبي التوصيل والاستلام؟', help:'هذا السؤال مهم إذا كان نموذج المبيعات يعتمد على التوصيل أو الاستلام.', when:s=>s.salesModel!=='local', options:[
+            { value:'easy', label:'سهل وواضح', risk:10, good:'حركة التوصيل تبدو عملية وواضحة.' },
+            { value:'fair', label:'مقبول لكنه ليس مثاليا', risk:34, action:'جهز نقطة استلام واضحة ومباشرة.' },
+            { value:'difficult', label:'صعب أو يسبب تعطلا', risk:76, bad:'حركة التوصيل قد تتحول إلى عنق زجاجة يومي.', action:'حسم نقطة الاستلام أو إعادة تقييم الموقع.' },
+            { value:'unknown', label:'غير واضح', risk:55, action:'اختبر الموقع عمليا مع مندوب أو سيارة استلام.' }
+          ] },
+          { id:'deliveryCoverage', domain:'market', title:'كيف تبدو تغطية تطبيقات التوصيل في المنطقة؟', help:'تغطية التطبيقات تختلف عن سهولة دخول المندوب إلى نفس الموقع.', when:s=>s.salesModel!=='local', options:[
+            { value:'strong', label:'جيدة وواضحة', risk:12, good:'تغطية تطبيقات التوصيل داعمة.' },
+            { value:'fair', label:'مقبولة', risk:34 },
+            { value:'weak', label:'ضعيفة أو غير مؤكدة', risk:68, bad:'تغطية تطبيقات التوصيل لا تبدو مطمئنة.', action:'تحقق من التغطية الفعلية قبل الالتزام.' }
+          ] },
+          { id:'visibility', domain:'location', title:'كيف ترى وضوح الواجهة وسهولة ملاحظة الفرع؟', options:[
+            { value:'strong', label:'واضحة جدا', risk:12, good:'الواجهة تخدم الجذب والوصول.' },
+            { value:'fair', label:'مقبولة', risk:30 },
+            { value:'weak', label:'ضعيفة أو مخفية', risk:70, bad:'ضعف الواجهة يضعف قرار الفرع.', action:'تحقق من اللوحات واتجاه الحركة قبل الالتزام.' }
+          ] },
+          { id:'areaActivity', domain:'market', title:'ما مستوى نشاط المنطقة في أوقات التشغيل المستهدفة؟', options:[
+            { value:'high', label:'نشطة بوضوح', risk:12, good:'المنطقة نشطة وتدعم الطلب.' },
+            { value:'mid', label:'متوسطة', risk:34 },
+            { value:'low', label:'ضعيفة', risk:74, bad:'المنطقة لا تعطي دعما كافيا للطلب.', action:'تحقق ميدانيا على أكثر من فترة زمنية.' },
+            { value:'unknown', label:'غير واضحة', risk:58, action:'التحقق الميداني ضروري قبل التوقيع.' }
+          ] },
+          { id:'competition', domain:'market', title:'كيف تصف كثافة المنافسين المباشرين؟', options:[
+            { value:'low', label:'منخفضة', risk:18, good:'المنافسة المباشرة ليست خانقة.' },
+            { value:'mid', label:'متوسطة', risk:38 },
+            { value:'high', label:'مرتفعة', risk:72, bad:'المنافسة المباشرة مرتفعة.', action:'تأكد أن لديك سببا واضحا للفوز أو التميز.' }
+          ] },
+          { id:'cannibalization', domain:'market', title:'هل يوجد تعارض واضح مع فروعك الحالية أو جمهورك الحالي؟', options:[
+            { value:'low', label:'التعارض منخفض', risk:12, good:'الموقع لا يسحب بوضوح من فروعك الحالية.' },
+            { value:'mid', label:'هناك احتمال متوسط', risk:40 },
+            { value:'high', label:'التعارض مرتفع', risk:76, bad:'الموقع قد يسحب من فروعك الحالية.', action:'احسم أثر السحب الداخلي قبل الالتزام.' },
+            { value:'unknown', label:'غير واضح', risk:55, action:'قارن هذا الموقع بانتشار فروعك الحالية.' }
+          ] },
+          { id:'anchorTenant', domain:'market', title:'إذا كان الموقع داخل مجمع، فهل توجد جهات جذب أو مستأجرون مكملون؟', help:'هذا السؤال يظهر فقط للمواقع داخل المجمعات.', when:s=>s.locationType==='mall', options:[
+            { value:'strong', label:'نعم، بوضوح', risk:16, good:'وجود جهات جذب أو مستأجرين مكملين عنصر داعم.' },
+            { value:'fair', label:'إلى حد ما', risk:36 },
+            { value:'weak', label:'لا، الحركة ضعيفة', risk:70, bad:'المجمع لا يبدو مدعوما بجهات جذب كافية.', action:'أعد النظر في منطق الموقع داخل المجمع.' }
+          ] }
+        ],
+        3: [
+          { id:'activityPermission', domain:'ops', title:'هل السماح بالنشاط في العقار محسوم وواضح؟', options:[
+            { value:'confirmed', label:'نعم، مؤكد', risk:4, good:'السماح بالنشاط واضح.' },
+            { value:'pending', label:'تحت التحقق', risk:60, bad:'السماح بالنشاط غير محسوم بعد.', action:'لا تتقدم قبل التحقق الصريح من السماح بالنشاط.' },
+            { value:'blocked', label:'لا، أو توجد مؤشرات منع', risk:100, bad:'السماح بالنشاط يواجه منعا فعليا أو مؤشرات منع.', blocker:'السماح بالنشاط غير محسوم أو توجد مؤشرات منع واضحة.', action:'إيقاف التقدم حتى حسم ملف السماح بالنشاط.' }
+          ] },
+          { id:'rentSense', domain:'deal', title:'كيف يبدو عبء الإيجار مقارنة بما تتوقعه من الفرع؟', help:'تقدير نوعي فقط دون أرقام.', options:[
+            { value:'comfortable', label:'مريح ومنطقي', risk:12, good:'ضغط الإيجار يبدو معقولا.' },
+            { value:'fair', label:'مقبول لكنه يحتاج انضباطا', risk:36 },
+            { value:'high', label:'مرتفع ويضغط على القرار', risk:72, bad:'الإيجار يضغط على القرار.', action:'التفاوض على الإيجار أو إعادة النظر.' },
+            { value:'unknown', label:'لم أقدّر ذلك بعد', risk:58, action:'قدّر عبء الإيجار نوعيا قبل التوقيع.' }
+          ] },
+          { id:'gracePeriod', domain:'deal', title:'كيف تقيم فترة السماح قبل بدء الالتزامات؟', options:[
+            { value:'good', label:'كافية ومريحة', risk:10, good:'فترة السماح داعمة.' },
+            { value:'limited', label:'محدودة', risk:40, action:'وسع فترة السماح قدر الإمكان.' },
+            { value:'none', label:'لا توجد', risk:76, bad:'غياب فترة السماح يضغط على القرار.', action:'هذه من أولويات التفاوض.' },
+            { value:'unknown', label:'غير واضحة', risk:55, action:'حسم فترة السماح كتابيا قبل الالتزام.' }
+          ] },
+          { id:'annualIncrease', domain:'deal', title:'كيف تبدو الزيادة السنوية أو شروط الزيادة؟', options:[
+            { value:'reasonable', label:'معقولة', risk:18, good:'شروط الزيادة متزنة نسبيا.' },
+            { value:'noticeable', label:'مرتفعة نسبيا', risk:54, bad:'الزيادة السنوية تحتاج انتباها.', action:'خفف الزيادة أو اجعلها أكثر تدرجا.' },
+            { value:'aggressive', label:'مرتفعة وتقلقني', risk:82, bad:'الزيادة السنوية تضغط على القرار.', action:'هذه من أهم نقاط التفاوض.' },
+            { value:'unknown', label:'غير واضحة', risk:60, action:'اطلب نص الزيادة كاملا قبل التوقيع.' }
+          ] },
+          { id:'contractFlex', domain:'deal', title:'كيف تبدو مدة العقد ومرونة الخروج أو المراجعة؟', options:[
+            { value:'balanced', label:'متوازنة ومرنة', risk:18, good:'مدة العقد ومرونة الخروج تبدوان متوازنتين.' },
+            { value:'tight', label:'تحتاج انتباها', risk:46, action:'راجع أثر مدة العقد والتزامات الخروج المبكر.' },
+            { value:'rigid', label:'مقيدة وغير مريحة', risk:78, bad:'مدة العقد أو شروط الخروج تضغط على القرار.', action:'لا تتجاوز هذا البند دون تفاوض واضح.' },
+            { value:'unknown', label:'غير واضحة', risk:58, action:'حسم مدة الالتزام وشروط الخروج قبل التوقيع.' }
+          ] },
+          { id:'infraReadiness', domain:'ops', title:'كيف تبدو جاهزية البنية الأساسية: كهرباء، تهوية، شفط، وتمديدات؟', options:[
+            { value:'ready', label:'جاهزة أو قريبة من الجاهزية', risk:10, good:'البنية الأساسية مطمئنة.' },
+            { value:'minor', label:'تحتاج تعديلات محدودة', risk:36 },
+            { value:'major', label:'تحتاج أعمالا جوهرية', risk:88, bad:'الجاهزية التشغيلية ضعيفة.', blocker:'البنية الأساسية تحتاج أعمالا جوهرية قد تغيّر قرار الفرع.', action:'لا تتجاوز هذا الملف دون تقدير واضح للعبء.' },
+            { value:'unknown', label:'لم أحسمها بعد', risk:62, action:'فحص فني سريع قبل التوقيع ضروري.' }
+          ] },
+          { id:'fitoutSupport', domain:'ops', title:'هل توجد تجهيزات قائمة أو عناصر تخفف عبء الافتتاح؟', options:[
+            { value:'good', label:'نعم، بشكل جيد', risk:14, good:'وجود تجهيزات يخفف عبء الافتتاح.' },
+            { value:'partial', label:'جزئيا', risk:34 },
+            { value:'none', label:'لا توجد', risk:58, bad:'لا توجد تجهيزات تخفف عبء الافتتاح.', action:'ضع هذا ضمن ضغط التجهيز والتجهيزات.' },
+            { value:'unknown', label:'غير واضح', risk:48, action:'تأكد مما يمكن الاستفادة منه فعلا.' }
+          ] },
+          { id:'downside', domain:'deal', title:'إذا جاء الأداء أقل من المأمول في البداية، كيف تتوقع وضع الفرع؟', help:'قراءة نوعية للمرونة دون أرقام.', options:[
+            { value:'resilient', label:'يبقى متماسكا', risk:12, good:'الفرع يبدو قادرا على تحمل بداية أبطأ.' },
+            { value:'manageable', label:'يمكن احتواؤه', risk:34 },
+            { value:'fragile', label:'سيتعرض لضغط واضح', risk:74, bad:'هامش الأمان ضعيف.', action:'راجع منطق الصفقة قبل الالتزام.' },
+            { value:'unknown', label:'لم أختبر ذلك', risk:58, action:'اختبر سيناريو متحفظ ذهنيا قبل التوقيع.' }
+          ] }
+        ]
+      };
+
+      function allVisibleQuestions() {
+        return [1,2,3].flatMap(step => visibleQuestions(step));
+      }
+
+      function visibleQuestions(step) {
+        return QUESTIONS[step].filter(q => !q.when || q.when(state.answers));
+      }
+
+      function optionCols(count) {
+        if (count <= 2) return 'cols-2';
+        if (count === 3) return 'cols-3';
+        return 'cols-4';
+      }
+
+      function renderStep() {
+        const copy = STEP_COPY[state.step];
+        $('#stepTitle').textContent = copy.title;
+        $('#stepHint').textContent = copy.hint;
+        $('#stepIntro').textContent = copy.intro;
+        $('#prevBtn').style.display = state.step === 1 ? 'none' : 'inline-flex';
+        $('#nextBtn').textContent = state.step === state.totalSteps ? 'اعرض النتيجة' : 'التالي';
+        renderQuestions();
+        updateProgress();
+      }
+
+      function renderQuestions() {
+        const list = visibleQuestions(state.step);
+        const html = list.map((q, i) => `
+          <article class="question-card" data-id="${q.id}">
+            <div class="question-head">
+              <div class="q-badge">${i+1}</div>
+              <div>
+                <h3>${q.title}</h3>
+                ${q.help ? `<p>${q.help}</p>` : ''}
+              </div>
+            </div>
+            <div class="options ${optionCols(q.options.length)}">
+              ${q.options.map(opt => `
+                <button class="choice ${state.answers[q.id]===opt.value?'selected':''}" type="button" data-question="${q.id}" data-value="${opt.value}">
+                  <div>
+                    <strong>${opt.label}</strong>
+                    ${opt.note ? `<small>${opt.note}</small>` : ''}
+                  </div>
+                  <span class="dot" aria-hidden="true"></span>
+                </button>
+              `).join('')}
+            </div>
+          </article>`).join('');
+        $('#questionList').innerHTML = html;
+      }
+
+      function answeredStats() {
+        const all = allVisibleQuestions();
+        const done = all.filter(q => !!state.answers[q.id]).length;
+        return { done, total: all.length };
+      }
+
+      function updateProgress() {
+        const { done, total } = answeredStats();
+        const completedSteps = state.step - 1;
+        const overall = Math.round(((completedSteps + (total ? (visibleQuestions(state.step).filter(q => !!state.answers[q.id]).length / visibleQuestions(state.step).length) : 0)) / state.totalSteps) * 100);
+        $('#progressPercent').textContent = overall + '%';
+        $('#progressCount').textContent = `${done} / ${total}`;
+        $('#barFill').style.width = overall + '%';
+      }
+
+      function getQuestion(id) {
+        return Object.values(QUESTIONS).flat().find(q => q.id === id);
+      }
+
+      function getOption(qid, value) {
+        const q = getQuestion(qid);
+        return q?.options.find(o => o.value === value);
+      }
+
+      function choose(questionId, value) {
+        state.answers[questionId] = value;
+        saveState();
+        renderStep();
+      }
+
+      function stepValid(step) {
+        return visibleQuestions(step).every(q => !!state.answers[q.id]);
+      }
+
+      function nextStep() {
+        if (!stepValid(state.step)) return toast('أكمل جميع الأسئلة الظاهرة أولا.');
+        if (state.step < state.totalSteps) {
+          state.step += 1;
+          saveState();
+          renderStep();
+          document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
+          return;
+        }
+        calculateResult();
+      }
+
+      function prevStep() {
+        if (state.step > 1) {
+          state.step -= 1;
+          saveState();
+          renderStep();
+          document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      }
+
+      function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+      function clamp(n,min,max) { return Math.max(min, Math.min(max, n)); }
+
+      function calculateResult() {
+        const visible = allVisibleQuestions();
+        const records = [];
+        const axes = { location:[], deal:[], ops:[], market:[] };
+        const strengths = [];
+        const risks = [];
+        const actions = [];
+        const blockers = [];
+
+        visible.forEach(q => {
+          const opt = getOption(q.id, state.answers[q.id]);
+          if (!opt) return;
+          axes[q.domain].push(opt.risk);
+          records.push({ question:q.title, domain:q.domain, risk:opt.risk, opt });
+          if (opt.good) strengths.push({ text: opt.good, score: 100 - opt.risk });
+          if (opt.bad) risks.push({ text: opt.bad, score: opt.risk });
+          if (opt.action) actions.push({ text: opt.action, score: opt.risk });
+          if (opt.blocker) blockers.push({ text: opt.blocker, score: 100 });
+        });
+
+        const axisScores = {
+          location: Math.round(avg(axes.location)),
+          deal: Math.round(avg(axes.deal)),
+          ops: Math.round(avg(axes.ops)),
+          market: Math.round(avg(axes.market))
+        };
+
+        let score = Math.round(axisScores.location*0.30 + axisScores.deal*0.30 + axisScores.ops*0.25 + axisScores.market*0.15);
+        if (state.answers.salesModel === 'local' && state.answers.parking === 'weak') score = Math.max(score, 70);
+        if (state.answers.salesModel !== 'local' && state.answers.courierAccess === 'difficult') score = Math.max(score, 68);
+        if (blockers.length) score = Math.max(score, 88);
+        score = clamp(score, 0, 100);
+
+        let band = 'good', bandTitle = 'خطر منخفض', decision = 'فرصة واعدة', priority = 'استكمال التحقق المعتاد', summary = 'الفرع يبدو مقبولا مبدئيا مع بقاء التحقق المعتاد قبل توقيع العقد.';
+        let recommendations = [
+          'ثبّت أهم الشروط كتابة قبل التوقيع.',
+          'أكمل الزيارة الميدانية النهائية في وقت الذروة.',
+          'لا تتجاوز نقاط التحقق الجوهرية حتى لو كانت النتيجة مطمئنة.'
+        ];
+        if (score >= 26 && score <= 55) {
+          band = 'mid'; bandTitle = 'خطر متوسط'; decision = 'فرصة مشروطة'; priority = 'حسم وتفاوض'; summary = 'القرار قابل للدراسة، لكن توجد عناصر تحتاج حسم أو تفاوض قبل الالتزام.';
+          recommendations = [
+            'جمّد التوقيع مؤقتا حتى تتضح أعلى نقاط الضغط.',
+            'فاوِض على البنود الأكثر تأثيرا أولا.',
+            'أعد التقييم بعد حسم النقاط الجوهرية.'
+          ];
+        } else if (score >= 56) {
+          band = 'bad'; bandTitle = blockers.length ? 'خطر مرتفع جدا' : 'خطر مرتفع'; decision = blockers.length ? 'صرف النظر أو إيقاف التقدم' : 'صفقة خطرة'; priority = blockers.length ? 'منع قبل التوقيع' : 'معالجة جوهرية'; summary = blockers.length ? 'توجد موانع أو مخاطر جوهرية لا تسمح بالتقدم المريح قبل المعالجة.' : 'المعطيات الحالية تشير إلى ضغط مرتفع على القرار، ويصعب التوصية بالتقدم دون تعديل جوهري.';
+          recommendations = [
+            'لا تتقدم قبل معالجة أعلى مصادر الخطر.',
+            'إذا تعذر تخفيف العناصر الجوهرية فالبحث عن بديل أفضل.',
+            'لا تجعل الحماس يغطي على الموانع الواضحة.'
+          ];
+        }
+
+        const weakestAxis = Object.entries(axisScores).sort((a,b)=>b[1]-a[1])[0][0];
+        const axisName = { location:'الموقع والوصول', deal:'الصفقة والمرونة', ops:'الجاهزية التشغيلية', market:'السوق والتعارض' }[weakestAxis];
+        if (score >= 26) summary += ` أعلى مصدر خطر ظاهر الآن هو محور ${axisName}.`;
+
+        const sortUnique = (arr, desc=true) => {
+          const seen = new Set();
+          return arr.filter(item => { if (seen.has(item.text)) return false; seen.add(item.text); return true; })
+                    .sort((a,b)=> desc ? b.score-a.score : a.score-b.score);
+        };
+
+        state.result = {
+          score, band, bandTitle, decision, priority, summary, axisScores,
+          strengths: sortUnique(strengths, true).slice(0,5),
+          risks: sortUnique(risks, true).slice(0,5),
+          actions: sortUnique(actions, true).slice(0,5),
+          blockers: sortUnique(blockers, true),
+          recommendations, answered: visible.length
+        };
+        saveState();
+        renderResult();
+      }
+
+      function renderResult() {
+        const r = state.result;
+        if (!r) return;
+        const chip = $('#riskChip');
+        chip.textContent = r.bandTitle;
+        chip.className = 'risk-chip ' + (r.band==='good' ? 'risk-good' : r.band==='mid' ? 'risk-mid' : 'risk-bad');
+        $('#scoreNo').textContent = r.score;
+        $('#scoreText').textContent = `${r.score} من 100`;
+        $('#pointer').style.left = `${100-r.score}%`;
+        $('#decisionTitle').textContent = r.decision;
+        $('#decisionSummary').textContent = r.summary;
+        $('#decisionOut').textContent = r.decision;
+        $('#priorityOut').textContent = r.priority;
+        $('#blockerCountOut').textContent = String(r.blockers.length);
+        $('#answeredOut').textContent = `${r.answered} سؤال`;
+        setAxis('Location', r.axisScores.location);
+        setAxis('Deal', r.axisScores.deal);
+        setAxis('Ops', r.axisScores.ops);
+        setAxis('Market', r.axisScores.market);
+        fillList('#goodList', r.strengths.map(x=>x.text), 'لم تظهر إشارات مطمئنة بارزة بما يكفي.');
+        fillList('#badList', r.risks.map(x=>x.text), 'لم تظهر مخاطر كبيرة تتجاوز المعتاد.');
+        fillList('#actionList', r.actions.map(x=>x.text), 'ثبّت الشروط الأساسية كتابيا قبل التوقيع.');
+        fillList('#recommendList', r.recommendations, 'أكمل التحقق المعتاد قبل التوقيع.');
+        const box = $('#blockersBox');
+        box.classList.toggle('show', r.blockers.length > 0);
+        $('#blockersList').innerHTML = r.blockers.map(x=>`<li>${x.text}</li>`).join('');
+        $('#results').classList.add('show');
+        $('#results').scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+
+      function setAxis(id, value) {
+        $('#axis'+id+'Txt').textContent = `${value} / 100`;
+        $('#axis'+id+'Bar').style.width = `${value}%`;
+      }
+
+      function fillList(selector, items, fallback) {
+        const arr = items.length ? items : [fallback];
+        $(selector).innerHTML = arr.map(t=>`<li>${t}</li>`).join('');
+      }
+
+      function saveState() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: state.step, answers: state.answers, result: state.result }));
+      }
+
+      function restoreState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const saved = JSON.parse(raw);
+          if (saved.answers) state.answers = saved.answers;
+          if (saved.step) state.step = clamp(saved.step, 1, 3);
+          if (saved.result) state.result = saved.result;
+        } catch (e) { console.error(e); }
+      }
+
+      function resetAll() {
+        if (!confirm('سيتم مسح الإجابات الحالية والبدء من جديد. هل تريد المتابعة؟')) return;
+        state.step = 1; state.answers = {}; state.result = null; state.preparedImage = null;
+        localStorage.removeItem(STORAGE_KEY);
+        $('#results').classList.remove('show');
+        renderStep();
+        document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+
+      function toast(text) {
+        const el = $('#toast');
+        el.textContent = text; el.classList.add('show');
+        clearTimeout(toast.t); toast.t = setTimeout(()=>el.classList.remove('show'), 2800);
+      }
+
+      function wrapText(ctx, text, x, y, maxWidth, lineHeight, font, color) {
+        ctx.font = font; ctx.fillStyle = color;
+        const words = String(text).split(' ');
+        let line = ''; let yy = y;
+        for (let n=0; n<words.length; n++) {
+          const test = line + words[n] + ' ';
+          if (ctx.measureText(test).width > maxWidth && n > 0) {
+            ctx.fillText(line.trim(), x, yy);
+            line = words[n] + ' ';
+            yy += lineHeight;
+          } else { line = test; }
+        }
+        ctx.fillText(line.trim(), x, yy);
+        return yy;
+      }
+
+      function roundRect(ctx, x, y, w, h, r, fill=true, stroke=false) {
+        if (w < 2*r) r = w/2; if (h < 2*r) r = h/2;
+        ctx.beginPath();
+        ctx.moveTo(x+r, y); ctx.arcTo(x+w, y, x+w, y+h, r); ctx.arcTo(x+w, y+h, x, y+h, r); ctx.arcTo(x, y+h, x, y, r); ctx.arcTo(x, y, x+w, y, r); ctx.closePath();
+        if (fill) ctx.fill(); if (stroke) ctx.stroke();
+      }
+
+      function loadImage(src) {
+        return new Promise((resolve, reject) => { const i = new Image(); i.onload = ()=>resolve(i); i.onerror = reject; i.src = src; });
+      }
+
+      async function buildResultImage() {
+        if (!state.result) return toast('اعرض النتيجة أولا.');
+        const btn = $('#previewBtn'); const old = btn.textContent; btn.disabled = true; btn.textContent = 'جارٍ تجهيز الصورة...';
+        try {
+          const [logo, sign] = await Promise.all([loadImage('assets/tawassu-logo.png'), loadImage('assets/naif-signature.png')]);
+          const canvas = document.createElement('canvas');
+          canvas.width = 1080; canvas.height = 1350;
+          const ctx = canvas.getContext('2d');
+          ctx.direction = 'rtl';
+          ctx.fillStyle = '#f7f5ef'; ctx.fillRect(0,0,1080,1350);
+          ctx.fillStyle = 'rgba(13,67,141,.05)'; ctx.beginPath(); ctx.arc(980, 120, 250, 0, Math.PI*2); ctx.fill();
+          ctx.fillStyle = 'rgba(201,168,76,.06)'; ctx.beginPath(); ctx.arc(120, 1210, 230, 0, Math.PI*2); ctx.fill();
+          ctx.strokeStyle = 'rgba(13,67,141,.08)'; ctx.lineWidth = 2; ctx.setLineDash([10,8]);
+          ctx.beginPath(); ctx.moveTo(920, 150); ctx.bezierCurveTo(720, 250, 760, 410, 470, 500); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(100, 1030); ctx.bezierCurveTo(320, 980, 560, 1060, 890, 970); ctx.stroke(); ctx.setLineDash([]);
+          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1250, 30, true, true);
+          ctx.drawImage(logo, 730, 82, 240, 126);
+          ctx.drawImage(sign, 88, 88, 180, 52);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 42px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 700, 116);
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 26px "IBM Plex Sans Arabic"'; ctx.fillText('أداة تقييم قرارات توسع الفروع', 700, 154);
+          const d = new Intl.DateTimeFormat('ar-SA-u-nu-latn', { year:'numeric', month:'long', day:'numeric' }).format(new Date());
+          ctx.fillText(d, 700, 188);
+          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 232, 912, 238, 26, true, true);
+          const chipBg = state.result.band==='good' ? '#eef8f2' : state.result.band==='mid' ? '#fff8e8' : '#fff2f2';
+          const chipFg = state.result.band==='good' ? '#1f8b5f' : state.result.band==='mid' ? '#9f7300' : '#c54747';
+          ctx.fillStyle = chipBg; roundRect(ctx, 720, 256, 228, 46, 23, true, false); ctx.fillStyle = chipFg; ctx.font = '700 24px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 920, 286);
+          ctx.fillStyle = '#0d438d'; ctx.font = '700 92px "IBM Plex Sans Arabic"'; ctx.fillText(String(state.result.score), 910, 395);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 32px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.decision, 650, 350);
+          wrapText(ctx, state.result.summary, 650, 394, 480, 40, '400 27px "IBM Plex Sans Arabic"', '#6b7486');
+          const grad = ctx.createLinearGradient(500, 420, 140, 420); grad.addColorStop(0,'#1f8b5f'); grad.addColorStop(.25,'#1f8b5f'); grad.addColorStop(.25,'#d09a21'); grad.addColorStop(.55,'#d09a21'); grad.addColorStop(.55,'#c54747'); grad.addColorStop(1,'#c54747');
+          ctx.fillStyle = grad; roundRect(ctx, 140, 408, 360, 18, 9, true, false);
+          const px = 500 - (360 * state.result.score / 100);
+          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, 417, 12, 0, Math.PI*2); ctx.fill(); ctx.lineWidth = 4; ctx.strokeStyle = '#0a0e1a'; ctx.stroke();
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 21px "IBM Plex Sans Arabic"'; ctx.fillText('خطر منخفض', 490, 454); ctx.fillText('خطر متوسط', 322, 454); ctx.fillText('خطر مرتفع', 142, 454);
+          // axis box
+          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 492, 912, 230, 26, true, true);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 34px "IBM Plex Sans Arabic"'; ctx.fillText('مصادر الخطر حسب المحاور', 944, 538);
+          const axes = [
+            ['الموقع والوصول', state.result.axisScores.location],
+            ['الصفقة والمرونة', state.result.axisScores.deal],
+            ['الجاهزية التشغيلية', state.result.axisScores.ops],
+            ['السوق والتعارض', state.result.axisScores.market]
+          ];
+          let ay = 584;
+          axes.forEach(([label, value]) => {
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 23px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay); ctx.fillText(`${value} / 100`, 170, ay);
+            ctx.fillStyle = '#edf1f6'; roundRect(ctx, 146, ay+12, 778, 11, 5.5, true, false);
+            const g = ctx.createLinearGradient(146, ay+18, 924, ay+18); g.addColorStop(0, '#17bfd0'); g.addColorStop(1, '#0d438d'); ctx.fillStyle = g; roundRect(ctx, 146, ay+12, 778*(value/100), 11, 5.5, true, false);
+            ay += 43;
+          });
+          const panels = [
+            { x:84, y:750, title:'أبرز الإشارات المطمئنة', items:(state.result.strengths.length?state.result.strengths.map(x=>x.text):['لا توجد إشارات مطمئنة بارزة بما يكفي.']).slice(0,3) },
+            { x:544, y:750, title:'أبرز مصادر الخطر', items:(state.result.risks.length?state.result.risks.map(x=>x.text):['لم تظهر مخاطر كبيرة تتجاوز المعتاد.']).slice(0,3) },
+            { x:84, y:995, title:'أولويات التفاوض أو التحقق', items:(state.result.actions.length?state.result.actions.map(x=>x.text):['ثبّت الشروط الأساسية كتابيا قبل التوقيع.']).slice(0,3) },
+            { x:544, y:995, title:'التوصية التنفيذية', items:state.result.recommendations.slice(0,3) }
+          ];
+          panels.forEach(p => {
+            ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, p.x, p.y, 452-42, 206, 24, true, true);
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 28px "IBM Plex Sans Arabic"'; ctx.fillText(p.title, p.x+372, p.y+36);
+            let ly = p.y+74;
+            p.items.forEach(item => {
+              ctx.fillStyle = '#0d438d'; ctx.beginPath(); ctx.arc(p.x+366, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
+              ly = wrapText(ctx, item, p.x+348, ly, 300, 30, '400 22px "IBM Plex Sans Arabic"', '#6b7486') + 18;
+            });
+          });
+          if (state.result.blockers.length) {
+            ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, 1224, 912, 50, 16, true, false);
+            wrapText(ctx, 'عناصر يجب حسمها قبل التوقيع: ' + state.result.blockers.map(x=>x.text).slice(0,2).join(' • '), 968, 1253, 846, 26, '700 21px "IBM Plex Sans Arabic"', '#9a2f2f');
+          } else {
+            ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, 1224, 912, 50, 16, true, false);
+            ctx.fillStyle = '#1f8b5f'; ctx.font = '700 21px "IBM Plex Sans Arabic"'; ctx.fillText('لا تظهر موانع حاسمة مؤكدة في المعطيات الحالية.', 962, 1253);
+          }
+          const blob = await new Promise(res => canvas.toBlob(res, 'image/png', 1));
+          const file = new File([blob], 'Tawassu-Result.png', { type:'image/png' });
+          if (state.preparedImage?.url) URL.revokeObjectURL(state.preparedImage.url);
+          const url = URL.createObjectURL(blob);
+          state.preparedImage = { blob, file, url };
+          $('#previewImage').src = url;
+          $('#previewOverlay').hidden = false;
+          document.body.style.overflow = 'hidden';
+          toast('تم تجهيز صورة النتيجة.');
+        } catch (e) { console.error(e); toast('تعذر تجهيز الصورة. حاول مرة أخرى.'); }
+        finally { btn.disabled = false; btn.textContent = old; }
+      }
+
+      function closePreview() { $('#previewOverlay').hidden = true; document.body.style.overflow = ''; }
+      function downloadPrepared() {
+        if (!state.preparedImage) return toast('جهّز الصورة أولا.');
+        const a = document.createElement('a'); a.href = state.preparedImage.url; a.download = state.preparedImage.file.name; document.body.appendChild(a); a.click(); a.remove();
+      }
+      async function sharePrepared() {
+        if (!state.preparedImage) return toast('جهّز الصورة أولا.');
+        if (navigator.share && navigator.canShare && navigator.canShare({ files:[state.preparedImage.file] })) {
+          try { await navigator.share({ files:[state.preparedImage.file], title:'نتيجة أداة توسّع', text:'نتيجة تقييم قرار الفرع' }); return; } catch(e) { if (e.name !== 'AbortError') console.error(e); }
+        }
+        downloadPrepared();
+      }
+
+      document.addEventListener('click', e => {
+        const choice = e.target.closest('.choice');
+        if (choice) { choose(choice.dataset.question, choice.dataset.value); return; }
+        const jump = e.target.closest('[data-jump]');
+        if (jump) {
+          const id = jump.dataset.jump;
+          if (id === 'results' && !$('#results').classList.contains('show')) return document.getElementById('tool').scrollIntoView({ behavior:'smooth' });
+          document.getElementById(id).scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      });
+
+      $('#nextBtn').addEventListener('click', nextStep);
+      $('#prevBtn').addEventListener('click', prevStep);
+      $('#previewBtn').addEventListener('click', buildResultImage);
+      $('#resetBtn').addEventListener('click', resetAll);
+      $('#closePreviewBtn').addEventListener('click', closePreview);
+      $('#downloadBtn').addEventListener('click', downloadPrepared);
+      $('#shareBtn').addEventListener('click', sharePrepared);
+      $('#previewOverlay').addEventListener('click', e => { if (e.target.id === 'previewOverlay') closePreview(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#previewOverlay').hidden) closePreview(); });
+
+      restoreState();
+      renderStep();
+      if (state.result) renderResult();
+    })();
+  </script>
+</body>
+</html>
