@@ -98,16 +98,19 @@
     .tool-head h2 { margin: 0; font-size: 1.35rem; color: var(--ink); }
     .tool-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.8; }
     .mode-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
-    .mode-pill { position: relative; min-height: 132px; border: 1px solid var(--line); border-radius: 18px; padding: 54px 18px 17px; overflow: hidden; }
+    .mode-pill { position: relative; width: 100%; min-height: 132px; border: 1px solid var(--line); border-radius: 18px; padding: 54px 18px 17px; overflow: hidden; font: inherit; text-align: right; }
     .mode-pill strong { color: var(--ink); display: block; }
     .mode-pill span { color: var(--muted); font-size: .9rem; display: block; margin-top: 4px; }
     .mode-pill.active { border-color: transparent; background: linear-gradient(135deg, #0d438d, #0b356f 68%, #116a91); box-shadow: 0 14px 28px rgba(13,67,141,.18); }
     .mode-pill.active::after { content: ""; position: absolute; width: 170px; height: 170px; border-radius: 50%; inset-inline-end: -70px; bottom: -105px; background: rgba(23,191,208,.18); }
     .mode-pill.active strong { color: #fff; position: relative; z-index: 1; }
     .mode-pill.active span { color: rgba(255,255,255,.76); position: relative; z-index: 1; }
-    .mode-pill.locked { border: 1px dashed rgba(201,168,76,.62); background: linear-gradient(180deg, #fffdf7, #fff9e9); }
+    .mode-pill.locked { border: 1px dashed rgba(201,168,76,.62); background: linear-gradient(180deg, #fffdf7, #fff9e9); cursor: pointer; appearance: none; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease; }
     .mode-pill.locked strong { color: #594611; }
     .mode-pill.locked span { color: #7b6d4c; }
+    .mode-pill.locked:hover,
+    .mode-pill.locked:focus-visible { transform: translateY(-2px); border-color: rgba(201,168,76,.9); box-shadow: 0 14px 28px rgba(122,91,17,.12); outline: none; }
+    .mode-pill.locked.is-tapped { background: linear-gradient(180deg, #fff8df, #fff1c7); box-shadow: 0 0 0 4px rgba(201,168,76,.13), 0 14px 28px rgba(122,91,17,.12); }
     .current-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
     .current-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6cf0d8; box-shadow: 0 0 0 4px rgba(108,240,216,.14); }
     .lock-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.18); color: #7c5d11; border: 1px solid rgba(201,168,76,.34); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
@@ -131,11 +134,15 @@
 
     .questions-wrap { padding: 20px 24px 12px; }
     .step-hint { color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
-    .branch-field { margin-bottom: 16px; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-2); }
+    .branch-field { position: relative; margin-bottom: 20px; padding: 18px; border: 1px solid rgba(13,67,141,.24); border-radius: 20px; background: linear-gradient(135deg, rgba(13,67,141,.055), rgba(23,191,208,.045) 58%, rgba(201,168,76,.075)); box-shadow: 0 10px 24px rgba(13,67,141,.07); overflow: hidden; }
+    .branch-field::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 5px; background: linear-gradient(180deg, var(--navy), var(--teal), var(--gold)); }
     .branch-field[hidden] { display: none; }
-    .branch-field label { display: flex; align-items: baseline; gap: 8px; margin-bottom: 9px; color: var(--ink); font-weight: 700; }
-    .branch-field label small { color: var(--muted); font-size: .78rem; font-weight: 500; }
-    .branch-field input { width: 100%; min-height: 48px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); outline: none; }
+    .branch-field label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; color: var(--ink); font-weight: 700; }
+    .branch-label { display: inline-flex; align-items: center; gap: 9px; }
+    .branch-label svg { width: 21px; height: 21px; color: var(--navy); flex: 0 0 auto; }
+    .branch-field label small { color: var(--navy); background: rgba(255,255,255,.8); border: 1px solid rgba(13,67,141,.16); border-radius: 999px; padding: 4px 9px; font-size: .75rem; font-weight: 600; }
+    .branch-field p { margin: 0 0 11px; color: var(--muted); font-size: .84rem; line-height: 1.65; }
+    .branch-field input { width: 100%; min-height: 50px; padding: 11px 14px; border: 1px solid rgba(13,67,141,.2); border-radius: 13px; background: rgba(255,255,255,.96); color: var(--ink); outline: none; }
     .branch-field input:focus { border-color: rgba(13,67,141,.48); box-shadow: 0 0 0 3px rgba(13,67,141,.08); }
     .question-list { display: grid; gap: 14px; }
     .question-card { border: 1px solid var(--line); border-radius: 18px; padding: 16px; background: #fff; }
@@ -155,9 +162,11 @@
     .choice.selected { border-color: rgba(13,67,141,.34); background: rgba(13,67,141,.05); box-shadow: 0 0 0 3px rgba(13,67,141,.06); }
     .choice.selected .dot { border-color: var(--navy); }
     .choice.selected .dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--navy); }
-    .actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 0 24px 24px; }
+    .actions { padding: 0 24px 24px; }
+    .actions-main { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
     .actions .meta { color: var(--muted); font-size: .9rem; }
     .actions .group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .reset-row { width: 100%; display: flex; justify-content: flex-start; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
 
     .results { display: none; border-top: 1px solid var(--line); background: linear-gradient(180deg, rgba(13,67,141,.02), transparent); }
     .results.show { display: block; }
@@ -195,12 +204,14 @@
     .lists { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
     .list-panel h5 { margin: 0 0 10px; font-size: 1rem; color: var(--ink); }
     .list-panel ul { margin: 0; padding-right: 18px; color: var(--muted); line-height: 1.85; display: grid; gap: 8px; }
-    .result-actions { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .result-actions { margin-top: 18px; }
+    .result-actions-main { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .result-primary-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .site-footer { padding: 8px 0 36px; }
     .footer-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 24px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
     .footer-main { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .footer-main img { width: 148px; height: auto; }
+    .footer-main img { width: 104px; height: auto; }
     .footer-copy strong { display: block; color: var(--ink); }
     .footer-copy span { display: block; color: var(--muted); font-size: .88rem; margin-top: 3px; }
     .footer-social { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -263,7 +274,6 @@
           <p>أجب عن الأسئلة، ودع الأداة تساهم في توضيح الصورة الكاملة وتحدد مؤشر الخطر وأهم النقاط الواجب البت فيها.</p>
           <div class="hero-actions">
             <button class="btn btn-primary" type="button" data-jump="tool">ابدأ الآن</button>
-            <button class="btn btn-secondary" type="button" data-jump="results">اذهب إلى النتيجة</button>
           </div>
         </div>
       </div>
@@ -280,14 +290,14 @@
               <strong>أداة توسّع</strong>
               <span>المسار الحالي لتقييم قرار فرع واحد</span>
             </div>
-            <div class="mode-pill locked">
+            <button class="mode-pill locked" type="button" id="advancedModeBtn" aria-label="النسخة المتقدمة، قريبا">
               <div class="lock-badge">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 قريبا
               </div>
               <strong>النسخة المتقدمة</strong>
               <span>تحليل أوسع يساعدك على فهم الجدوى والمخاطر واتخاذ قرار أدق.</span>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -309,17 +319,28 @@
         <div class="questions-wrap">
           <div class="step-hint" id="stepIntro">أجب عن الأسئلة الظاهرة فقط. لا توجد حاجة لإدخال مبالغ أو أرقام مالية حساسة في هذه النسخة.</div>
           <div class="branch-field" id="branchNameWrap">
-            <label for="branchName">اسم الفرع <small>اختياري</small></label>
+            <label for="branchName">
+              <span class="branch-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+                اسم الفرع
+              </span>
+              <small>اختياري</small>
+            </label>
+            <p>يظهر الاسم في النتيجة والصورة عند إضافته.</p>
             <input id="branchName" type="text" maxlength="70" placeholder="مثال: فرع طريق الملك">
           </div>
           <div class="question-list" id="questionList"></div>
         </div>
 
         <div class="actions">
-          <div class="meta">التقييم الحالي: فرع واحد | قراءة استرشادية عملية قبل التوقيع</div>
-          <div class="group">
-            <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
-            <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
+          <div class="actions-main">
+            <div class="meta">التقييم الحالي: فرع واحد | قراءة استرشادية عملية قبل التوقيع</div>
+            <div class="group">
+              <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
+              <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
+            </div>
+          </div>
+          <div class="reset-row">
             <button class="btn btn-reset" type="button" id="resetInlineBtn">ابدأ من جديد</button>
           </div>
         </div>
@@ -378,12 +399,16 @@
             </div>
 
             <div class="result-actions">
-              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <div class="result-actions-main">
+                <div class="result-primary-actions">
                 <button class="btn btn-primary" type="button" id="previewBtn">معاينة صورة النتيجة</button>
                 <button class="btn btn-secondary" type="button" id="editAnswersBtn">تعديل الإجابات</button>
+                </div>
+                <button class="btn btn-ghost" type="button" data-jump="top">العودة لأعلى الصفحة</button>
+              </div>
+              <div class="reset-row">
                 <button class="btn btn-reset" type="button" id="resetBtn">ابدأ من جديد</button>
               </div>
-              <button class="btn btn-ghost" type="button" data-jump="top">العودة لأعلى الصفحة</button>
             </div>
           </div>
         </section>
@@ -944,18 +969,27 @@
         if (!state.result) return toast('اعرض النتيجة أولا.');
         const btn = $('#previewBtn'); const old = btn.textContent; btn.disabled = true; btn.textContent = 'جارٍ تجهيز الصورة...';
         try {
-          if (document.fonts?.ready) await document.fonts.ready;
+          if (document.fonts) {
+            await Promise.all([400, 500, 600, 700].map(weight => document.fonts.load(`${weight} 32px "IBM Plex Sans Arabic"`)));
+            await document.fonts.ready;
+          }
           const [logo, sign] = await Promise.all([loadImage('tawassu-logo.png'), loadImage('naif-logo-v2.png')]);
           const canvas = document.createElement('canvas');
-          canvas.width = 1080; canvas.height = 1350;
+          const exportScale = 2;
+          canvas.width = 1080 * exportScale;
+          canvas.height = 1350 * exportScale;
           const ctx = canvas.getContext('2d');
+          ctx.scale(exportScale, exportScale);
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
           ctx.direction = 'rtl';
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'alphabetic';
           ctx.fillStyle = '#f7f5ef'; ctx.fillRect(0,0,1080,1350);
           ctx.fillStyle = 'rgba(13,67,141,.055)'; ctx.beginPath(); ctx.arc(980, 120, 250, 0, Math.PI*2); ctx.fill();
           ctx.fillStyle = 'rgba(201,168,76,.065)'; ctx.beginPath(); ctx.arc(120, 1210, 230, 0, Math.PI*2); ctx.fill();
           ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1250, 30, true, true);
           drawContainImage(ctx, logo, 782, 72, 188, 120);
-          drawContainImage(ctx, sign, 82, 82, 190, 84);
           ctx.fillStyle = '#0a0e1a'; ctx.font = '700 40px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 720, 114);
           const branchName = state.branchName.trim();
           ctx.fillStyle = branchName ? '#0d438d' : '#6b7486';
@@ -971,9 +1005,9 @@
           ctx.fillStyle = chipBg; roundRect(ctx, 736, 244, 212, 44, 22, true, false);
           ctx.fillStyle = chipFg; ctx.font = '700 23px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 922, 273);
           ctx.fillStyle = '#0d438d'; ctx.font = '700 82px "IBM Plex Sans Arabic"'; ctx.fillText(String(state.result.score), 920, 382);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 30px "IBM Plex Sans Arabic"';
-          wrapTextLimited(ctx, state.result.decision, 652, 326, 500, 36, ctx.font, ctx.fillStyle, 1);
-          wrapTextLimited(ctx, state.result.summary, 652, 368, 500, 30, '400 22px "IBM Plex Sans Arabic"', '#6b7486', 2);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 29px "IBM Plex Sans Arabic"';
+          wrapTextLimited(ctx, state.result.decision, 652, 326, 500, 38, ctx.font, ctx.fillStyle, 1);
+          wrapTextLimited(ctx, state.result.summary, 652, 370, 500, 32, '400 21px "IBM Plex Sans Arabic"', '#6b7486', 2);
           const grad = ctx.createLinearGradient(500, 430, 140, 430); grad.addColorStop(0,'#1f8b5f'); grad.addColorStop(.25,'#1f8b5f'); grad.addColorStop(.25,'#d09a21'); grad.addColorStop(.55,'#d09a21'); grad.addColorStop(.55,'#c54747'); grad.addColorStop(1,'#c54747');
           ctx.fillStyle = grad; roundRect(ctx, 140, 424, 360, 14, 7, true, false);
           const px = 500 - (360 * state.result.score / 100);
@@ -991,9 +1025,9 @@
           ];
           let ay = 570;
           axes.forEach(([label, value]) => {
-            ctx.fillStyle = '#0a0e1a'; ctx.font = '600 21px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay);
-            ctx.direction = 'ltr'; ctx.textAlign = 'left'; ctx.fillStyle = '#0d438d'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText(`${value} / 100`, 146, ay);
-            ctx.direction = 'rtl'; ctx.textAlign = 'start';
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '600 20px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay);
+            ctx.direction = 'ltr'; ctx.textAlign = 'left'; ctx.fillStyle = '#0d438d'; ctx.font = '600 18px "IBM Plex Sans Arabic"'; ctx.fillText(`${value} / 100`, 146, ay);
+            ctx.direction = 'rtl'; ctx.textAlign = 'right';
             ctx.fillStyle = '#edf1f6'; roundRect(ctx, 146, ay+10, 778, 10, 5, true, false);
             const g = ctx.createLinearGradient(146, ay+15, 924, ay+15); g.addColorStop(0, '#17bfd0'); g.addColorStop(1, '#0d438d'); ctx.fillStyle = g; roundRect(ctx, 146, ay+10, 778*(value/100), 10, 5, true, false);
             ay += 40;
@@ -1008,11 +1042,11 @@
           panels.forEach(p => {
             const panelWidth = 432;
             ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, p.x, p.y, panelWidth, 210, 24, true, true);
-            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 25px "IBM Plex Sans Arabic"'; ctx.fillText(p.title, p.x+panelWidth-26, p.y+38);
-            let ly = p.y+78;
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 24px "IBM Plex Sans Arabic"'; ctx.fillText(p.title, p.x+panelWidth-26, p.y+40);
+            let ly = p.y+82;
             p.items.forEach(item => {
               ctx.fillStyle = '#0d438d'; ctx.beginPath(); ctx.arc(p.x+panelWidth-30, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
-              ly = wrapTextLimited(ctx, item, p.x+panelWidth-48, ly, 326, 25, '400 19px "IBM Plex Sans Arabic"', '#6b7486', 2) + 17;
+              ly = wrapTextLimited(ctx, item, p.x+panelWidth-48, ly, 334, 28, '400 18px "IBM Plex Sans Arabic"', '#6b7486', 2) + 18;
             });
           });
 
@@ -1028,14 +1062,15 @@
           ctx.textAlign = 'left';
           ctx.fillStyle = '#0d438d';
           ctx.font = '600 16px "IBM Plex Sans Arabic"';
-          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 566, 1286);
-          ctx.fillText('@almohammdin', 294, 1286);
-          drawSvgIcon(ctx, 'M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z', 252, 1280, 18);
-          drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 216, 1280, 18);
-          drawSvgIcon(ctx, 'M12 2.1c-3.1 0-5.2 2.5-5.2 5.7 0 .8.1 1.7.2 2.4-.4.2-1 .3-1.5.1-.8-.3-1.3 1-.5 1.5.4.3 1.1.5 1.5.7-.5 1.2-1.5 2.3-3.1 3-.6.3-.5 1.2.1 1.4 1 .4 2 .5 2.8.7.3.1.5.7.8 1.2.2.3.6.4 1 .3.8-.2 1.6-.5 2.9-.5s2.1.3 2.9.5c.4.1.8 0 1-.3.3-.5.5-1.1.8-1.2.8-.2 1.8-.3 2.8-.7.6-.2.7-1.1.1-1.4-1.6-.7-2.6-1.8-3.1-3 .4-.2 1.1-.4 1.5-.7.8-.5.3-1.8-.5-1.5-.5.2-1.1.1-1.5-.1.1-.7.2-1.6.2-2.4 0-3.2-2.1-5.7-5.2-5.7Z', 180, 1280, 18);
-          drawSvgIcon(ctx, 'M13.736 5.852 17.644 2l1.92 1.92-3.852 3.736h5.644v2.736h-5.66l3.868 3.752-1.92 1.92-5.276-5.28-5.276 5.28-1.92-1.92 3.868-3.752H3.38V7.656h5.644L5.172 3.92 7.092 2l3.932 3.852V0h2.712v5.852ZM11.024 24v-8.604h2.712V24h-2.712Z', 144, 1280, 18);
+          drawContainImage(ctx, sign, 84, 1260, 124, 35);
+          drawSvgIcon(ctx, 'M13.736 5.852 17.644 2l1.92 1.92-3.852 3.736h5.644v2.736h-5.66l3.868 3.752-1.92 1.92-5.276-5.28-5.276 5.28-1.92-1.92 3.868-3.752H3.38V7.656h5.644L5.172 3.92 7.092 2l3.932 3.852V0h2.712v5.852ZM11.024 24v-8.604h2.712V24h-2.712Z', 238, 1280, 18);
+          drawSvgIcon(ctx, 'M12 2.1c-3.1 0-5.2 2.5-5.2 5.7 0 .8.1 1.7.2 2.4-.4.2-1 .3-1.5.1-.8-.3-1.3 1-.5 1.5.4.3 1.1.5 1.5.7-.5 1.2-1.5 2.3-3.1 3-.6.3-.5 1.2.1 1.4 1 .4 2 .5 2.8.7.3.1.5.7.8 1.2.2.3.6.4 1 .3.8-.2 1.6-.5 2.9-.5s2.1.3 2.9.5c.4.1.8 0 1-.3.3-.5.5-1.1.8-1.2.8-.2 1.8-.3 2.8-.7.6-.2.7-1.1.1-1.4-1.6-.7-2.6-1.8-3.1-3 .4-.2 1.1-.4 1.5-.7.8-.5.3-1.8-.5-1.5-.5.2-1.1.1-1.5-.1.1-.7.2-1.6.2-2.4 0-3.2-2.1-5.7-5.2-5.7Z', 274, 1280, 18);
+          drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 310, 1280, 18);
+          drawSvgIcon(ctx, 'M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z', 346, 1280, 18);
+          ctx.fillText('@almohammdin', 372, 1286);
+          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 568, 1286);
           ctx.direction = 'rtl';
-          ctx.textAlign = 'start';
+          ctx.textAlign = 'right';
 
           const blob = await new Promise(res => canvas.toBlob(res, 'image/png', 1));
           const safeName = (branchName || 'result').replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
@@ -1084,6 +1119,14 @@
       $('#editAnswersBtn').addEventListener('click', editAnswers);
       $('#resetBtn').addEventListener('click', resetAll);
       $('#resetInlineBtn').addEventListener('click', resetAll);
+      $('#advancedModeBtn').addEventListener('click', e => {
+        const card = e.currentTarget;
+        card.classList.remove('is-tapped');
+        void card.offsetWidth;
+        card.classList.add('is-tapped');
+        window.setTimeout(() => card.classList.remove('is-tapped'), 650);
+        toast('النسخة المتقدمة قريبا.');
+      });
       $('#branchName').addEventListener('input', e => { state.branchName = e.target.value.slice(0, 70); saveState(); });
       $('#closePreviewBtn').addEventListener('click', closePreview);
       $('#downloadBtn').addEventListener('click', downloadPrepared);
