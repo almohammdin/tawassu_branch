@@ -4,16 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0a0e1a">
-  <title>توسّع | أداة تقييم قرارات توسع الفروع</title>
-  <meta name="description" content="أداة تفاعلية تساعد على تقييم قرار فرع واحد من خلال أسئلة ذكية دون إدخال أرقام حساسة.">
-  <meta property="og:title" content="توسّع | أداة تقييم قرارات توسع الفروع">
-  <meta property="og:description" content="أجب عن الأسئلة واحصل على مؤشر خطر قرار الفرع مع تفسير مباشر وأولويات حسم قبل التوقيع.">
+  <title>توسّع | تقييم مخاطر واشتراطات الفرع الجديد</title>
+  <meta name="description" content="أداة تفاعلية توضح مخاطر واشتراطات الفرع الجديد، وتحدد مؤشر الخطر وأهم النقاط الواجب البت فيها.">
+  <link rel="canonical" href="https://almohammdin.github.io/tawassu_branch/">
+  <meta property="og:title" content="توسّع | تقييم مخاطر واشتراطات الفرع الجديد">
+  <meta property="og:description" content="أجب عن الأسئلة، ودع الأداة توضح الصورة وتحدد مؤشر الخطر وأهم النقاط الواجب البت فيها.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://almohammdin.github.io/tawassu_branch/tawassu-social-preview.jpg">
+  <meta property="og:url" content="https://almohammdin.github.io/tawassu_branch/">
+  <meta property="og:site_name" content="توسّع">
+  <meta property="og:locale" content="ar_SA">
+  <meta property="og:image" content="https://almohammdin.github.io/tawassu_branch/tawassu-social-preview-v3.png">
+  <meta property="og:image:secure_url" content="https://almohammdin.github.io/tawassu_branch/tawassu-social-preview-v3.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="شعار توسّع وأداة تقييم قرارات توسع الفروع">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="توسّع | أداة تقييم قرارات توسع الفروع">
-  <meta name="twitter:description" content="أداة تقييم قرار فرع واحد بمؤشر خطر واضح وتوصيات عملية قبل التوقيع.">
-  <meta name="twitter:image" content="https://almohammdin.github.io/tawassu_branch/tawassu-social-preview.jpg">
+  <meta name="twitter:title" content="توسّع | تقييم مخاطر واشتراطات الفرع الجديد">
+  <meta name="twitter:description" content="أداة تفاعلية توضح مخاطر الفرع الجديد وتحدد مؤشر الخطر وأهم نقاط الحسم.">
+  <meta name="twitter:image" content="https://almohammdin.github.io/tawassu_branch/tawassu-social-preview-v3.png">
+  <meta name="twitter:image:alt" content="شعار توسّع وأداة تقييم قرارات توسع الفروع">
   <link rel="icon" type="image/png" sizes="256x256" href="favicon-v2.png">
   <link rel="apple-touch-icon" href="favicon-v2.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,30 +80,38 @@
     }
     .btn-primary { background: linear-gradient(135deg, var(--navy), #0b356f); color: #fff; box-shadow: 0 12px 24px rgba(13,67,141,.18); }
     .btn-secondary { background: #fff; color: var(--ink-soft); border: 1px solid var(--line); }
+    .btn-reset { background: #fff5f5; color: #a23a3a; border: 1px solid rgba(197,71,71,.34); }
+    .btn-reset:hover { background: #ffecec; border-color: rgba(197,71,71,.52); }
     .btn-ghost { background: transparent; color: var(--navy); padding-inline: 0; }
     .btn:hover { transform: translateY(-1px); }
     .hero { padding: 28px 0 18px; }
     .hero-card { background: rgba(255,255,255,.95); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 30px; padding: 26px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: center; }
     .hero-logo { background: linear-gradient(180deg, rgba(13,67,141,.03), rgba(23,191,208,.03)); border: 1px solid #eef2f7; border-radius: 24px; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 250px; }
     .hero-logo img { width: min(470px, 100%); }
-    .hero-copy .eyebrow { display: inline-flex; padding: 8px 12px; border-radius: 999px; background: rgba(13,67,141,.08); color: var(--navy); font-size: .86rem; font-weight: 700; }
-    .hero-copy h1 { margin: 14px 0 10px; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.16; color: var(--ink); }
+    .hero-copy h1 { margin: 0 0 10px; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.16; color: var(--ink); }
     .hero-copy p { margin: 0; color: var(--muted); line-height: 1.95; font-size: 1rem; }
     .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
 
     .tool-section { padding: 6px 0 24px; }
-    .tool-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); overflow: hidden; }
-    .tool-head { padding: 22px 24px 18px; border-bottom: 1px solid var(--line); }
+    .tool-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); overflow: visible; }
+    .tool-head { padding: 22px 24px 18px; border-bottom: 1px solid var(--line); border-radius: 28px 28px 0 0; background: rgba(255,255,255,.98); }
     .tool-head h2 { margin: 0; font-size: 1.35rem; color: var(--ink); }
     .tool-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.8; }
     .mode-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
-    .mode-pill { position: relative; border: 1px solid var(--line); border-radius: 18px; padding: 15px 16px; background: var(--surface-2); }
+    .mode-pill { position: relative; min-height: 132px; border: 1px solid var(--line); border-radius: 18px; padding: 54px 18px 17px; overflow: hidden; }
     .mode-pill strong { color: var(--ink); display: block; }
     .mode-pill span { color: var(--muted); font-size: .9rem; display: block; margin-top: 4px; }
-    .mode-pill.active { border-color: rgba(13,67,141,.22); background: linear-gradient(180deg, rgba(13,67,141,.05), rgba(23,191,208,.04)); }
-    .mode-pill.locked { opacity: .95; padding-top: 54px; }
+    .mode-pill.active { border-color: transparent; background: linear-gradient(135deg, #0d438d, #0b356f 68%, #116a91); box-shadow: 0 14px 28px rgba(13,67,141,.18); }
+    .mode-pill.active::after { content: ""; position: absolute; width: 170px; height: 170px; border-radius: 50%; inset-inline-end: -70px; bottom: -105px; background: rgba(23,191,208,.18); }
+    .mode-pill.active strong { color: #fff; position: relative; z-index: 1; }
+    .mode-pill.active span { color: rgba(255,255,255,.76); position: relative; z-index: 1; }
+    .mode-pill.locked { border: 1px dashed rgba(201,168,76,.62); background: linear-gradient(180deg, #fffdf7, #fff9e9); }
+    .mode-pill.locked strong { color: #594611; }
+    .mode-pill.locked span { color: #7b6d4c; }
+    .current-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
+    .current-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6cf0d8; box-shadow: 0 0 0 4px rgba(108,240,216,.14); }
     .lock-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.18); color: #7c5d11; border: 1px solid rgba(201,168,76,.34); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
-    .progress-zone { position: sticky; top: 92px; z-index: 24; margin: 0 14px; padding: 14px 16px; border: 1px solid rgba(201,168,76,.30); border-radius: 16px; background: rgba(255,255,255,.94); box-shadow: 0 12px 30px rgba(10,14,26,.10); backdrop-filter: blur(16px); }
+    .progress-zone { position: sticky; top: 104px; z-index: 24; margin: 0 14px; padding: 14px 16px; border: 1px solid rgba(201,168,76,.34); border-radius: 16px; background: rgba(255,255,255,.97); box-shadow: 0 12px 30px rgba(10,14,26,.12); backdrop-filter: blur(16px); }
     .tool-card.completed .questions-wrap,
     .tool-card.completed .actions { display: none; }
     .question-title-row { display: flex; align-items: flex-start; gap: 8px; }
@@ -182,7 +200,7 @@
     .site-footer { padding: 8px 0 36px; }
     .footer-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 24px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
     .footer-main { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .footer-main img { width: 126px; height: auto; }
+    .footer-main img { width: 148px; height: auto; }
     .footer-copy strong { display: block; color: var(--ink); }
     .footer-copy span { display: block; color: var(--muted); font-size: .88rem; margin-top: 3px; }
     .footer-social { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -228,7 +246,6 @@
         <img src="tawassu-logo.png" alt="شعار توسّع">
         <div class="brand-copy">
           <strong>أداة تقييم قرارات توسع الفروع</strong>
-          <span>تقييم فرع واحد | أسئلة ذكية | بدون أرقام حساسة</span>
         </div>
       </a>
       <button class="btn btn-primary" type="button" data-jump="tool">ابدأ التقييم</button>
@@ -242,9 +259,8 @@
           <img src="tawassu-logo.png" alt="شعار توسّع">
         </div>
         <div class="hero-copy">
-          <span class="eyebrow">نسخة مهنية مطورة بعد المراجعة</span>
-          <h1>جاوب على الأسئلة ودع الأداة ترتب لك الصورة قبل قرار التوقيع</h1>
-          <p>هذه النسخة تركّز على سؤال واحد: هل هذا الفرع مناسب أم لا؟ تعبي الإجابات الأقرب لواقع الموقع، والأداة تعطيك مؤشر خطر واضح، وأسباب النتيجة، وأهم ما يجب حسمه قبل التوقيع.</p>
+          <h1>تقييم شامل لمخاطر واشتراطات الفرع الجديد</h1>
+          <p>أجب عن الأسئلة، ودع الأداة تساهم في توضيح الصورة الكاملة وتحدد مؤشر الخطر وأهم النقاط الواجب البت فيها.</p>
           <div class="hero-actions">
             <button class="btn btn-primary" type="button" data-jump="tool">ابدأ الآن</button>
             <button class="btn btn-secondary" type="button" data-jump="results">اذهب إلى النتيجة</button>
@@ -257,9 +273,10 @@
       <div class="tool-card">
         <div class="tool-head">
           <h2>محرك تقييم قرار الفرع</h2>
-          <p>اختر الإجابة الأقرب لواقع الفرع في كل سؤال. الأسئلة تتكيّف مع طبيعة النشاط ونمط المبيعات ونوع الموقع. بعد ذلك ستحصل على قراءة مباشرة مرتبة حسب شدة المخاطر.</p>
+          <p>اختر الإجابة الأقرب لواقع الفرع في كل سؤال. الأسئلة تتكيّف مع طبيعة النشاط ونمط المبيعات ونوع الموقع. بعد ذلك ستحصل على قراءة حسب شدة المخاطر.</p>
           <div class="mode-bar">
             <div class="mode-pill active">
+              <div class="current-badge">النسخة الحالية</div>
               <strong>أداة توسّع</strong>
               <span>المسار الحالي لتقييم قرار فرع واحد</span>
             </div>
@@ -303,6 +320,7 @@
           <div class="group">
             <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
             <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
+            <button class="btn btn-reset" type="button" id="resetInlineBtn">ابدأ من جديد</button>
           </div>
         </div>
 
@@ -363,7 +381,7 @@
               <div style="display:flex; gap:10px; flex-wrap:wrap;">
                 <button class="btn btn-primary" type="button" id="previewBtn">معاينة صورة النتيجة</button>
                 <button class="btn btn-secondary" type="button" id="editAnswersBtn">تعديل الإجابات</button>
-                <button class="btn btn-secondary" type="button" id="resetBtn">تقييم جديد</button>
+                <button class="btn btn-reset" type="button" id="resetBtn">ابدأ من جديد</button>
               </div>
               <button class="btn btn-ghost" type="button" data-jump="top">العودة لأعلى الصفحة</button>
             </div>
@@ -376,7 +394,7 @@
   <footer class="site-footer">
     <div class="shell footer-card">
       <div class="footer-main">
-        <img src="naif-logo.png" alt="نايف المحمدي">
+        <img src="naif-logo-v2.png" alt="نايف المحمدي">
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
@@ -863,6 +881,31 @@
         return yy;
       }
 
+      function wrapTextLimited(ctx, text, x, y, maxWidth, lineHeight, font, color, maxLines=2) {
+        ctx.font = font; ctx.fillStyle = color;
+        const words = String(text).trim().split(/\s+/);
+        const lines = [];
+        let line = '';
+        for (const word of words) {
+          const test = line ? `${line} ${word}` : word;
+          if (ctx.measureText(test).width <= maxWidth || !line) {
+            line = test;
+          } else {
+            lines.push(line);
+            line = word;
+          }
+        }
+        if (line) lines.push(line);
+        const visible = lines.slice(0, maxLines);
+        if (lines.length > maxLines && visible.length) {
+          let last = visible[visible.length - 1];
+          while (last.length > 1 && ctx.measureText(`${last}…`).width > maxWidth) last = last.slice(0, -1).trim();
+          visible[visible.length - 1] = `${last}…`;
+        }
+        visible.forEach((item, index) => ctx.fillText(item, x, y + index * lineHeight));
+        return y + Math.max(0, visible.length - 1) * lineHeight;
+      }
+
       function roundRect(ctx, x, y, w, h, r, fill=true, stroke=false) {
         if (w < 2*r) r = w/2; if (h < 2*r) r = h/2;
         ctx.beginPath();
@@ -902,88 +945,95 @@
         const btn = $('#previewBtn'); const old = btn.textContent; btn.disabled = true; btn.textContent = 'جارٍ تجهيز الصورة...';
         try {
           if (document.fonts?.ready) await document.fonts.ready;
-          const [logo, sign] = await Promise.all([loadImage('tawassu-logo.png'), loadImage('naif-logo.png')]);
+          const [logo, sign] = await Promise.all([loadImage('tawassu-logo.png'), loadImage('naif-logo-v2.png')]);
           const canvas = document.createElement('canvas');
           canvas.width = 1080; canvas.height = 1350;
           const ctx = canvas.getContext('2d');
           ctx.direction = 'rtl';
           ctx.fillStyle = '#f7f5ef'; ctx.fillRect(0,0,1080,1350);
-          ctx.fillStyle = 'rgba(13,67,141,.05)'; ctx.beginPath(); ctx.arc(980, 120, 250, 0, Math.PI*2); ctx.fill();
-          ctx.fillStyle = 'rgba(201,168,76,.06)'; ctx.beginPath(); ctx.arc(120, 1210, 230, 0, Math.PI*2); ctx.fill();
-          ctx.strokeStyle = 'rgba(13,67,141,.08)'; ctx.lineWidth = 2; ctx.setLineDash([10,8]);
-          ctx.beginPath(); ctx.moveTo(920, 150); ctx.bezierCurveTo(720, 250, 760, 410, 470, 500); ctx.stroke();
-          ctx.beginPath(); ctx.moveTo(100, 1030); ctx.bezierCurveTo(320, 980, 560, 1060, 890, 970); ctx.stroke(); ctx.setLineDash([]);
+          ctx.fillStyle = 'rgba(13,67,141,.055)'; ctx.beginPath(); ctx.arc(980, 120, 250, 0, Math.PI*2); ctx.fill();
+          ctx.fillStyle = 'rgba(201,168,76,.065)'; ctx.beginPath(); ctx.arc(120, 1210, 230, 0, Math.PI*2); ctx.fill();
           ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1250, 30, true, true);
-          drawContainImage(ctx, logo, 730, 76, 240, 132);
-          drawContainImage(ctx, sign, 92, 92, 126, 48);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 42px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 700, 116);
+          drawContainImage(ctx, logo, 782, 72, 188, 120);
+          drawContainImage(ctx, sign, 82, 82, 190, 84);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 40px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 720, 114);
           const branchName = state.branchName.trim();
           ctx.fillStyle = branchName ? '#0d438d' : '#6b7486';
-          ctx.font = branchName ? '600 26px "IBM Plex Sans Arabic"' : '400 26px "IBM Plex Sans Arabic"';
-          ctx.fillText(branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 700, 154);
+          ctx.font = branchName ? '600 24px "IBM Plex Sans Arabic"' : '400 24px "IBM Plex Sans Arabic"';
+          wrapTextLimited(ctx, branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 720, 151, 410, 29, ctx.font, ctx.fillStyle, 1);
           const d = new Intl.DateTimeFormat('ar-SA-u-nu-latn', { year:'numeric', month:'long', day:'numeric' }).format(new Date());
-          ctx.fillStyle = '#6b7486'; ctx.font = '400 26px "IBM Plex Sans Arabic"';
-          ctx.fillText(d, 700, 188);
-          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 232, 912, 238, 26, true, true);
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 23px "IBM Plex Sans Arabic"';
+          ctx.fillText(d, 720, 184);
+
+          ctx.fillStyle = '#fbfcff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 222, 912, 250, 26, true, true);
           const chipBg = state.result.band==='good' ? '#eef8f2' : state.result.band==='mid' ? '#fff8e8' : '#fff2f2';
           const chipFg = state.result.band==='good' ? '#1f8b5f' : state.result.band==='mid' ? '#9f7300' : '#c54747';
-          ctx.fillStyle = chipBg; roundRect(ctx, 720, 256, 228, 46, 23, true, false); ctx.fillStyle = chipFg; ctx.font = '700 24px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 920, 286);
-          ctx.fillStyle = '#0d438d'; ctx.font = '700 92px "IBM Plex Sans Arabic"'; ctx.fillText(String(state.result.score), 910, 395);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 32px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.decision, 650, 350);
-          wrapText(ctx, state.result.summary, 650, 394, 480, 40, '400 27px "IBM Plex Sans Arabic"', '#6b7486');
-          const grad = ctx.createLinearGradient(500, 420, 140, 420); grad.addColorStop(0,'#1f8b5f'); grad.addColorStop(.25,'#1f8b5f'); grad.addColorStop(.25,'#d09a21'); grad.addColorStop(.55,'#d09a21'); grad.addColorStop(.55,'#c54747'); grad.addColorStop(1,'#c54747');
-          ctx.fillStyle = grad; roundRect(ctx, 140, 408, 360, 18, 9, true, false);
+          ctx.fillStyle = chipBg; roundRect(ctx, 736, 244, 212, 44, 22, true, false);
+          ctx.fillStyle = chipFg; ctx.font = '700 23px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 922, 273);
+          ctx.fillStyle = '#0d438d'; ctx.font = '700 82px "IBM Plex Sans Arabic"'; ctx.fillText(String(state.result.score), 920, 382);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 30px "IBM Plex Sans Arabic"';
+          wrapTextLimited(ctx, state.result.decision, 652, 326, 500, 36, ctx.font, ctx.fillStyle, 1);
+          wrapTextLimited(ctx, state.result.summary, 652, 368, 500, 30, '400 22px "IBM Plex Sans Arabic"', '#6b7486', 2);
+          const grad = ctx.createLinearGradient(500, 430, 140, 430); grad.addColorStop(0,'#1f8b5f'); grad.addColorStop(.25,'#1f8b5f'); grad.addColorStop(.25,'#d09a21'); grad.addColorStop(.55,'#d09a21'); grad.addColorStop(.55,'#c54747'); grad.addColorStop(1,'#c54747');
+          ctx.fillStyle = grad; roundRect(ctx, 140, 424, 360, 14, 7, true, false);
           const px = 500 - (360 * state.result.score / 100);
-          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, 417, 12, 0, Math.PI*2); ctx.fill(); ctx.lineWidth = 4; ctx.strokeStyle = '#0a0e1a'; ctx.stroke();
-          ctx.fillStyle = '#6b7486'; ctx.font = '400 21px "IBM Plex Sans Arabic"'; ctx.fillText('خطر منخفض', 490, 454); ctx.fillText('خطر متوسط', 322, 454); ctx.fillText('خطر مرتفع', 142, 454);
-          // axis box
-          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 492, 912, 230, 26, true, true);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 34px "IBM Plex Sans Arabic"'; ctx.fillText('مصادر الخطر حسب المحاور', 944, 538);
+          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, 431, 10, 0, Math.PI*2); ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = '#0a0e1a'; ctx.stroke();
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 18px "IBM Plex Sans Arabic"';
+          ctx.fillText('منخفض', 500, 458); ctx.fillText('متوسط', 332, 458); ctx.fillText('مرتفع', 142, 458);
+
+          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 488, 912, 246, 26, true, true);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 31px "IBM Plex Sans Arabic"'; ctx.fillText('مصادر الخطر حسب المحاور', 944, 529);
           const axes = [
             ['الموقع والوصول', state.result.axisScores.location],
             ['الصفقة والمرونة', state.result.axisScores.deal],
             ['الجاهزية التشغيلية', state.result.axisScores.ops],
             ['السوق والتعارض', state.result.axisScores.market]
           ];
-          let ay = 584;
+          let ay = 570;
           axes.forEach(([label, value]) => {
-            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 23px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay); ctx.fillText(`${value} / 100`, 170, ay);
-            ctx.fillStyle = '#edf1f6'; roundRect(ctx, 146, ay+12, 778, 11, 5.5, true, false);
-            const g = ctx.createLinearGradient(146, ay+18, 924, ay+18); g.addColorStop(0, '#17bfd0'); g.addColorStop(1, '#0d438d'); ctx.fillStyle = g; roundRect(ctx, 146, ay+12, 778*(value/100), 11, 5.5, true, false);
-            ay += 43;
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '600 21px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay);
+            ctx.direction = 'ltr'; ctx.textAlign = 'left'; ctx.fillStyle = '#0d438d'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText(`${value} / 100`, 146, ay);
+            ctx.direction = 'rtl'; ctx.textAlign = 'start';
+            ctx.fillStyle = '#edf1f6'; roundRect(ctx, 146, ay+10, 778, 10, 5, true, false);
+            const g = ctx.createLinearGradient(146, ay+15, 924, ay+15); g.addColorStop(0, '#17bfd0'); g.addColorStop(1, '#0d438d'); ctx.fillStyle = g; roundRect(ctx, 146, ay+10, 778*(value/100), 10, 5, true, false);
+            ay += 40;
           });
+
           const panels = [
-            { x:84, y:750, title:'أبرز الإشارات المطمئنة', items:(state.result.strengths.length?state.result.strengths.map(x=>x.text):['لا توجد إشارات مطمئنة بارزة بما يكفي.']).slice(0,3) },
-            { x:544, y:750, title:'أبرز مصادر الخطر', items:(state.result.risks.length?state.result.risks.map(x=>x.text):['لم تظهر مخاطر كبيرة تتجاوز المعتاد.']).slice(0,3) },
-            { x:84, y:995, title:'أولويات التفاوض أو التحقق', items:(state.result.actions.length?state.result.actions.map(x=>x.text):['ثبّت الشروط الأساسية كتابيا قبل التوقيع.']).slice(0,3) },
-            { x:544, y:995, title:'التوصية التنفيذية', items:state.result.recommendations.slice(0,3) }
+            { x:84, y:750, title:'أبرز الإشارات المطمئنة', items:(state.result.strengths.length?state.result.strengths.map(x=>x.text):['لا توجد إشارات مطمئنة بارزة بما يكفي.']).slice(0,2) },
+            { x:564, y:750, title:'أبرز مصادر الخطر', items:(state.result.risks.length?state.result.risks.map(x=>x.text):['لم تظهر مخاطر كبيرة تتجاوز المعتاد.']).slice(0,2) },
+            { x:84, y:976, title:'أولويات التفاوض أو التحقق', items:(state.result.actions.length?state.result.actions.map(x=>x.text):['ثبّت الشروط الأساسية كتابيا قبل التوقيع.']).slice(0,2) },
+            { x:564, y:976, title:'التوصية التنفيذية', items:state.result.recommendations.slice(0,2) }
           ];
           panels.forEach(p => {
-            ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, p.x, p.y, 452-42, 206, 24, true, true);
-            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 28px "IBM Plex Sans Arabic"'; ctx.fillText(p.title, p.x+372, p.y+36);
-            let ly = p.y+74;
+            const panelWidth = 432;
+            ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, p.x, p.y, panelWidth, 210, 24, true, true);
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 25px "IBM Plex Sans Arabic"'; ctx.fillText(p.title, p.x+panelWidth-26, p.y+38);
+            let ly = p.y+78;
             p.items.forEach(item => {
-              ctx.fillStyle = '#0d438d'; ctx.beginPath(); ctx.arc(p.x+366, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
-              ly = wrapText(ctx, item, p.x+348, ly, 300, 30, '400 22px "IBM Plex Sans Arabic"', '#6b7486') + 18;
+              ctx.fillStyle = '#0d438d'; ctx.beginPath(); ctx.arc(p.x+panelWidth-30, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
+              ly = wrapTextLimited(ctx, item, p.x+panelWidth-48, ly, 326, 25, '400 19px "IBM Plex Sans Arabic"', '#6b7486', 2) + 17;
             });
           });
+
           if (state.result.blockers.length) {
-            ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, 1224, 912, 50, 16, true, false);
-            wrapText(ctx, 'عناصر يجب حسمها قبل التوقيع: ' + state.result.blockers.map(x=>x.text).slice(0,2).join(' • '), 968, 1253, 846, 26, '700 21px "IBM Plex Sans Arabic"', '#9a2f2f');
+            ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, 1202, 912, 52, 16, true, false);
+            wrapTextLimited(ctx, 'يلزم حسم: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • '), 968, 1235, 846, 24, '600 19px "IBM Plex Sans Arabic"', '#9a2f2f', 1);
           } else {
-            ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, 1224, 912, 50, 16, true, false);
-            ctx.fillStyle = '#1f8b5f'; ctx.font = '700 21px "IBM Plex Sans Arabic"'; ctx.fillText('لا تظهر موانع حاسمة مؤكدة في المعطيات الحالية.', 962, 1253);
+            ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, 1202, 912, 52, 16, true, false);
+            ctx.fillStyle = '#1f8b5f'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText('لا تظهر موانع حاسمة مؤكدة في المعطيات الحالية.', 962, 1235);
           }
+
           ctx.direction = 'ltr';
           ctx.textAlign = 'left';
           ctx.fillStyle = '#0d438d';
-          ctx.font = '600 17px "IBM Plex Sans Arabic"';
-          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 580, 1291);
-          ctx.fillText('@almohammdin', 318, 1291);
-          drawSvgIcon(ctx, 'M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z', 268, 1285, 18);
-          drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 232, 1285, 18);
-          drawSvgIcon(ctx, 'M12 2.1c-3.1 0-5.2 2.5-5.2 5.7 0 .8.1 1.7.2 2.4-.4.2-1 .3-1.5.1-.8-.3-1.3 1-.5 1.5.4.3 1.1.5 1.5.7-.5 1.2-1.5 2.3-3.1 3-.6.3-.5 1.2.1 1.4 1 .4 2 .5 2.8.7.3.1.5.7.8 1.2.2.3.6.4 1 .3.8-.2 1.6-.5 2.9-.5s2.1.3 2.9.5c.4.1.8 0 1-.3.3-.5.5-1.1.8-1.2.8-.2 1.8-.3 2.8-.7.6-.2.7-1.1.1-1.4-1.6-.7-2.6-1.8-3.1-3 .4-.2 1.1-.4 1.5-.7.8-.5.3-1.8-.5-1.5-.5.2-1.1.1-1.5-.1.1-.7.2-1.6.2-2.4 0-3.2-2.1-5.7-5.2-5.7Z', 196, 1285, 18);
-          drawSvgIcon(ctx, 'M13.736 5.852 17.644 2l1.92 1.92-3.852 3.736h5.644v2.736h-5.66l3.868 3.752-1.92 1.92-5.276-5.28-5.276 5.28-1.92-1.92 3.868-3.752H3.38V7.656h5.644L5.172 3.92 7.092 2l3.932 3.852V0h2.712v5.852ZM11.024 24v-8.604h2.712V24h-2.712Z', 160, 1285, 18);
+          ctx.font = '600 16px "IBM Plex Sans Arabic"';
+          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 566, 1286);
+          ctx.fillText('@almohammdin', 294, 1286);
+          drawSvgIcon(ctx, 'M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z', 252, 1280, 18);
+          drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 216, 1280, 18);
+          drawSvgIcon(ctx, 'M12 2.1c-3.1 0-5.2 2.5-5.2 5.7 0 .8.1 1.7.2 2.4-.4.2-1 .3-1.5.1-.8-.3-1.3 1-.5 1.5.4.3 1.1.5 1.5.7-.5 1.2-1.5 2.3-3.1 3-.6.3-.5 1.2.1 1.4 1 .4 2 .5 2.8.7.3.1.5.7.8 1.2.2.3.6.4 1 .3.8-.2 1.6-.5 2.9-.5s2.1.3 2.9.5c.4.1.8 0 1-.3.3-.5.5-1.1.8-1.2.8-.2 1.8-.3 2.8-.7.6-.2.7-1.1.1-1.4-1.6-.7-2.6-1.8-3.1-3 .4-.2 1.1-.4 1.5-.7.8-.5.3-1.8-.5-1.5-.5.2-1.1.1-1.5-.1.1-.7.2-1.6.2-2.4 0-3.2-2.1-5.7-5.2-5.7Z', 180, 1280, 18);
+          drawSvgIcon(ctx, 'M13.736 5.852 17.644 2l1.92 1.92-3.852 3.736h5.644v2.736h-5.66l3.868 3.752-1.92 1.92-5.276-5.28-5.276 5.28-1.92-1.92 3.868-3.752H3.38V7.656h5.644L5.172 3.92 7.092 2l3.932 3.852V0h2.712v5.852ZM11.024 24v-8.604h2.712V24h-2.712Z', 144, 1280, 18);
           ctx.direction = 'rtl';
           ctx.textAlign = 'start';
 
@@ -1033,6 +1083,7 @@
       $('#previewBtn').addEventListener('click', buildResultImage);
       $('#editAnswersBtn').addEventListener('click', editAnswers);
       $('#resetBtn').addEventListener('click', resetAll);
+      $('#resetInlineBtn').addEventListener('click', resetAll);
       $('#branchName').addEventListener('input', e => { state.branchName = e.target.value.slice(0, 70); saveState(); });
       $('#closePreviewBtn').addEventListener('click', closePreview);
       $('#downloadBtn').addEventListener('click', downloadPrepared);
