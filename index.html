@@ -216,10 +216,11 @@
     .score-caption { display: block; margin-top: 6px; color: var(--muted); font-size: .82rem; font-weight: 600; white-space: nowrap; }
     .score-copy h4 { margin: 0 0 8px; color: var(--ink); font-size: 1.28rem; }
     .score-copy p { margin: 0; color: var(--muted); line-height: 1.85; }
-    .result-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .result-tags { display: grid; justify-items: start; gap: 5px; margin-bottom: 12px; }
     .result-branch { width: fit-content; padding: 7px 11px; border-radius: 999px; background: rgba(13,67,141,.07); color: var(--navy); font-size: .88rem; font-weight: 700; }
-    .result-branch.drive-thru { background: rgba(23,191,208,.09); color: #08748a; }
+    .result-service { color: var(--muted); font-size: .78rem; font-weight: 500; line-height: 1.55; }
     .result-branch[hidden] { display: none; }
+    .result-service[hidden] { display: none; }
     .risk-scale { margin-top: 20px; }
     .risk-scale .head { display: flex; justify-content: space-between; color: var(--ink-soft); font-weight: 700; margin-bottom: 8px; gap: 12px; }
     .scale-track { position: relative; height: 14px; border-radius: 999px; overflow: hidden; background: linear-gradient(270deg, #1f8b5f 0 25%, #d09a21 25% 55%, #c54747 55% 100%); }
@@ -399,7 +400,7 @@
               <article class="guide-reference">
                 <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"></path><path d="m10 14 11-11"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
                 <ul>
-                  <li><b>نوع الوثيقة:</b> اشتراطات</li>
+                  <li><b>نوع الوثيقة:</b> اشتراطات معتمدة بقرار وزاري</li>
                   <li><b>الجهة المصدرة:</b> وزارة البلديات والإسكان</li>
                   <li><b>تاريخ نشر المستند:</b> 11/11/2025</li>
                   <li><b>نطاق الوثيقة:</b> المطاعم مع الخدمة، والمطاعم بدون خدمة، والمقاهي، والمطابخ السحابية، والأكشاك الغذائية</li>
@@ -455,7 +456,7 @@
               <article class="panel">
                 <div class="result-tags" id="resultTags">
                   <div class="result-branch" id="resultBranch" hidden></div>
-                  <div class="result-branch drive-thru" id="resultDriveThru" hidden></div>
+                  <div class="result-service" id="resultDriveThru" hidden></div>
                 </div>
                 <span class="risk-chip risk-mid" id="riskChip">نتيجة مبدئية</span>
                 <div class="score-block">
@@ -532,7 +533,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.1.2</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.1.3</span>
         </div>
       </div>
       <div class="footer-social">
@@ -587,7 +588,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v4';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.1.2';
+      const APP_VERSION = '1.1.3';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -650,7 +651,7 @@
             { value:'strong', label:'وفيرة وسهلة', risk:8, good:'المواقف مناسبة لطبيعة الفرع.', action:'حافظ على سهولة الدخول والخروج ولا تكتفِ بعدد المواقف فقط.' },
             { value:'fair', label:'مقبولة مع بعض الضغط', risk:32, action:'اختبر الموقع وقت الذروة وتأكد من خطة الاستلام السريع.' },
             { value:'weak', label:'ضعيفة أو مربكة', risk:78, bad:'المواقف لا تدعم الاعتماد على المحلي.', action:'إعادة النظر أو إيجاد حل واضح للمواقف والاستلام.' },
-            { value:'unknown', label:'لم أتحقق بعد', risk:56, bad:'المواقف غير محسومة بعد.', action:'زيارة ميدانية في وقت الذروة مطلوبة قبل التوقيع.' }
+            { value:'unknown', label:'لم أتحقق بعد', risk:56, bad:'المواقف تحتاج إلى تحقق ميداني.', action:'زيارة ميدانية في وقت الذروة مطلوبة قبل التوقيع.' }
           ] },
           { id:'driveThruFlow', domain:'location', title:'هل يستوعب مسار خدمة السيارات الدخول والطلب والاستلام والخروج وقت الذروة دون تعطيل الشارع أو المواقف؟', help:'قيّم المسار من نقطة الدخول حتى الخروج، مع تقدير سعة طابور السيارات وقت الذروة.', when:s=>s.driveThru==='primary'||s.driveThru==='secondary', options:[
             { value:'strong', label:'مناسب ويستوعب الذروة', risk:10, good:'مسار خدمة السيارات مناسب لحركة الطلبات.' },
@@ -856,8 +857,8 @@
       }
 
       function driveThruLabel(value = state.answers.driveThru) {
-        if (value === 'primary') return 'خدمة السيارات (Drive-thru): قناة رئيسية';
-        if (value === 'secondary') return 'خدمة السيارات (Drive-thru): قناة مساندة';
+        if (value === 'primary') return 'نمط الخدمة: خدمة السيارات (Drive-thru)، قناة رئيسية';
+        if (value === 'secondary') return 'نمط الخدمة: خدمة السيارات (Drive-thru)، قناة مساندة';
         return '';
       }
 
@@ -1262,7 +1263,7 @@
           wrapTextLimited(ctx, branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 712, 147, 402, 27, ctx.font, ctx.fillStyle, 1);
           let dateY = 181;
           if (serviceLabel) {
-            ctx.fillStyle = '#08748a'; ctx.font = '600 17px "IBM Plex Sans Arabic"';
+            ctx.fillStyle = '#6b7486'; ctx.font = '500 15px "IBM Plex Sans Arabic"';
             ctx.fillText(serviceLabel, 712, 176);
             dateY = 204;
           }
@@ -1310,7 +1311,7 @@
             wrapTextLimited(ctx, 'يلزم معالجة: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • '), 968, 985, 846, 24, '600 19px "IBM Plex Sans Arabic"', '#9a2f2f', 1);
           } else {
             ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, 952, 912, 52, 16, true, false);
-            ctx.fillStyle = '#1f8b5f'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText('لا تظهر موانع حاسمة مؤكدة في المعطيات الحالية.', 962, 985);
+            ctx.fillStyle = '#1f8b5f'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText('المعطيات الحالية تسمح باستكمال التحقق قبل اتخاذ القرار.', 962, 985);
           }
 
           ctx.fillStyle = '#8b93a3';
