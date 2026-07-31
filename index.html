@@ -141,10 +141,14 @@
     .questions-wrap { padding: 20px 24px 12px; }
     .pre-assessment-guide { position: relative; margin-bottom: 20px; padding: 20px; overflow: hidden; border: 1px solid rgba(13,67,141,.18); border-radius: 20px; background: linear-gradient(135deg, rgba(13,67,141,.045), rgba(23,191,208,.035) 62%, rgba(201,168,76,.07)); }
     .pre-assessment-guide[hidden] { display: none; }
-    .guide-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .guide-heading { display: flex; align-items: center; gap: 12px; margin: 0; cursor: pointer; list-style: none; }
+    .guide-heading::-webkit-details-marker { display: none; }
+    .pre-assessment-guide[open] .guide-heading { margin-bottom: 10px; }
     .guide-icon { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 14px; background: rgba(13,67,141,.09); color: var(--navy); }
     .guide-icon svg { width: 23px; height: 23px; }
-    .guide-heading h3 { margin: 0; color: var(--ink); font-size: 1.12rem; }
+    .guide-title { color: var(--ink); font-size: 1.12rem; font-weight: 700; }
+    .guide-chevron { width: 20px; height: 20px; margin-inline-start: auto; color: var(--navy); transition: transform .18s ease; }
+    .pre-assessment-guide[open] .guide-chevron { transform: rotate(180deg); }
     .guide-copy { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.9; }
     .guide-copy + .guide-copy { margin-top: 7px; }
     .guide-reference-title { margin: 17px 0 10px; color: var(--ink-soft); font-size: .92rem; font-weight: 700; }
@@ -380,13 +384,14 @@
         </div>
 
         <div class="questions-wrap">
-          <aside class="pre-assessment-guide" id="preAssessmentGuide" aria-labelledby="preAssessmentGuideTitle">
-            <div class="guide-heading">
+          <details class="pre-assessment-guide" id="preAssessmentGuide" aria-labelledby="preAssessmentGuideTitle">
+            <summary class="guide-heading">
               <span class="guide-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"></path><path d="M4 5.5v16"></path><path d="M8 7h8"></path><path d="M8 11h7"></path></svg>
               </span>
-              <h3 id="preAssessmentGuideTitle">معلومات تساعدك قبل التقييم</h3>
-            </div>
+              <span class="guide-title" id="preAssessmentGuideTitle">معلومات تساعدك قبل التقييم</span>
+              <svg class="guide-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+            </summary>
             <p class="guide-copy">تختلف المتطلبات البلدية بحسب كود النشاط ونوع الموقع ورخصة البناء. تتضمن التوضيحات داخل الأسئلة أمثلة مختارة من الوثائق والأدلة المنشورة من وزارة البلديات والإسكان؛ لمساعدتك على اكتشاف المتطلبات التي تحتاج إلى تحقق قبل توقيع العقد.</p>
             <p class="guide-copy">اعتمد في التحقق على اسم النشاط وكوده التفصيلي في منصة بلدي، وراجع رخصة البناء، واستعن بمكتب هندسي عند تقييم الجاهزية الفنية للموقع.</p>
             <div class="guide-reference-title">المراجع المستخدمة في الأداة</div>
@@ -406,7 +411,6 @@
                   <li><b>نوع الوثيقة:</b> دليل</li>
                   <li><b>الجهة المصدرة:</b> وزارة البلديات والإسكان</li>
                   <li><b>تاريخ الإصدار:</b> 23/11/2025</li>
-                  <li><b>الحالة:</b> ساري</li>
                 </ul>
               </article>
               <article class="guide-reference">
@@ -417,7 +421,7 @@
                 </ul>
               </article>
             </div>
-          </aside>
+          </details>
           <div class="branch-field" id="branchNameWrap">
             <label for="branchName">
               <span class="branch-label">
@@ -528,7 +532,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.1.1</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.1.2</span>
         </div>
       </div>
       <div class="footer-social">
@@ -583,7 +587,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v4';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.1.1';
+      const APP_VERSION = '1.1.2';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
