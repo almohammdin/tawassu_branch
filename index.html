@@ -1033,15 +1033,15 @@
           ctx.fillStyle = 'rgba(13,67,141,.055)'; ctx.beginPath(); ctx.arc(980, 120, 250, 0, Math.PI*2); ctx.fill();
           ctx.fillStyle = 'rgba(201,168,76,.065)'; ctx.beginPath(); ctx.arc(120, 1210, 230, 0, Math.PI*2); ctx.fill();
           ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1250, 30, true, true);
-          drawContainImage(ctx, logo, 782, 72, 188, 120);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 40px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 720, 114);
+          drawContainImage(ctx, logo, 770, 66, 212, 136);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '600 30px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 712, 108);
           const branchName = state.branchName.trim();
           ctx.fillStyle = branchName ? '#0d438d' : '#6b7486';
-          ctx.font = branchName ? '600 24px "IBM Plex Sans Arabic"' : '400 24px "IBM Plex Sans Arabic"';
-          wrapTextLimited(ctx, branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 720, 151, 410, 29, ctx.font, ctx.fillStyle, 1);
+          ctx.font = branchName ? '600 21px "IBM Plex Sans Arabic"' : '400 21px "IBM Plex Sans Arabic"';
+          wrapTextLimited(ctx, branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 712, 147, 402, 27, ctx.font, ctx.fillStyle, 1);
           const d = new Intl.DateTimeFormat('ar-SA-u-nu-latn', { year:'numeric', month:'long', day:'numeric' }).format(new Date());
-          ctx.fillStyle = '#6b7486'; ctx.font = '400 23px "IBM Plex Sans Arabic"';
-          ctx.fillText(d, 720, 184);
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 20px "IBM Plex Sans Arabic"';
+          ctx.fillText(d, 712, 181);
 
           ctx.fillStyle = '#fbfcff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 222, 912, 250, 26, true, true);
           const chipBg = state.result.band==='good' ? '#eef8f2' : state.result.band==='mid' ? '#fff8e8' : '#fff2f2';
