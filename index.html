@@ -1076,7 +1076,13 @@
             saveState();
           } else {
             if (saved.step) state.step = clamp(saved.step, 1, 3);
-            if (saved.result) state.result = saved.result;
+            if (saved.result) {
+              state.result = saved.result;
+              if (saved.version !== APP_VERSION) {
+                state.result = null;
+                calculateResult();
+              }
+            }
           }
           return true;
         } catch (e) { console.error(e); return false; }
