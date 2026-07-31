@@ -533,7 +533,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.1.4</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.1.5</span>
         </div>
       </div>
       <div class="footer-social">
@@ -588,7 +588,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v4';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.1.4';
+      const APP_VERSION = '1.1.5';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -1240,7 +1240,7 @@
           ctx.fillStyle = 'rgba(201,168,76,.065)'; ctx.beginPath(); ctx.arc(120, 1480, 230, 0, Math.PI*2); ctx.fill();
           ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1520, 30, true, true);
           drawContainImage(ctx, logo, 770, 66, 212, 136);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '600 30px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 712, 108);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '600 30px "IBM Plex Sans Arabic"'; ctx.fillText('نتيجة تقييم الفرع', 712, 108);
           const branchName = state.branchName.trim();
           const serviceLabel = driveThruLabel(state.result.driveThru || state.answers.driveThru);
           ctx.fillStyle = branchName ? '#0d438d' : '#6b7486';
