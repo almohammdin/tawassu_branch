@@ -597,7 +597,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.2.3</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.2.4</span>
         </div>
       </div>
       <div class="footer-social">
@@ -652,7 +652,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v4';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.2.3';
+      const APP_VERSION = '1.2.4';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -1400,7 +1400,11 @@
           const [logo, sign] = await Promise.all([loadImage('tawassu-logo.png'), loadImage('naif-logo-v2.png')]);
           const branchName = state.branchName.trim();
           const serviceLabel = driveThruLabel(state.result.driveThru || state.answers.driveThru);
-          const d = new Intl.DateTimeFormat('ar-SA-u-nu-latn', { year:'numeric', month:'long', day:'numeric' }).format(new Date());
+          const now = new Date();
+          const dayName = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', { weekday:'long' }).format(now);
+          const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', { day:'numeric', month:'long', year:'numeric', era:'short' }).format(now);
+          const gregorianDate = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', { day:'numeric', month:'long', year:'numeric', era:'short' }).format(now);
+          const d = `${dayName} | ${hijriDate} | ${gregorianDate}`;
           const chipBg = state.result.band==='good' ? '#eef8f2' : state.result.band==='mid' ? '#fff8e8' : '#fff2f2';
           const chipFg = state.result.band==='good' ? '#1f8b5f' : state.result.band==='mid' ? '#9f7300' : '#c54747';
           const measureCanvas = document.createElement('canvas');
@@ -1486,7 +1490,7 @@
           ctx.fillStyle = '#9b7b25'; ctx.font = '600 12px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير تنفيذي لقرار التوسع', 540, 248);
           drawWrappedLines(ctx, primaryMetaLines, 540, primaryMetaY, 27, primaryMetaFont, branchName ? '#0d438d' : '#6b7486');
           if (serviceLines.length) drawWrappedLines(ctx, serviceLines, 540, serviceY, 24, '500 16px "IBM Plex Sans Arabic"', '#14879a');
-          ctx.fillStyle = '#6b7486'; ctx.font = '400 17px "IBM Plex Sans Arabic"'; ctx.fillText(d, 540, dateY);
+          ctx.fillStyle = '#566270'; ctx.font = '600 17px "IBM Plex Sans Arabic"'; ctx.fillText(d, 540, dateY);
           ctx.textAlign = 'right';
 
           ctx.strokeStyle = 'rgba(13,67,141,.17)'; ctx.lineWidth = 1;
