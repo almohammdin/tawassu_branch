@@ -21,7 +21,7 @@
   <meta property="og:image:alt" content="شعار توسّع وأداة تقييم قرارات توسع الفروع">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="توسّع | تقييم مخاطر واشتراطات الفرع الجديد">
-  <meta name="twitter:description" content="أداة تفاعلية توضح مخاطر الفرع الجديد وتحدد مؤشر الخطر وأهم نقاط الحسم.">
+  <meta name="twitter:description" content="أداة تفاعلية توضح مخاطر الفرع الجديد وتحدد مؤشر الخطر وأهم النقاط المؤثرة في القرار.">
   <meta name="twitter:image" content="https://almohammdin.github.io/tawassu_branch/tawassu-social-preview-v3.png">
   <meta name="twitter:image:alt" content="شعار توسّع وأداة تقييم قرارات توسع الفروع">
   <link rel="icon" type="image/png" sizes="256x256" href="favicon-v2.png">
@@ -133,7 +133,13 @@
     .bar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--gold) 0%, #d9bb73 30%, var(--navy) 100%); transition: width .25s ease; }
 
     .questions-wrap { padding: 20px 24px 12px; }
-    .step-hint { color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
+    .section-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding: 16px 18px; border: 1px solid rgba(13,67,141,.14); border-radius: 18px; background: linear-gradient(135deg, rgba(13,67,141,.045), rgba(23,191,208,.035)); }
+    .section-icon { width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center; flex: 0 0 auto; color: #fff; background: linear-gradient(135deg, var(--navy), #116a91); box-shadow: 0 10px 20px rgba(13,67,141,.16); }
+    .section-icon svg { width: 25px; height: 25px; }
+    .section-copy { min-width: 0; }
+    .section-kicker { display: block; margin-bottom: 2px; color: var(--gold); font-size: .78rem; font-weight: 700; }
+    .section-heading h3 { margin: 0; color: var(--ink); font-size: 1.2rem; }
+    .step-hint { color: var(--muted); line-height: 1.8; margin: 5px 0 0; }
     .branch-field { position: relative; margin-bottom: 20px; padding: 18px; border: 1px solid rgba(13,67,141,.24); border-radius: 20px; background: linear-gradient(135deg, rgba(13,67,141,.055), rgba(23,191,208,.045) 58%, rgba(201,168,76,.075)); box-shadow: 0 10px 24px rgba(13,67,141,.07); overflow: hidden; }
     .branch-field::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 5px; background: linear-gradient(180deg, var(--navy), var(--teal), var(--gold)); }
     .branch-field[hidden] { display: none; }
@@ -164,7 +170,6 @@
     .choice.selected .dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--navy); }
     .actions { padding: 0 24px 24px; }
     .actions-main { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
-    .actions .meta { color: var(--muted); font-size: .9rem; }
     .actions .group { display: flex; gap: 10px; flex-wrap: wrap; }
     .reset-row { width: 100%; display: flex; justify-content: flex-start; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
 
@@ -179,6 +184,7 @@
     .risk-bad { background: var(--danger-bg); color: var(--bad); }
     .score-block { display: flex; justify-content: space-between; gap: 14px; align-items: start; flex-wrap: wrap; margin-top: 14px; }
     .score-no { font-size: 3.4rem; line-height: 1; color: var(--navy); font-weight: 800; }
+    .score-caption { display: block; margin-top: 6px; color: var(--muted); font-size: .82rem; font-weight: 600; white-space: nowrap; }
     .score-copy h4 { margin: 0 0 8px; color: var(--ink); font-size: 1.28rem; }
     .score-copy p { margin: 0; color: var(--muted); line-height: 1.85; }
     .result-branch { width: fit-content; margin-bottom: 12px; padding: 7px 11px; border-radius: 999px; background: rgba(13,67,141,.07); color: var(--navy); font-size: .88rem; font-weight: 700; }
@@ -197,10 +203,14 @@
     .blockers strong { color: #992f2f; display: block; }
     .blockers ul { margin: 10px 0 0; padding-right: 18px; color: #8b3737; line-height: 1.8; }
     .axis-list { display: grid; gap: 12px; }
+    .axis-note { margin: -6px 0 14px; color: var(--muted); font-size: .84rem; line-height: 1.75; }
     .axis-card { border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
-    .axis-head { display: flex; justify-content: space-between; gap: 12px; color: var(--ink); font-weight: 700; margin-bottom: 8px; }
+    .axis-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--ink); font-weight: 700; margin-bottom: 8px; flex-wrap: wrap; }
+    .axis-name { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .axis-weight { padding: 3px 7px; border-radius: 999px; background: rgba(13,67,141,.07); color: var(--navy); font-size: .7rem; font-weight: 600; }
+    .axis-value { color: var(--muted); font-size: .82rem; font-weight: 700; }
     .axis-track { height: 10px; background: #edf1f6; border-radius: 999px; overflow: hidden; }
-    .axis-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--teal), var(--navy)); transition: width .25s ease; }
+    .axis-fill { height: 100%; width: 0; background: var(--good); transition: width .25s ease; }
     .lists { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
     .list-panel h5 { margin: 0 0 10px; font-size: 1rem; color: var(--ink); }
     .list-panel ul { margin: 0; padding-right: 18px; color: var(--muted); line-height: 1.85; display: grid; gap: 8px; }
@@ -259,7 +269,6 @@
           <strong>أداة تقييم قرارات توسع الفروع</strong>
         </div>
       </a>
-      <button class="btn btn-primary" type="button" data-jump="tool">ابدأ التقييم</button>
     </div>
   </header>
 
@@ -288,7 +297,7 @@
             <div class="mode-pill active">
               <div class="current-badge">النسخة الحالية</div>
               <strong>أداة توسّع</strong>
-              <span>المسار الحالي لتقييم قرار فرع واحد</span>
+              <span>المسار الأساسي لتقييم قرار فرع واحد</span>
             </div>
             <button class="mode-pill locked" type="button" id="advancedModeBtn" aria-label="النسخة المتقدمة، قريبا">
               <div class="lock-badge">
@@ -317,7 +326,14 @@
         </div>
 
         <div class="questions-wrap">
-          <div class="step-hint" id="stepIntro">أجب عن الأسئلة الظاهرة فقط. لا توجد حاجة لإدخال مبالغ أو أرقام مالية حساسة في هذه النسخة.</div>
+          <div class="section-heading">
+            <span class="section-icon" id="sectionIcon" aria-hidden="true"></span>
+            <div class="section-copy">
+              <span class="section-kicker" id="sectionKicker">القسم 1 من 3</span>
+              <h3 id="sectionTitle">تعريف الفرع</h3>
+              <p class="step-hint" id="stepIntro">هذه المرحلة تضبط منطق الأسئلة التالية حتى تكون أقرب لواقع القرار.</p>
+            </div>
+          </div>
           <div class="branch-field" id="branchNameWrap">
             <label for="branchName">
               <span class="branch-label">
@@ -334,7 +350,6 @@
 
         <div class="actions">
           <div class="actions-main">
-            <div class="meta">التقييم الحالي: فرع واحد | قراءة استرشادية عملية قبل التوقيع</div>
             <div class="group">
               <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
               <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
@@ -352,8 +367,9 @@
                 <div class="result-branch" id="resultBranch" hidden></div>
                 <span class="risk-chip risk-mid" id="riskChip">نتيجة مبدئية</span>
                 <div class="score-block">
-                  <div>
+                  <div class="score-value">
                     <div class="score-no" id="scoreNo">0</div>
+                    <span class="score-caption">من 100 • الأقل أفضل</span>
                   </div>
                   <div class="score-copy">
                     <h4 id="decisionTitle">مؤشر خطر قرار الفرع</h4>
@@ -369,24 +385,25 @@
 
                 <div class="facts">
                   <div class="fact"><span>التوصية</span><strong id="decisionOut">—</strong></div>
-                  <div class="fact"><span>أولوية الحسم</span><strong id="priorityOut">—</strong></div>
+                  <div class="fact"><span>الأولوية الآن</span><strong id="priorityOut">—</strong></div>
                   <div class="fact"><span>الموانع</span><strong id="blockerCountOut">—</strong></div>
                   <div class="fact"><span>الأسئلة المجابة</span><strong id="answeredOut">—</strong></div>
                 </div>
 
                 <div class="blockers" id="blockersBox">
-                  <strong>عناصر يجب حسمها قبل التوقيع</strong>
+                  <strong>عناصر تتطلب معالجة قبل التوقيع</strong>
                   <ul id="blockersList"></ul>
                 </div>
               </article>
 
               <article class="panel">
-                <h4 style="margin:0 0 14px; color:var(--ink);">مصادر الخطر حسب المحاور</h4>
+                <h4 style="margin:0 0 14px; color:var(--ink);">درجة الخطر حسب محاور التحليل</h4>
+                <p class="axis-note">الأسئلة مرتبة في 3 أقسام، بينما التحليل يقيس 4 محاور مستقلة. كل محور من 100، والأقل أفضل، ولا تُجمع درجات المحاور.</p>
                 <div class="axis-list">
-                  <div class="axis-card"><div class="axis-head"><span>الموقع والوصول</span><span id="axisLocationTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisLocationBar"></div></div></div>
-                  <div class="axis-card"><div class="axis-head"><span>الصفقة والمرونة</span><span id="axisDealTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisDealBar"></div></div></div>
-                  <div class="axis-card"><div class="axis-head"><span>الجاهزية التشغيلية</span><span id="axisOpsTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisOpsBar"></div></div></div>
-                  <div class="axis-card"><div class="axis-head"><span>السوق والتعارض</span><span id="axisMarketTxt">0 / 100</span></div><div class="axis-track"><div class="axis-fill" id="axisMarketBar"></div></div></div>
+                  <div class="axis-card"><div class="axis-head"><span class="axis-name">الموقع والوصول <small class="axis-weight">وزنه 30%</small></span><span class="axis-value" id="axisLocationTxt">0 من 100</span></div><div class="axis-track"><div class="axis-fill" id="axisLocationBar"></div></div></div>
+                  <div class="axis-card"><div class="axis-head"><span class="axis-name">الصفقة والمرونة <small class="axis-weight">وزنها 30%</small></span><span class="axis-value" id="axisDealTxt">0 من 100</span></div><div class="axis-track"><div class="axis-fill" id="axisDealBar"></div></div></div>
+                  <div class="axis-card"><div class="axis-head"><span class="axis-name">الجاهزية التشغيلية <small class="axis-weight">وزنها 25%</small></span><span class="axis-value" id="axisOpsTxt">0 من 100</span></div><div class="axis-track"><div class="axis-fill" id="axisOpsBar"></div></div></div>
+                  <div class="axis-card"><div class="axis-head"><span class="axis-name">السوق والتعارض <small class="axis-weight">وزنه 15%</small></span><span class="axis-value" id="axisMarketTxt">0 من 100</span></div><div class="axis-track"><div class="axis-fill" id="axisMarketBar"></div></div></div>
                 </div>
               </article>
             </div>
@@ -467,9 +484,30 @@
       const $$ = s => [...document.querySelectorAll(s)];
 
       const STEP_COPY = {
-        1: { title: 'الخطوة 1 من 3: تعريف الفرع', hint: 'ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.', intro: 'هذه المرحلة تضبط منطق الأسئلة التالية حتى تكون أقرب لواقع القرار.' },
-        2: { title: 'الخطوة 2 من 3: الموقع والسوق', hint: 'أسئلة متكيّفة حسب ما اخترته في البداية.', intro: 'ركز على واقع الموقع والحركة والوصول والسوق المحيط، وليس على الانطباع العام فقط.' },
-        3: { title: 'الخطوة 3 من 3: الصفقة والجاهزية', hint: 'قراءة نوعية للشروط والمرونة والجاهزية التشغيلية.', intro: '' }
+        1: {
+          title: 'الخطوة 1 من 3: تعريف الفرع',
+          hint: 'ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.',
+          sectionKicker: 'القسم 1 من 3',
+          sectionTitle: 'تعريف الفرع',
+          intro: 'هذه المرحلة تضبط منطق الأسئلة التالية حتى تكون أقرب لواقع القرار.',
+          icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18"></path><path d="M5 10v10h14V10"></path><path d="m4 4-1 6h18l-1-6H4Z"></path><path d="M9 20v-6h6v6"></path></svg>'
+        },
+        2: {
+          title: 'الخطوة 2 من 3: الموقع والسوق',
+          hint: 'أسئلة متكيّفة حسب ما اخترته في البداية.',
+          sectionKicker: 'القسم 2 من 3',
+          sectionTitle: 'الموقع والسوق',
+          intro: 'ركز على واقع الموقع والحركة والوصول والسوق المحيط، وليس على الانطباع العام فقط.',
+          icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>'
+        },
+        3: {
+          title: 'الخطوة 3 من 3: الصفقة والجاهزية',
+          hint: 'قراءة نوعية للشروط والمرونة والجاهزية التشغيلية.',
+          sectionKicker: 'القسم 3 من 3',
+          sectionTitle: 'الصفقة والجاهزية',
+          intro: 'راجع شروط العقد وجاهزية الموقع وقدرة الفرع على تحمل بداية أبطأ من المتوقع.',
+          icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v14H7Z"></path><path d="M15 3v5h5"></path><path d="m10 15 2 2 4-5"></path></svg>'
+        }
       };
 
       const QUESTIONS = {
@@ -493,7 +531,7 @@
           ] }
         ],
         2: [
-          { id:'parking', domain:'location', title:'هل المواقف كافية وسهلة وقت الزحمة؟', help:'قيّم الوضع في أوقات الذروة، وليس في الأوقات الهادئة.', when:s=>s.salesModel!=='delivery', options:[
+          { id:'parking', domain:'location', title:'هل المواقف كافية وسهلة وقت الذروة؟', help:'قيّم الوضع في أوقات الذروة، وليس في الأوقات الهادئة.', when:s=>s.salesModel!=='delivery', options:[
             { value:'strong', label:'وفيرة وسهلة', risk:8, good:'المواقف مناسبة لطبيعة الفرع.', action:'حافظ على وضوح الدخول والخروج ولا تكتفِ بعدد المواقف فقط.' },
             { value:'fair', label:'مقبولة مع بعض الضغط', risk:32, action:'اختبر الموقع وقت الذروة وتأكد من خطة الاستلام السريع.' },
             { value:'weak', label:'ضعيفة أو مربكة', risk:78, bad:'المواقف لا تدعم الاعتماد على المحلي.', action:'إعادة النظر أو إيجاد حل واضح للمواقف والاستلام.' },
@@ -502,7 +540,7 @@
           { id:'courierAccess', domain:'location', title:'هل دخول مندوبي التوصيل والاستلام للموقع سهل وواضح؟', help:'فكر في سهولة الوقوف والوصول واستلام الطلب دون تعطيل الحركة.', when:s=>s.salesModel!=='local', options:[
             { value:'easy', label:'سهل وواضح', risk:10, good:'حركة التوصيل تبدو عملية وواضحة.' },
             { value:'fair', label:'مقبول لكنه ليس مثاليا', risk:34, action:'جهز نقطة استلام واضحة ومباشرة.' },
-            { value:'difficult', label:'صعب أو يسبب تعطلا', risk:76, bad:'حركة التوصيل قد تتحول إلى عنق زجاجة يومي.', action:'حسم نقطة الاستلام أو إعادة تقييم الموقع.' },
+            { value:'difficult', label:'صعب أو يسبب تعطلا', risk:76, bad:'حركة التوصيل قد تتحول إلى عنق زجاجة يومي.', action:'تحديد نقطة الاستلام أو إعادة تقييم الموقع.' },
             { value:'unknown', label:'غير واضح', risk:55, action:'اختبر الموقع عمليا مع مندوب أو سيارة استلام.' }
           ] },
           { id:'deliveryCoverage', domain:'market', title:'هل المنطقة مغطاة جيدا بتطبيقات التوصيل؟', help:'تأكد من التغطية الفعلية للمنطقة داخل التطبيقات، وليس فقط سهولة دخول المندوب.', when:s=>s.salesModel!=='local', options:[
@@ -510,12 +548,12 @@
             { value:'fair', label:'مقبولة', risk:34 },
             { value:'weak', label:'ضعيفة أو غير مؤكدة', risk:68, bad:'تغطية تطبيقات التوصيل لا تبدو مطمئنة.', action:'تحقق من التغطية الفعلية قبل الالتزام.' }
           ] },
-          { id:'visibility', domain:'location', title:'هل واجهة الفرع واضحة ويمكن ملاحظتها بسهولة؟', options:[
+          { id:'visibility', domain:'location', title:'هل واجهة المحل واضحة ويمكن رؤيتها بسهولة؟', options:[
             { value:'strong', label:'واضحة جدا', risk:12, good:'الواجهة تخدم الجذب والوصول.' },
             { value:'fair', label:'مقبولة', risk:30 },
             { value:'weak', label:'ضعيفة أو مخفية', risk:70, bad:'ضعف الواجهة يضعف قرار الفرع.', action:'تحقق من اللوحات واتجاه الحركة قبل الالتزام.' }
           ] },
-          { id:'areaActivity', domain:'market', title:'هل المنطقة نشطة في الأوقات التي سيعمل فيها الفرع؟', options:[
+          { id:'areaActivity', domain:'market', title:'هل المنطقة نشطة (منطقة حيّه) في الأوقات التي سيعمل فيها الفرع؟', options:[
             { value:'high', label:'نشطة بوضوح', risk:12, good:'المنطقة نشطة وتدعم الطلب.' },
             { value:'mid', label:'متوسطة', risk:34 },
             { value:'low', label:'ضعيفة', risk:74, bad:'المنطقة لا تعطي دعما كافيا للطلب.', action:'تحقق ميدانيا على أكثر من فترة زمنية.' },
@@ -529,7 +567,7 @@
           { id:'cannibalization', domain:'market', title:'هل هذا الفرع قريب لدرجة أنه قد يسحب من مبيعات فروعك الحالية؟', options:[
             { value:'low', label:'التعارض منخفض', risk:12, good:'الموقع لا يسحب بوضوح من فروعك الحالية.' },
             { value:'mid', label:'هناك احتمال متوسط', risk:40 },
-            { value:'high', label:'التعارض مرتفع', risk:76, bad:'الموقع قد يسحب من فروعك الحالية.', action:'احسم أثر السحب الداخلي قبل الالتزام.' },
+            { value:'high', label:'التعارض مرتفع', risk:76, bad:'الموقع قد يسحب من فروعك الحالية.', action:'قيّم أثر السحب الداخلي قبل الالتزام.' },
             { value:'unknown', label:'غير واضح', risk:55, action:'قارن هذا الموقع بانتشار فروعك الحالية.' }
           ] },
           { id:'anchorTenant', domain:'market', title:'إذا كان الموقع داخل مجمع، هل توجد مطاعم أو متاجر تجذب الزوار للمكان؟', help:'وجود جهات جذب قريبة قد يصنع حركة يومية للموقع.', when:s=>s.locationType==='mall', options:[
@@ -544,7 +582,7 @@
             { value:'pending', label:'تحت التحقق', risk:60, bad:'السماح بالنشاط لم يتم التأكد منه بعد.', action:'لا تتقدم قبل التحقق الصريح من السماح بالنشاط.' },
             { value:'blocked', label:'لا، أو توجد مؤشرات منع', risk:100, bad:'السماح بالنشاط يواجه منعا فعليا أو مؤشرات منع.', blocker:'السماح بالنشاط لم يتم التأكد منه أو توجد مؤشرات منع واضحة.', action:'إيقاف التقدم حتى التأكد من السماح بالنشاط.' }
           ] },
-          { id:'rentSense', domain:'deal', title:'هل الإيجار مناسب للمبيعات التي تتوقعها من الفرع؟', help:'قيّم العلاقة بشكل عام: هل الإيجار مريح أم سيضغط على الفرع؟', options:[
+          { id:'rentSense', domain:'deal', title:'هل نسبة الإيجار إلى المبيعات المتوقعة مناسبة؟', help:'احسبها بقسمة الإيجار السنوي على المبيعات السنوية المتوقعة، ثم قارن النتيجة بفروعك المشابهة أو بمنشآت تعمل في النشاط نفسه.', options:[
             { value:'comfortable', label:'مريح ومنطقي', risk:12, good:'ضغط الإيجار يبدو معقولا.' },
             { value:'fair', label:'مقبول لكنه يحتاج انضباطا', risk:36 },
             { value:'high', label:'مرتفع ويضغط على القرار', risk:72, bad:'الإيجار يضغط على القرار.', action:'التفاوض على الإيجار أو إعادة النظر.' },
@@ -556,25 +594,25 @@
             { value:'none', label:'لا توجد', risk:76, bad:'غياب فترة السماح يضغط على القرار.', action:'هذه من أولويات التفاوض.' },
             { value:'unknown', label:'غير واضحة', risk:55, action:'تأكيد فترة السماح كتابيا قبل الالتزام.' }
           ] },
-          { id:'annualIncrease', domain:'deal', title:'هل الزيادة السنوية في الإيجار معقولة وواضحة؟', options:[
+          { id:'annualIncrease', domain:'deal', title:'كيف تقيّم تغير قيمة الإيجار خلال مدة العقد؟', help:'راجع قيمة الأجرة لكل سنة في العقد الموثق على منصة إيجار، ثم اختر التقييم الأقرب للزيادة أو ثبات الأجرة.', options:[
             { value:'reasonable', label:'معقولة', risk:18, good:'شروط الزيادة متزنة نسبيا.' },
             { value:'noticeable', label:'مرتفعة نسبيا', risk:54, bad:'الزيادة السنوية تحتاج انتباها.', action:'خفف الزيادة أو اجعلها أكثر تدرجا.' },
             { value:'aggressive', label:'مرتفعة وتقلقني', risk:82, bad:'الزيادة السنوية تضغط على القرار.', action:'هذه من أهم نقاط التفاوض.' },
             { value:'unknown', label:'غير واضحة', risk:60, action:'اطلب نص الزيادة كاملا قبل التوقيع.' }
           ] },
-          { id:'contractFlex', domain:'deal', title:'هل مدة العقد وشروط الخروج منه مناسبة لك؟', options:[
+          { id:'contractFlex', domain:'deal', title:'هل مدة العقد وشروط التخارج منه مناسبة لك؟', options:[
             { value:'balanced', label:'متوازنة ومرنة', risk:18, good:'مدة العقد ومرونة الخروج تبدوان متوازنتين.' },
             { value:'tight', label:'تحتاج انتباها', risk:46, action:'راجع أثر مدة العقد والتزامات الخروج المبكر.' },
             { value:'rigid', label:'مقيدة وغير مريحة', risk:78, bad:'مدة العقد أو شروط الخروج تضغط على القرار.', action:'لا تتجاوز هذا البند دون تفاوض واضح.' },
             { value:'unknown', label:'غير واضحة', risk:58, action:'تأكيد مدة الالتزام وشروط الخروج قبل التوقيع.' }
           ] },
-          { id:'infraReadiness', domain:'ops', title:'هل الموقع جاهز من ناحية الكهرباء والتهوية والشفط والتمديدات؟', options:[
+          { id:'infraReadiness', domain:'ops', title:'هل الموقع جاهز فنيا للكهرباء والتهوية والتمديدات الأساسية؟', help:'تحقق من كفاية الأحمال الكهربائية، وجاهزية نظام التهوية، وتوفر تمديدات المياه والصرف والغاز بما يناسب نشاط الفرع.', options:[
             { value:'ready', label:'جاهزة أو قريبة من الجاهزية', risk:10, good:'البنية الأساسية مطمئنة.' },
             { value:'minor', label:'تحتاج تعديلات محدودة', risk:36 },
             { value:'major', label:'تحتاج أعمالا جوهرية', risk:88, bad:'الجاهزية التشغيلية ضعيفة.', blocker:'البنية الأساسية تحتاج أعمالا جوهرية قد تغيّر قرار الفرع.', action:'لا تتجاوز هذا الملف دون تقدير واضح للعبء.' },
-            { value:'unknown', label:'لم أحسمها بعد', risk:62, action:'فحص فني سريع قبل التوقيع ضروري.' }
+            { value:'unknown', label:'لم أتحقق منها بعد', risk:62, action:'فحص فني سريع قبل التوقيع ضروري.' }
           ] },
-          { id:'fitoutSupport', domain:'ops', title:'هل في الموقع تجهيزات موجودة ستوفر عليك تكلفة ووقت التجهيز؟', options:[
+          { id:'fitoutSupport', domain:'ops', title:'هل توجد في الموقع تجهيزات قابلة للاستخدام تقلل تكلفة ومدة التجهيز؟', help:'قيّم التجهيزات التي يمكن الاستفادة منها فعليا، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.', options:[
             { value:'good', label:'نعم، بشكل جيد', risk:14, good:'وجود تجهيزات يخفف عبء الافتتاح.' },
             { value:'partial', label:'جزئيا', risk:34 },
             { value:'none', label:'لا توجد', risk:58, bad:'لا توجد تجهيزات تخفف عبء الافتتاح.', action:'ضع هذا ضمن ضغط التجهيز والتجهيزات.' },
@@ -583,7 +621,7 @@
           { id:'downside', domain:'deal', title:'لو كانت المبيعات في البداية أقل من المتوقع، هل يستطيع الفرع الاستمرار؟', options:[
             { value:'resilient', label:'يبقى متماسكا', risk:12, good:'الفرع يبدو قادرا على تحمل بداية أبطأ.' },
             { value:'manageable', label:'يمكن احتواؤه', risk:34 },
-            { value:'fragile', label:'سيتعرض لضغط واضح', risk:74, bad:'هامش الأمان ضعيف.', action:'راجع منطق الصفقة قبل الالتزام.' },
+            { value:'fragile', label:'سيتعرض لضغط مالي', risk:74, bad:'هامش الأمان ضعيف.', action:'راجع منطق الصفقة قبل الالتزام.' },
             { value:'unknown', label:'لم أختبر ذلك', risk:58, action:'اختبر سيناريو متحفظ ذهنيا قبل التوقيع.' }
           ] }
         ]
@@ -602,12 +640,12 @@
         cannibalization: 'قارن نطاق خدمة الموقع الجديد بفروعك الحالية ومصادر طلباتها. مثال: قرب الفرعين قد ينقل المبيعات القائمة بدلا من إضافة مبيعات جديدة.',
         anchorTenant: 'تحقق من وجود جهات جذب فعلية ومستقرة داخل المجمع، مثل متجر رئيسي أو خدمات يومية، وراقب هل تصنع حركة في أوقات عمل فرعك.',
         activityPermission: 'بعض المواقع لها اشتراطات خاصة، مثل مطابخ الإعاشة أو المواقع داخل محطات الوقود. تأكد أن نشاطك تحديدا مسموح في هذا الموقع، وليس فقط أن العقار تجاري.',
-        rentSense: 'قارن الإيجار بالمبيعات المتوقعة بشكل واقعي، وليس بأفضل سيناريو. اسأل نفسك: هل يبقى الفرع مرتاحا إذا كانت البداية أبطأ من المتوقع؟',
+        rentSense: 'احسبها بقسمة الإيجار السنوي على المبيعات السنوية المتوقعة، ثم قارن النتيجة بفروعك المشابهة أو بمنشآت تعمل في النشاط نفسه.',
         gracePeriod: 'فترة السماح هي المدة التي تجهز فيها الفرع قبل بدء الإيجار أو كامل الالتزامات. تأكد أنها تناسب حجم التجهيزات والتراخيص.',
-        annualIncrease: 'راجع نسبة الزيادة وتوقيتها طوال مدة العقد، وليس قيمة السنة الأولى فقط.',
-        contractFlex: 'راجع مدة الالتزام، التجديد، شروط الخروج المبكر، والغرامات. العقد الطويل قد يكون جيدا إذا كانت شروطه مرنة.',
-        infraReadiness: 'تحقق فنيا من قدرة الكهرباء، التكييف، الصرف، الشفط والتمديدات. في المطاعم والمقاهي قد تغير هذه العناصر تكلفة ومدة الافتتاح بالكامل.',
-        fitoutSupport: 'افحص ما يمكن استخدامه فعلا من تجهيزات المستأجر السابق، مثل التكييف والشفط والكاونتر والأرضيات. بعض الموجود قد يحتاج إزالة بدلا من أن يوفر عليك.',
+        annualIncrease: 'راجع قيمة الأجرة لكل سنة في العقد الموثق على منصة إيجار، ثم اختر التقييم الأقرب للزيادة أو ثبات الأجرة.',
+        contractFlex: 'راجع مدة الالتزام، التجديد، شروط التخارج المبكر، والغرامات. العقد الطويل قد يكون جيدا إذا كانت شروطه مرنة.',
+        infraReadiness: 'تحقق من كفاية الأحمال الكهربائية، وجاهزية نظام التهوية، وتوفر تمديدات المياه والصرف والغاز بما يناسب نشاط الفرع.',
+        fitoutSupport: 'قيّم التجهيزات التي يمكن الاستفادة منها فعليا، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.',
         downside: 'تخيل أن المبيعات في أول الأشهر أقل من الخطة. هل يستطيع الفرع تحمل الإيجار والرواتب والتشغيل حتى يتحسن الأداء؟'
       };
 
@@ -629,6 +667,9 @@
         const copy = STEP_COPY[state.step];
         $('#stepTitle').textContent = copy.title;
         $('#stepHint').textContent = copy.hint;
+        $('#sectionKicker').textContent = copy.sectionKicker;
+        $('#sectionTitle').textContent = copy.sectionTitle;
+        $('#sectionIcon').innerHTML = copy.icon;
         $('#stepIntro').textContent = copy.intro;
         $('#branchNameWrap').hidden = state.step !== 1;
         $('#branchName').value = state.branchName;
@@ -765,11 +806,11 @@
           'لا تتجاوز نقاط التحقق الجوهرية حتى لو كانت النتيجة مطمئنة.'
         ];
         if (score >= 26 && score <= 55) {
-          band = 'mid'; bandTitle = 'خطر متوسط'; decision = 'فرصة مشروطة'; priority = 'حسم وتفاوض'; summary = 'القرار قابل للدراسة، لكن توجد عناصر تحتاج حسم أو تفاوض قبل الالتزام.';
+          band = 'mid'; bandTitle = 'خطر متوسط'; decision = 'فرصة مشروطة'; priority = 'مراجعة وتفاوض'; summary = 'القرار قابل للدراسة، لكن توجد عناصر تحتاج معالجة أو تفاوض قبل الالتزام.';
           recommendations = [
             'جمّد التوقيع مؤقتا حتى تتضح أعلى نقاط الضغط.',
             'فاوِض على البنود الأكثر تأثيرا أولا.',
-            'أعد التقييم بعد حسم النقاط الجوهرية.'
+            'أعد التقييم بعد معالجة النقاط الجوهرية.'
           ];
         } else if (score >= 56) {
           band = 'bad'; bandTitle = blockers.length ? 'خطر مرتفع جدا' : 'خطر مرتفع'; decision = blockers.length ? 'صرف النظر أو إيقاف التقدم' : 'صفقة خطرة'; priority = blockers.length ? 'منع قبل التوقيع' : 'معالجة جوهرية'; summary = blockers.length ? 'توجد موانع أو مخاطر جوهرية لا تسمح بالتقدم المريح قبل المعالجة.' : 'المعطيات الحالية تشير إلى ضغط مرتفع على القرار، ويصعب التوصية بالتقدم دون تعديل جوهري.';
@@ -837,8 +878,11 @@
       }
 
       function setAxis(id, value) {
-        $('#axis'+id+'Txt').textContent = `${value} / 100`;
+        const level = value <= 25 ? 'منخفض' : value <= 55 ? 'متوسط' : 'مرتفع';
+        const color = value <= 25 ? '#1f8b5f' : value <= 55 ? '#d09a21' : '#c54747';
+        $('#axis'+id+'Txt').textContent = `${value} من 100 • ${level}`;
         $('#axis'+id+'Bar').style.width = `${value}%`;
+        $('#axis'+id+'Bar').style.background = color;
       }
 
       function fillList(selector, items, fallback) {
@@ -1005,6 +1049,7 @@
           ctx.fillStyle = chipBg; roundRect(ctx, 736, 244, 212, 44, 22, true, false);
           ctx.fillStyle = chipFg; ctx.font = '700 23px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 922, 273);
           ctx.fillStyle = '#0d438d'; ctx.font = '700 82px "IBM Plex Sans Arabic"'; ctx.fillText(String(state.result.score), 920, 382);
+          ctx.fillStyle = '#6b7486'; ctx.font = '600 16px "IBM Plex Sans Arabic"'; ctx.fillText('من 100 • الأقل أفضل', 920, 410);
           ctx.fillStyle = '#0a0e1a'; ctx.font = '700 29px "IBM Plex Sans Arabic"';
           wrapTextLimited(ctx, state.result.decision, 652, 326, 500, 38, ctx.font, ctx.fillStyle, 1);
           wrapTextLimited(ctx, state.result.summary, 652, 370, 500, 32, '400 21px "IBM Plex Sans Arabic"', '#6b7486', 2);
@@ -1016,21 +1061,24 @@
           ctx.fillText('منخفض', 500, 458); ctx.fillText('متوسط', 332, 458); ctx.fillText('مرتفع', 142, 458);
 
           ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 488, 912, 246, 26, true, true);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 31px "IBM Plex Sans Arabic"'; ctx.fillText('مصادر الخطر حسب المحاور', 944, 529);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 28px "IBM Plex Sans Arabic"'; ctx.fillText('درجة الخطر حسب محاور التحليل', 944, 523);
+          ctx.fillStyle = '#6b7486'; ctx.font = '500 15px "IBM Plex Sans Arabic"'; ctx.fillText('4 محاور مستقلة • من 100 • الأقل أفضل • لا تُجمع الدرجات', 944, 549);
           const axes = [
-            ['الموقع والوصول', state.result.axisScores.location],
-            ['الصفقة والمرونة', state.result.axisScores.deal],
-            ['الجاهزية التشغيلية', state.result.axisScores.ops],
-            ['السوق والتعارض', state.result.axisScores.market]
+            ['الموقع والوصول • وزن 30%', state.result.axisScores.location],
+            ['الصفقة والمرونة • وزن 30%', state.result.axisScores.deal],
+            ['الجاهزية التشغيلية • وزن 25%', state.result.axisScores.ops],
+            ['السوق والتعارض • وزن 15%', state.result.axisScores.market]
           ];
-          let ay = 570;
+          let ay = 584;
           axes.forEach(([label, value]) => {
-            ctx.fillStyle = '#0a0e1a'; ctx.font = '600 20px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay);
-            ctx.direction = 'ltr'; ctx.textAlign = 'left'; ctx.fillStyle = '#0d438d'; ctx.font = '600 18px "IBM Plex Sans Arabic"'; ctx.fillText(`${value} / 100`, 146, ay);
+            const level = value <= 25 ? 'منخفض' : value <= 55 ? 'متوسط' : 'مرتفع';
+            const color = value <= 25 ? '#1f8b5f' : value <= 55 ? '#d09a21' : '#c54747';
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '600 18px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay);
+            ctx.direction = 'rtl'; ctx.textAlign = 'left'; ctx.fillStyle = color; ctx.font = '600 16px "IBM Plex Sans Arabic"'; ctx.fillText(`${value} من 100 • ${level}`, 146, ay);
             ctx.direction = 'rtl'; ctx.textAlign = 'right';
             ctx.fillStyle = '#edf1f6'; roundRect(ctx, 146, ay+10, 778, 10, 5, true, false);
-            const g = ctx.createLinearGradient(146, ay+15, 924, ay+15); g.addColorStop(0, '#17bfd0'); g.addColorStop(1, '#0d438d'); ctx.fillStyle = g; roundRect(ctx, 146, ay+10, 778*(value/100), 10, 5, true, false);
-            ay += 44;
+            ctx.fillStyle = color; roundRect(ctx, 146, ay+10, 778*(value/100), 10, 5, true, false);
+            ay += 40;
           });
 
           const panels = [
@@ -1052,7 +1100,7 @@
 
           if (state.result.blockers.length) {
             ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, 1202, 912, 52, 16, true, false);
-            wrapTextLimited(ctx, 'يلزم حسم: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • '), 968, 1235, 846, 24, '600 19px "IBM Plex Sans Arabic"', '#9a2f2f', 1);
+            wrapTextLimited(ctx, 'يلزم معالجة: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • '), 968, 1235, 846, 24, '600 19px "IBM Plex Sans Arabic"', '#9a2f2f', 1);
           } else {
             ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, 1202, 912, 52, 16, true, false);
             ctx.fillStyle = '#1f8b5f'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText('لا تظهر موانع حاسمة مؤكدة في المعطيات الحالية.', 962, 1235);
