@@ -24,8 +24,8 @@
   <meta name="twitter:description" content="أداة تفاعلية توضح مخاطر الفرع الجديد وتحدد مؤشر الخطر وأهم النقاط المؤثرة في القرار.">
   <meta name="twitter:image" content="https://almohammdin.github.io/tawassu_branch/tawassu-social-preview-v3.png">
   <meta name="twitter:image:alt" content="شعار توسّع وأداة تقييم قرارات توسع الفروع">
-  <link rel="icon" type="image/png" sizes="256x256" href="favicon-v2.png">
-  <link rel="apple-touch-icon" href="favicon-v2.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="favicon-v3.png">
+  <link rel="apple-touch-icon" href="favicon-v3.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -233,9 +233,11 @@
     .footer-main img { width: 104px; height: auto; }
     .footer-copy strong { display: block; color: var(--ink); }
     .footer-copy span { display: block; color: var(--muted); font-size: .88rem; margin-top: 3px; }
+    .footer-copy .footer-version { margin-top: 2px; color: rgba(82,92,108,.62); font-size: .62rem; letter-spacing: .02em; }
     .footer-social { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .footer-social strong { direction: ltr; font-size: .95rem; color: var(--ink-soft); }
     .footer-social a { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--navy); display: inline-flex; align-items: center; justify-content: center; }
+    .footer-social a.snapchat { background: #fffc00; border-color: #e6df00; color: #0a0e1a; }
     .footer-social svg { width: 18px; height: 18px; fill: currentColor; }
 
     .preview-overlay { position: fixed; inset: 0; z-index: 80; background: rgba(10,14,26,.66); display: grid; place-items: center; padding: 16px; }
@@ -246,6 +248,15 @@
     .preview-actions { display: flex; gap: 10px; flex-wrap: wrap; }
     .preview-image { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--bg); }
     .preview-image img { width: 100%; height: auto; }
+
+    .confirm-overlay { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 18px; background: rgba(10,14,26,.68); backdrop-filter: blur(8px); }
+    .confirm-overlay[hidden] { display: none; }
+    .confirm-card { width: min(440px, 100%); padding: 24px; border: 1px solid rgba(197,71,71,.2); border-radius: 24px; background: #fff; box-shadow: 0 28px 70px rgba(10,14,26,.3); text-align: center; }
+    .confirm-icon { width: 52px; height: 52px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 16px; background: var(--danger-bg); color: var(--bad); }
+    .confirm-icon svg { width: 26px; height: 26px; }
+    .confirm-card h4 { margin: 0 0 8px; color: var(--ink); font-size: 1.2rem; }
+    .confirm-card p { margin: 0; color: var(--muted); line-height: 1.8; }
+    .confirm-actions { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
 
     .toast { position: fixed; inset-inline-start: 20px; bottom: 20px; background: rgba(10,14,26,.94); color: #fff; border-radius: 14px; padding: 12px 14px; box-shadow: 0 18px 34px rgba(10,14,26,.26); opacity: 0; transform: translateY(12px); transition: .18s ease; z-index: 90; pointer-events: none; }
     .toast.show { opacity: 1; transform: translateY(0); }
@@ -315,10 +326,10 @@
               <strong>أداة توسّع</strong>
               <span>المسار الأساسي لتقييم قرار فرع واحد</span>
             </div>
-            <button class="mode-pill locked" type="button" id="advancedModeBtn" aria-label="النسخة المتقدمة، قريبا">
+            <button class="mode-pill locked" type="button" id="advancedModeBtn" aria-label="النسخة المتقدمة، قيد التطوير">
               <div class="lock-badge">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                قريبا
+                قيد التطوير
               </div>
               <strong>النسخة المتقدمة</strong>
               <span>تحليل أوسع يساعدك على فهم الجدوى والمخاطر واتخاذ قرار أدق.</span>
@@ -452,6 +463,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.0.0</span>
         </div>
       </div>
       <div class="footer-social">
@@ -462,8 +474,8 @@
         <a href="https://www.linkedin.com/in/almohammdin/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z"/></svg>
         </a>
-        <a href="https://www.snapchat.com/add/almohammdin" target="_blank" rel="noopener" aria-label="Snapchat">
-          <svg viewBox="0 0 24 24"><path d="M12 2.1c-3.1 0-5.2 2.5-5.2 5.7 0 .8.1 1.7.2 2.4-.4.2-1 .3-1.5.1-.8-.3-1.3 1-.5 1.5.4.3 1.1.5 1.5.7-.5 1.2-1.5 2.3-3.1 3-.6.3-.5 1.2.1 1.4 1 .4 2 .5 2.8.7.3.1.5.7.8 1.2.2.3.6.4 1 .3.8-.2 1.6-.5 2.9-.5s2.1.3 2.9.5c.4.1.8 0 1-.3.3-.5.5-1.1.8-1.2.8-.2 1.8-.3 2.8-.7.6-.2.7-1.1.1-1.4-1.6-.7-2.6-1.8-3.1-3 .4-.2 1.1-.4 1.5-.7.8-.5.3-1.8-.5-1.5-.5.2-1.1.1-1.5-.1.1-.7.2-1.6.2-2.4 0-3.2-2.1-5.7-5.2-5.7Z"/></svg>
+        <a class="snapchat" href="https://www.snapchat.com/add/almohammdin" target="_blank" rel="noopener" aria-label="Snapchat">
+          <svg viewBox="0 0 24 24"><path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z"/></svg>
         </a>
         <a href="https://linktr.ee/almohammdin" target="_blank" rel="noopener" aria-label="Linktree">
           <svg viewBox="0 0 24 24"><path d="M13.736 5.852 17.644 2l1.92 1.92-3.852 3.736h5.644v2.736h-5.66l3.868 3.752-1.92 1.92-5.276-5.28-5.276 5.28-1.92-1.92 3.868-3.752H3.38V7.656h5.644L5.172 3.92 7.092 2l3.932 3.852V0h2.712v5.852ZM11.024 24v-8.604h2.712V24h-2.712Z"/></svg>
@@ -471,6 +483,20 @@
       </div>
     </div>
   </footer>
+
+  <div class="confirm-overlay" id="resetConfirm" role="dialog" aria-modal="true" aria-labelledby="resetConfirmTitle" hidden>
+    <div class="confirm-card">
+      <div class="confirm-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v6h6"></path></svg>
+      </div>
+      <h4 id="resetConfirmTitle">بدء تقييم جديد</h4>
+      <p>ستحذف الإجابات والنتيجة المحفوظة على هذا الجهاز.</p>
+      <div class="confirm-actions">
+        <button class="btn btn-secondary" type="button" id="cancelResetBtn">إلغاء</button>
+        <button class="btn btn-reset" type="button" id="confirmResetBtn">نعم، ابدأ من جديد</button>
+      </div>
+    </div>
+  </div>
 
   <div class="preview-overlay" id="previewOverlay" hidden>
     <div class="preview-card">
@@ -491,7 +517,9 @@
   <script>
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v3';
+      const APP_VERSION = '1.0.0';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
+      let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
       const $$ = s => [...document.querySelectorAll(s)];
 
@@ -526,7 +554,7 @@
         1: [
           { id:'activityType', domain:'market', title:'ما النشاط الذي سيعمل في هذا الفرع؟', help:'اختر النشاط الأقرب لما ستفتحه في هذا الموقع.', options:[
             { value:'restaurant', label:'مطعم', note:'احتياج تشغيلي أعلى', risk:42, rationale:'الأنشطة الغذائية الثقيلة تحتاج جاهزية أعلى.' },
-            { value:'cafe', label:'مقهى', note:'مرونة أعلى نسبيا', risk:30, rationale:'المقهى أقل تعقيدا من المطعم في بعض المتطلبات.' },
+            { value:'cafe', label:'مقهى', note:'مرونة أعلى إلى حد ما', risk:30, rationale:'متطلبات المقهى أبسط من المطعم في بعض المتطلبات.' },
             { value:'kiosk', label:'كشك أو وحدة صغيرة', note:'تشغيل أخف', risk:24, rationale:'الوحدة الصغيرة أخف من ناحية الالتزامات.' },
             { value:'retail', label:'تجزئة أو خدمة', note:'متطلبات تشغيل أخف', risk:22, rationale:'متطلبات التشغيل عادة أخف من المطاعم.' }
           ] },
@@ -551,30 +579,30 @@
           ] },
           { id:'courierAccess', domain:'location', title:'هل دخول مندوبي التوصيل والاستلام للموقع سهل وواضح؟', help:'فكر في سهولة الوقوف والوصول واستلام الطلب دون تعطيل الحركة.', when:s=>s.salesModel!=='local', options:[
             { value:'easy', label:'سهل وواضح', risk:10, good:'حركة التوصيل تبدو عملية وواضحة.' },
-            { value:'fair', label:'مقبول لكنه ليس مثاليا', risk:34, action:'جهز نقطة استلام واضحة ومباشرة.' },
-            { value:'difficult', label:'صعب أو يسبب تعطلا', risk:76, bad:'حركة التوصيل قد تتحول إلى عنق زجاجة يومي.', action:'تحديد نقطة الاستلام أو إعادة تقييم الموقع.' },
-            { value:'unknown', label:'غير واضح', risk:55, action:'اختبر الموقع عمليا مع مندوب أو سيارة استلام.' }
+            { value:'fair', label:'مقبول مع بعض الملاحظات', risk:34, action:'جهز نقطة استلام واضحة ومباشرة.' },
+            { value:'difficult', label:'صعب أو يسبب تعطيل الحركة', risk:76, bad:'حركة التوصيل قد تتحول إلى عنق زجاجة يومي.', action:'تحديد نقطة الاستلام أو إعادة تقييم الموقع.' },
+            { value:'unknown', label:'غير واضح', risk:55, action:'اختبر الموقع مع مندوب أو سيارة استلام.' }
           ] },
-          { id:'deliveryCoverage', domain:'market', title:'هل المنطقة مغطاة جيدا بتطبيقات التوصيل؟', help:'تأكد من التغطية الفعلية للمنطقة داخل التطبيقات، وليس فقط سهولة دخول المندوب.', when:s=>s.salesModel!=='local', options:[
+          { id:'deliveryCoverage', domain:'market', title:'هل تغطية المنطقة في تطبيقات التوصيل كافية؟', help:'تأكد من التغطية الفعلية للمنطقة داخل التطبيقات، وليس فقط سهولة دخول المندوب.', when:s=>s.salesModel!=='local', options:[
             { value:'strong', label:'جيدة وواضحة', risk:12, good:'تغطية تطبيقات التوصيل داعمة.' },
             { value:'fair', label:'مقبولة', risk:34 },
             { value:'weak', label:'ضعيفة أو غير مؤكدة', risk:68, bad:'تغطية تطبيقات التوصيل لا تبدو مطمئنة.', action:'تحقق من التغطية الفعلية قبل الالتزام.' }
           ] },
           { id:'visibility', domain:'location', title:'هل واجهة المحل واضحة ويمكن رؤيتها بسهولة؟', options:[
-            { value:'strong', label:'واضحة جدا', risk:12, good:'الواجهة تخدم الجذب والوصول.' },
+            { value:'strong', label:'بارزة وسهلة الرؤية', risk:12, good:'الواجهة تخدم الجذب والوصول.' },
             { value:'fair', label:'مقبولة', risk:30 },
             { value:'weak', label:'ضعيفة أو مخفية', risk:70, bad:'ضعف الواجهة يضعف قرار الفرع.', action:'تحقق من اللوحات واتجاه الحركة قبل الالتزام.' }
           ] },
           { id:'areaActivity', domain:'market', title:'هل المنطقة نشطة (منطقة حيّه) في الأوقات التي سيعمل فيها الفرع؟', options:[
-            { value:'high', label:'نشطة جدا', risk:12, good:'المنطقة نشطة وتدعم الطلب.' },
+            { value:'high', label:'نشطة بدرجة عالية', risk:12, good:'المنطقة نشطة وتدعم الطلب.' },
             { value:'mid', label:'متوسطة', risk:34 },
-            { value:'low', label:'ضعيفة', risk:74, bad:'المنطقة لا تعطي دعما كافيا للطلب.', action:'تحقق ميدانيا على أكثر من فترة زمنية.' },
+            { value:'low', label:'ضعيفة', risk:74, bad:'دعم المنطقة للطلب محدود.', action:'تحقق من نشاط الموقع خلال أكثر من فترة زمنية.' },
             { value:'unknown', label:'غير واضحة', risk:58, action:'التحقق الميداني ضروري قبل التوقيع.' }
           ] },
           { id:'competition', domain:'market', title:'كيف وضع المنافسين المباشرين حول الموقع؟', options:[
             { value:'low', label:'منخفضة', risk:18, good:'المنافسة المباشرة ليست خانقة.' },
             { value:'mid', label:'متوسطة', risk:38 },
-            { value:'high', label:'مرتفعة', risk:72, bad:'المنافسة المباشرة مرتفعة.', action:'تأكد أن لديك سببا واضحا للفوز أو التميز.' }
+            { value:'high', label:'مرتفعة', risk:72, bad:'المنافسة المباشرة مرتفعة.', action:'تأكد من وجود ميزة تنافسية تساعدك على الفوز.' }
           ] },
           { id:'cannibalization', domain:'market', title:'هل هذا الفرع قريب لدرجة أنه قد يسحب من مبيعات فروعك الحالية؟', options:[
             { value:'low', label:'التعارض منخفض', risk:12, good:'تأثير الموقع في مبيعات فروعك الحالية محدود.' },
@@ -585,79 +613,79 @@
           { id:'anchorTenant', domain:'market', title:'إذا كان الموقع داخل مجمع، هل توجد مطاعم أو متاجر تجذب الزوار للمكان؟', help:'وجود جهات جذب قريبة قد يصنع حركة يومية للموقع.', when:s=>s.locationType==='mall', options:[
             { value:'strong', label:'نعم، بدرجة كبيرة', risk:16, good:'وجود جهات جذب أو مستأجرين مكملين عنصر داعم.' },
             { value:'fair', label:'إلى حد ما', risk:36 },
-            { value:'weak', label:'لا، الحركة ضعيفة', risk:70, bad:'المجمع لا يبدو مدعوما بجهات جذب كافية.', action:'أعد النظر في منطق الموقع داخل المجمع.' }
+            { value:'weak', label:'لا، الحركة ضعيفة', risk:70, bad:'جهات الجذب في المجمع محدودة.', action:'أعد النظر في منطق الموقع داخل المجمع.' }
           ] }
         ],
         3: [
-          { id:'activityPermission', domain:'ops', title:'هل تأكدت أن نشاطك مسموح في هذا الموقع تحديدا؟', help:'بعض المواقع لها اشتراطات خاصة، مثل مطابخ الإعاشة أو المواقع داخل محطات الوقود. تأكد أن نشاطك تحديدا مسموح في هذا الموقع قبل التوقيع.', options:[
+          { id:'activityPermission', domain:'ops', title:'هل تأكدت أن نشاطك مسموح في هذا الموقع نفسه؟', help:'بعض المواقع لها اشتراطات خاصة، مثل مطابخ الإعاشة أو المواقع داخل محطات الوقود. تأكد أن النشاط المختار مسموح في هذا الموقع قبل التوقيع.', options:[
             { value:'confirmed', label:'نعم، مؤكد', risk:4, good:'السماح بالنشاط واضح.' },
             { value:'pending', label:'تحت التحقق', risk:60, bad:'السماح بالنشاط لم يتم التأكد منه بعد.', action:'لا تتقدم قبل التحقق الصريح من السماح بالنشاط.' },
-            { value:'blocked', label:'لا، أو توجد مؤشرات منع', risk:100, bad:'السماح بالنشاط يواجه منعا فعليا أو مؤشرات منع.', blocker:'السماح بالنشاط لم يتم التأكد منه أو توجد مؤشرات منع واضحة.', action:'إيقاف التقدم حتى التأكد من السماح بالنشاط.' }
+            { value:'blocked', label:'لا، أو توجد مؤشرات منع', risk:100, bad:'يوجد منع فعلي للنشاط أو مؤشرات على منعه.', blocker:'السماح بالنشاط لم يتم التأكد منه أو توجد مؤشرات منع واضحة.', action:'إيقاف التقدم حتى التأكد من السماح بالنشاط.' }
           ] },
           { id:'rentSense', domain:'deal', title:'هل نسبة الإيجار إلى المبيعات المتوقعة مناسبة؟', help:'احسبها بقسمة الإيجار السنوي على المبيعات السنوية المتوقعة، ثم قارن النتيجة بفروعك المشابهة أو بمنشآت تعمل في النشاط نفسه.', options:[
-            { value:'comfortable', label:'مريح ومنطقي', risk:12, good:'ضغط الإيجار يبدو معقولا.' },
-            { value:'fair', label:'مقبول لكنه يحتاج انضباطا', risk:36 },
+            { value:'comfortable', label:'مريح ومنطقي', risk:12, good:'ضغط الإيجار ضمن النطاق المقبول.' },
+            { value:'fair', label:'مقبول لكنه يحتاج إلى ضبط', risk:36 },
             { value:'high', label:'مرتفع ويضغط على القرار', risk:72, bad:'الإيجار يضغط على القرار.', action:'التفاوض على الإيجار أو إعادة النظر.' },
-            { value:'unknown', label:'لم أقدّر ذلك بعد', risk:58, action:'قدّر عبء الإيجار نوعيا قبل التوقيع.' }
+            { value:'unknown', label:'لم أقدّر ذلك بعد', risk:58, action:'قدّر عبء الإيجار بصورة مبدئية قبل التوقيع.' }
           ] },
           { id:'gracePeriod', domain:'deal', title:'هل فترة السماح كافية للتجهيز والافتتاح قبل بدء الإيجار؟', options:[
             { value:'good', label:'كافية ومريحة', risk:10, good:'فترة السماح داعمة.' },
             { value:'limited', label:'محدودة', risk:40, action:'وسع فترة السماح قدر الإمكان.' },
             { value:'none', label:'لا توجد', risk:76, bad:'غياب فترة السماح يضغط على القرار.', action:'هذه من أولويات التفاوض.' },
-            { value:'unknown', label:'غير واضحة', risk:55, action:'تأكيد فترة السماح كتابيا قبل الالتزام.' }
+            { value:'unknown', label:'غير واضحة', risk:55, action:'وثق فترة السماح.' }
           ] },
           { id:'annualIncrease', domain:'deal', title:'كيف تقيّم تغير قيمة الإيجار خلال مدة العقد؟', help:'راجع قيمة الأجرة لكل سنة في العقد الموثق على منصة إيجار، ثم اختر التقييم الأقرب للزيادة أو ثبات الأجرة.', options:[
-            { value:'reasonable', label:'معقولة', risk:18, good:'شروط الزيادة متزنة نسبيا.' },
-            { value:'noticeable', label:'مرتفعة نسبيا', risk:54, bad:'الزيادة السنوية تحتاج انتباها.', action:'خفف الزيادة أو اجعلها أكثر تدرجا.' },
+            { value:'reasonable', label:'معقولة', risk:18, good:'شروط الزيادة متزنة إلى حد جيد.' },
+            { value:'noticeable', label:'مرتفعة إلى حد ما', risk:54, bad:'الزيادة السنوية تحتاج إلى مراجعة.', action:'تفاوض على خفضها أو تطبيقها بشكل تدريجي.' },
             { value:'aggressive', label:'مرتفعة وتقلقني', risk:82, bad:'الزيادة السنوية تضغط على القرار.', action:'هذه من أهم نقاط التفاوض.' },
-            { value:'unknown', label:'غير واضحة', risk:60, action:'اطلب نص الزيادة كاملا قبل التوقيع.' }
+            { value:'unknown', label:'غير واضحة', risk:60, action:'اطلب النص الكامل لبند الزيادة.' }
           ] },
           { id:'contractFlex', domain:'deal', title:'هل مدة العقد وشروط التخارج منه مناسبة لك؟', options:[
             { value:'balanced', label:'متوازنة ومرنة', risk:18, good:'مدة العقد ومرونة الخروج تبدوان متوازنتين.' },
-            { value:'tight', label:'تحتاج انتباها', risk:46, action:'راجع أثر مدة العقد والتزامات الخروج المبكر.' },
+            { value:'tight', label:'تحتاج إلى مراجعة', risk:46, action:'راجع أثر مدة العقد والتزامات الخروج المبكر.' },
             { value:'rigid', label:'مقيدة وغير مريحة', risk:78, bad:'مدة العقد أو شروط الخروج تضغط على القرار.', action:'لا تتجاوز هذا البند دون تفاوض واضح.' },
             { value:'unknown', label:'غير واضحة', risk:58, action:'تأكيد مدة الالتزام وشروط الخروج قبل التوقيع.' }
           ] },
-          { id:'infraReadiness', domain:'ops', title:'هل الموقع جاهز فنيا للكهرباء والتهوية والتمديدات الأساسية؟', help:'تحقق من كفاية الأحمال الكهربائية، وجاهزية نظام التهوية، وتوفر تمديدات المياه والصرف والغاز بما يناسب نشاط الفرع.', options:[
+          { id:'infraReadiness', domain:'ops', title:'هل الموقع جاهز من الناحية الفنية للكهرباء والتهوية والتمديدات الأساسية؟', help:'تحقق من كفاية الأحمال الكهربائية، وجاهزية نظام التهوية، وتوفر تمديدات المياه والصرف والغاز بما يناسب نشاط الفرع.', options:[
             { value:'ready', label:'جاهزة أو قريبة من الجاهزية', risk:10, good:'البنية الأساسية مطمئنة.' },
             { value:'minor', label:'تحتاج تعديلات محدودة', risk:36 },
-            { value:'major', label:'تحتاج أعمالا جوهرية', risk:88, bad:'الجاهزية التشغيلية ضعيفة.', blocker:'البنية الأساسية تحتاج أعمالا جوهرية قد تغيّر قرار الفرع.', action:'لا تتجاوز هذا الملف دون تقدير واضح للعبء.' },
+            { value:'major', label:'تحتاج إلى أعمال وتشطيبات جوهرية', risk:88, bad:'الجاهزية التشغيلية ضعيفة.', blocker:'البنية الأساسية تحتاج إلى أعمال وتشطيبات جوهرية قد تغيّر قرار الفرع.', action:'لا تتجاوز هذا الملف دون تقدير واضح للعبء.' },
             { value:'unknown', label:'لم أتحقق منها بعد', risk:62, action:'فحص فني سريع قبل التوقيع ضروري.' }
           ] },
-          { id:'fitoutSupport', domain:'ops', title:'هل توجد في الموقع تجهيزات قابلة للاستخدام تقلل تكلفة ومدة التجهيز؟', help:'قيّم التجهيزات التي يمكن الاستفادة منها فعليا، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.', options:[
+          { id:'fitoutSupport', domain:'ops', title:'هل توجد في الموقع تجهيزات قابلة للاستخدام تقلل تكلفة ومدة التجهيز؟', help:'قيّم التجهيزات الصالحة للاستخدام، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.', options:[
             { value:'good', label:'نعم، بشكل جيد', risk:14, good:'وجود تجهيزات يخفف عبء الافتتاح.' },
-            { value:'partial', label:'جزئيا', risk:34 },
+            { value:'partial', label:'جزء منها', risk:34 },
             { value:'none', label:'لا توجد', risk:58, bad:'لا توجد تجهيزات تخفف عبء الافتتاح.', action:'ضع هذا ضمن ضغط التجهيز والتجهيزات.' },
-            { value:'unknown', label:'غير واضح', risk:48, action:'تأكد مما يمكن الاستفادة منه فعلا.' }
+            { value:'unknown', label:'غير واضح', risk:48, action:'تأكد من التجهيزات القابلة للاستخدام.' }
           ] },
           { id:'downside', domain:'deal', title:'لو كانت المبيعات في البداية أقل من المتوقع، هل يستطيع الفرع الاستمرار؟', options:[
-            { value:'resilient', label:'يبقى متماسكا', risk:12, good:'الفرع يبدو قادرا على تحمل بداية أبطأ.' },
+            { value:'resilient', label:'يحافظ على تماسكه', risk:12, good:'الفرع قادر على تحمل بداية أبطأ.' },
             { value:'manageable', label:'يمكن احتواؤه', risk:34 },
             { value:'fragile', label:'سيتعرض لضغط مالي', risk:74, bad:'هامش الأمان ضعيف.', action:'راجع منطق الصفقة قبل الالتزام.' },
-            { value:'unknown', label:'لم أختبر ذلك', risk:58, action:'اختبر سيناريو متحفظ ذهنيا قبل التوقيع.' }
+            { value:'unknown', label:'لم أختبر ذلك', risk:58, action:'اختبر سيناريو متحفظ قبل التوقيع.' }
           ] }
         ]
       };
 
       const QUESTION_TIPS = {
-        activityType: 'اختر النشاط الذي سيعمل فعليا في هذا الفرع. مثال: مطعم بوجبات كاملة يختلف في احتياجاته عن مقهى أو كشك صغير.',
+        activityType: 'اختر النشاط المقرر تشغيله في هذا الفرع. مثال: مطعم بوجبات كاملة يختلف في احتياجاته عن مقهى أو كشك صغير.',
         salesModel: 'فكر في مصدر أغلب الطلبات بعد الافتتاح: زبائن يجلسون في الفرع، استلام سريع، أو توصيل. هذا الاختيار يغير أهمية المواقف وحركة المندوبين.',
         locationType: 'اختر وصف الموقع نفسه، وليس الحي فقط. مثال: محل على شارع مفتوح يختلف عن محل داخل مجمع تجاري أو محطة وقود.',
         parking: 'اختبر المواقف في وقت الذروة الفعلي، وليس وقت الزيارة الهادئ. راقب سهولة الدخول والخروج ومدة البحث عن موقف.',
-        courierAccess: 'جرّب مسار مندوب التوصيل من الوصول حتى استلام الطلب. الزحام أو عدم وجود نقطة استلام قد يسبب تأخرا يوميا.',
+        courierAccess: 'جرّب مسار مندوب التوصيل من الوصول حتى استلام الطلب. الزحام أو عدم وجود نقطة استلام قد يسبب تأخير الطلبات باستمرار.',
         deliveryCoverage: 'افتح تطبيقات التوصيل من الموقع نفسه وتأكد من نطاق التغطية والطلب المتوقع، فدخول المندوب للموقع وحده لا يكفي.',
         visibility: 'شاهد الموقع من اتجاه حركة السيارات ومن مسافة مناسبة. تأكد أن الواجهة واللوحة يمكن ملاحظتهما قبل تجاوز المدخل.',
-        areaActivity: 'زر الموقع في أوقات تشغيل الفرع المتوقعة، خصوصا أوقات الذروة وأيام الأسبوع المختلفة. مثال: موقع مزدحم صباحا قد يكون هادئا وقت العشاء.',
-        competition: 'احصر المنافسين الذين يقدمون العرض نفسه حول الموقع، ثم راقب الإقبال والأسعار ونقاط تميزهم. كثرة المنافسين قد تعني طلبا قويا أو تشبعا يحتاج تميزا واضحا.',
-        cannibalization: 'قارن نطاق خدمة الموقع الجديد بفروعك الحالية ومصادر طلباتها. مثال: قرب الفرعين قد ينقل المبيعات القائمة بدلا من إضافة مبيعات جديدة.',
+        areaActivity: 'زر الموقع في أوقات تشغيل الفرع المتوقعة، مع التركيز على أوقات الذروة وأيام الأسبوع المختلفة. مثال: قد يزدحم الموقع في الصباح ويهدأ وقت العشاء.',
+        competition: 'احصر المنافسين الذين يقدمون العرض نفسه حول الموقع، ثم راقب الإقبال والأسعار ونقاط تميزهم. كثرة المنافسين قد تعني قوة في الطلب أو تشبع في السوق يتطلب ميزة تنافسية.',
+        cannibalization: 'قارن نطاق خدمة الموقع الجديد بفروعك الحالية ومصادر طلباتها. مثال: قرب الفرعين قد ينقل المبيعات القائمة عوض إضافة مبيعات جديدة.',
         anchorTenant: 'تحقق من وجود جهات جذب فعلية ومستقرة داخل المجمع، مثل متجر رئيسي أو خدمات يومية، وراقب هل تصنع حركة في أوقات عمل فرعك.',
-        activityPermission: 'بعض المواقع لها اشتراطات خاصة، مثل مطابخ الإعاشة أو المواقع داخل محطات الوقود. تأكد أن نشاطك تحديدا مسموح في هذا الموقع، وليس فقط أن العقار تجاري.',
+        activityPermission: 'بعض المواقع لها اشتراطات خاصة، مثل مطابخ الإعاشة أو المواقع داخل محطات الوقود. تأكد من السماح بالنشاط المختار داخل الموقع، وليس فقط أن العقار تجاري.',
         rentSense: 'احسبها بقسمة الإيجار السنوي على المبيعات السنوية المتوقعة، ثم قارن النتيجة بفروعك المشابهة أو بمنشآت تعمل في النشاط نفسه.',
         gracePeriod: 'فترة السماح هي المدة التي تجهز فيها الفرع قبل بدء الإيجار أو كامل الالتزامات. تأكد أنها تناسب حجم التجهيزات والتراخيص.',
         annualIncrease: 'راجع قيمة الأجرة لكل سنة في العقد الموثق على منصة إيجار، ثم اختر التقييم الأقرب للزيادة أو ثبات الأجرة.',
-        contractFlex: 'راجع مدة الالتزام، التجديد، شروط التخارج المبكر، والغرامات. العقد الطويل قد يكون جيدا إذا كانت شروطه مرنة.',
+        contractFlex: 'راجع مدة الالتزام، التجديد، شروط التخارج المبكر، والغرامات. قد ينجح العقد الطويل عندما تكون شروطه مرنة.',
         infraReadiness: 'تحقق من كفاية الأحمال الكهربائية، وجاهزية نظام التهوية، وتوفر تمديدات المياه والصرف والغاز بما يناسب نشاط الفرع.',
-        fitoutSupport: 'قيّم التجهيزات التي يمكن الاستفادة منها فعليا، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.',
+        fitoutSupport: 'قيّم التجهيزات الصالحة للاستخدام، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.',
         downside: 'تخيل أن المبيعات في أول الأشهر أقل من الخطة. هل يستطيع الفرع تحمل الإيجار والرواتب والتشغيل حتى يتحسن الأداء؟'
       };
 
@@ -754,7 +782,7 @@
       }
 
       function nextStep() {
-        if (!stepValid(state.step)) return toast('أكمل جميع الأسئلة الظاهرة أولا.');
+        if (!stepValid(state.step)) return toast('أكمل جميع الأسئلة الظاهرة قبل المتابعة.');
         if (state.step < state.totalSteps) {
           state.step += 1;
           saveState();
@@ -810,7 +838,7 @@
         if (blockers.length) score = Math.max(score, 88);
         score = clamp(score, 0, 100);
 
-        let band = 'good', bandTitle = 'خطر منخفض', decision = 'فرصة واعدة', priority = 'استكمال التحقق المعتاد', summary = 'الفرع يبدو مقبولا مبدئيا مع بقاء التحقق المعتاد قبل توقيع العقد.';
+        let band = 'good', bandTitle = 'خطر منخفض', decision = 'فرصة واعدة', priority = 'استكمال التحقق المعتاد', summary = 'تشير القراءة الأولية إلى قبول الفرع مع بقاء التحقق المعتاد قبل توقيع العقد.';
         let recommendations = [
           'ثبّت أهم الشروط كتابة قبل التوقيع.',
           'أكمل الزيارة الميدانية النهائية في وقت الذروة.',
@@ -819,12 +847,12 @@
         if (score >= 26 && score <= 55) {
           band = 'mid'; bandTitle = 'خطر متوسط'; decision = 'فرصة مشروطة'; priority = 'مراجعة وتفاوض'; summary = 'القرار قابل للدراسة، لكن توجد عناصر تحتاج معالجة أو تفاوض قبل الالتزام.';
           recommendations = [
-            'جمّد التوقيع مؤقتا حتى تتضح أعلى نقاط الضغط.',
-            'فاوِض على البنود الأكثر تأثيرا أولا.',
+            'أوقف التوقيع حتى تتضح أعلى نقاط الضغط.',
+            'ابدأ التفاوض على البنود المؤثرة في القرار.',
             'أعد التقييم بعد معالجة النقاط الجوهرية.'
           ];
         } else if (score >= 56) {
-          band = 'bad'; bandTitle = blockers.length ? 'خطر مرتفع جدا' : 'خطر مرتفع'; decision = blockers.length ? 'صرف النظر أو إيقاف التقدم' : 'صفقة خطرة'; priority = blockers.length ? 'منع قبل التوقيع' : 'معالجة جوهرية'; summary = blockers.length ? 'توجد موانع أو مخاطر جوهرية لا تسمح بالتقدم المريح قبل المعالجة.' : 'المعطيات الحالية تشير إلى ضغط مرتفع على القرار، ويصعب التوصية بالتقدم دون تعديل جوهري.';
+          band = 'bad'; bandTitle = blockers.length ? 'خطر شديد' : 'خطر مرتفع'; decision = blockers.length ? 'صرف النظر أو إيقاف التقدم' : 'صفقة خطرة'; priority = blockers.length ? 'منع قبل التوقيع' : 'معالجة جوهرية'; summary = blockers.length ? 'توجد موانع أو مخاطر جوهرية لا تسمح بالتقدم المريح قبل المعالجة.' : 'المعطيات الحالية تشير إلى ضغط مرتفع على القرار، ويصعب التوصية بالتقدم دون تعديل جوهري.';
           recommendations = [
             'لا تتقدم قبل معالجة أعلى مصادر الخطر.',
             'إذا تعذر تخفيف العناصر الجوهرية فالبحث عن بديل أفضل.',
@@ -878,7 +906,7 @@
         setAxis('Market', r.axisScores.market);
         fillList('#goodList', r.strengths.map(x=>x.text), 'لم تظهر إشارات مطمئنة بارزة بما يكفي.');
         fillList('#badList', r.risks.map(x=>x.text), 'لم تظهر مخاطر كبيرة تتجاوز المعتاد.');
-        fillList('#actionList', r.actions.map(x=>x.text), 'ثبّت الشروط الأساسية كتابيا قبل التوقيع.');
+        fillList('#actionList', r.actions.map(x=>x.text), 'وثق الشروط الأساسية قبل التوقيع.');
         fillList('#recommendList', r.recommendations, 'أكمل التحقق المعتاد قبل التوقيع.');
         const box = $('#blockersBox');
         box.classList.toggle('show', r.blockers.length > 0);
@@ -929,8 +957,23 @@
         document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
       }
 
+      function requestReset(e) {
+        resetReturnFocus = e?.currentTarget || document.activeElement;
+        $('#resetConfirm').hidden = false;
+        document.body.style.overflow = 'hidden';
+        $('#cancelResetBtn').focus();
+      }
+
+      function closeResetConfirm() {
+        $('#resetConfirm').hidden = true;
+        document.body.style.overflow = '';
+        if (resetReturnFocus?.focus) resetReturnFocus.focus();
+        resetReturnFocus = null;
+      }
+
       function resetAll() {
-        if (!confirm('سيتم مسح الإجابات الحالية والبدء من جديد. هل تريد المتابعة؟')) return;
+        $('#resetConfirm').hidden = true;
+        document.body.style.overflow = '';
         state.step = 1; state.branchName = ''; state.answers = {}; state.result = null; state.preparedImage = null;
         localStorage.removeItem(STORAGE_KEY);
         $('#results').classList.remove('show');
@@ -1020,6 +1063,19 @@
         ctx.restore();
       }
 
+      function drawSnapchatIcon(ctx, centerX, centerY, size) {
+        const path = new Path2D('M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z');
+        const glyphSize = size * .72;
+        ctx.save();
+        ctx.fillStyle = '#fffc00';
+        roundRect(ctx, centerX-size/2, centerY-size/2, size, size, size*.26, true, false);
+        ctx.translate(centerX-glyphSize/2, centerY-glyphSize/2);
+        ctx.scale(glyphSize/24, glyphSize/24);
+        ctx.fillStyle = '#0a0e1a';
+        ctx.fill(path);
+        ctx.restore();
+      }
+
       function drawPanelIcon(ctx, type, centerX, centerY, color, background) {
         ctx.save();
         ctx.fillStyle = background;
@@ -1048,7 +1104,7 @@
       }
 
       async function buildResultImage() {
-        if (!state.result) return toast('اعرض النتيجة أولا.');
+        if (!state.result) return toast('اعرض النتيجة قبل المتابعة.');
         const btn = $('#previewBtn'); const old = btn.textContent; btn.disabled = true; btn.textContent = 'جارٍ تجهيز الصورة...';
         try {
           if (document.fonts) {
@@ -1059,7 +1115,7 @@
           const canvas = document.createElement('canvas');
           const exportScale = 2;
           canvas.width = 1080 * exportScale;
-          canvas.height = 1350 * exportScale;
+          canvas.height = 1120 * exportScale;
           const ctx = canvas.getContext('2d');
           ctx.scale(exportScale, exportScale);
           ctx.imageSmoothingEnabled = true;
@@ -1067,10 +1123,10 @@
           ctx.direction = 'rtl';
           ctx.textAlign = 'right';
           ctx.textBaseline = 'alphabetic';
-          ctx.fillStyle = '#f7f5ef'; ctx.fillRect(0,0,1080,1350);
+          ctx.fillStyle = '#f7f5ef'; ctx.fillRect(0,0,1080,1120);
           ctx.fillStyle = 'rgba(13,67,141,.055)'; ctx.beginPath(); ctx.arc(980, 120, 250, 0, Math.PI*2); ctx.fill();
-          ctx.fillStyle = 'rgba(201,168,76,.065)'; ctx.beginPath(); ctx.arc(120, 1210, 230, 0, Math.PI*2); ctx.fill();
-          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1250, 30, true, true);
+          ctx.fillStyle = 'rgba(201,168,76,.065)'; ctx.beginPath(); ctx.arc(120, 1000, 230, 0, Math.PI*2); ctx.fill();
+          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1020, 30, true, true);
           drawContainImage(ctx, logo, 770, 66, 212, 136);
           ctx.fillStyle = '#0a0e1a'; ctx.font = '600 30px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير قرار الفرع', 712, 108);
           const branchName = state.branchName.trim();
@@ -1098,32 +1154,11 @@
           ctx.fillStyle = '#6b7486'; ctx.font = '400 18px "IBM Plex Sans Arabic"';
           ctx.fillText('منخفض', 500, 458); ctx.fillText('متوسط', 332, 458); ctx.fillText('مرتفع', 142, 458);
 
-          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, 488, 912, 246, 26, true, true);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '700 28px "IBM Plex Sans Arabic"'; ctx.fillText('درجة الخطر حسب محاور التحليل', 944, 523);
-          ctx.fillStyle = '#6b7486'; ctx.font = '500 15px "IBM Plex Sans Arabic"'; ctx.fillText('4 محاور مستقلة • من 100 • الأقل أفضل • لا تُجمع الدرجات', 944, 549);
-          const axes = [
-            ['الموقع والوصول • وزن 30%', state.result.axisScores.location],
-            ['الصفقة والمرونة • وزن 30%', state.result.axisScores.deal],
-            ['الجاهزية التشغيلية • وزن 25%', state.result.axisScores.ops],
-            ['السوق والتعارض • وزن 15%', state.result.axisScores.market]
-          ];
-          let ay = 584;
-          axes.forEach(([label, value]) => {
-            const level = value <= 25 ? 'منخفض' : value <= 55 ? 'متوسط' : 'مرتفع';
-            const color = value <= 25 ? '#1f8b5f' : value <= 55 ? '#d09a21' : '#c54747';
-            ctx.fillStyle = '#0a0e1a'; ctx.font = '600 18px "IBM Plex Sans Arabic"'; ctx.fillText(label, 920, ay);
-            ctx.direction = 'rtl'; ctx.textAlign = 'left'; ctx.fillStyle = color; ctx.font = '600 16px "IBM Plex Sans Arabic"'; ctx.fillText(`${value} من 100 • ${level}`, 146, ay);
-            ctx.direction = 'rtl'; ctx.textAlign = 'right';
-            ctx.fillStyle = '#edf1f6'; roundRect(ctx, 146, ay+10, 778, 10, 5, true, false);
-            ctx.fillStyle = color; roundRect(ctx, 146, ay+10, 778*(value/100), 10, 5, true, false);
-            ay += 40;
-          });
-
           const panels = [
-            { x:84, y:750, type:'good', color:'#1f8b5f', bg:'#eef8f2', title:'أبرز الإشارات المطمئنة', items:(state.result.strengths.length?state.result.strengths.map(x=>x.text):['لا توجد إشارات مطمئنة بارزة بما يكفي.']).slice(0,2) },
-            { x:564, y:750, type:'bad', color:'#c54747', bg:'#fff2f2', title:'أبرز مصادر الخطر', items:(state.result.risks.length?state.result.risks.map(x=>x.text):['لم تظهر مخاطر كبيرة تتجاوز المعتاد.']).slice(0,2) },
-            { x:84, y:976, type:'action', color:'#9f7300', bg:'#fff8e8', title:'أولويات التفاوض أو التحقق', items:(state.result.actions.length?state.result.actions.map(x=>x.text):['ثبّت الشروط الأساسية كتابيا قبل التوقيع.']).slice(0,2) },
-            { x:564, y:976, type:'recommend', color:'#0d438d', bg:'#eef4ff', title:'التوصية التنفيذية', items:state.result.recommendations.slice(0,2) }
+            { x:84, y:500, type:'good', color:'#1f8b5f', bg:'#eef8f2', title:'أبرز الإشارات المطمئنة', items:(state.result.strengths.length?state.result.strengths.map(x=>x.text):['لا توجد إشارات مطمئنة بارزة بما يكفي.']).slice(0,2) },
+            { x:564, y:500, type:'bad', color:'#c54747', bg:'#fff2f2', title:'أبرز مصادر الخطر', items:(state.result.risks.length?state.result.risks.map(x=>x.text):['لم تظهر مخاطر كبيرة تتجاوز المعتاد.']).slice(0,2) },
+            { x:84, y:726, type:'action', color:'#9f7300', bg:'#fff8e8', title:'أولويات التفاوض أو التحقق', items:(state.result.actions.length?state.result.actions.map(x=>x.text):['وثق الشروط الأساسية قبل التوقيع.']).slice(0,2) },
+            { x:564, y:726, type:'recommend', color:'#0d438d', bg:'#eef4ff', title:'التوصية التنفيذية', items:state.result.recommendations.slice(0,2) }
           ];
           panels.forEach(p => {
             const panelWidth = 432;
@@ -1138,23 +1173,26 @@
           });
 
           if (state.result.blockers.length) {
-            ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, 1202, 912, 52, 16, true, false);
-            wrapTextLimited(ctx, 'يلزم معالجة: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • '), 968, 1235, 846, 24, '600 19px "IBM Plex Sans Arabic"', '#9a2f2f', 1);
+            ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, 952, 912, 52, 16, true, false);
+            wrapTextLimited(ctx, 'يلزم معالجة: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • '), 968, 985, 846, 24, '600 19px "IBM Plex Sans Arabic"', '#9a2f2f', 1);
           } else {
-            ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, 1202, 912, 52, 16, true, false);
-            ctx.fillStyle = '#1f8b5f'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText('لا تظهر موانع حاسمة مؤكدة في المعطيات الحالية.', 962, 1235);
+            ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, 952, 912, 52, 16, true, false);
+            ctx.fillStyle = '#1f8b5f'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText('لا تظهر موانع حاسمة مؤكدة في المعطيات الحالية.', 962, 985);
           }
 
+          ctx.fillStyle = '#8b93a3';
+          ctx.font = '500 10px "IBM Plex Sans Arabic"';
+          ctx.fillText(`الإصدار ${APP_VERSION}`, 968, 1024);
           ctx.direction = 'ltr';
           ctx.textAlign = 'left';
           ctx.fillStyle = '#0d438d';
           ctx.font = '600 16px "IBM Plex Sans Arabic"';
-          drawContainImage(ctx, sign, 84, 1260, 124, 35);
-          drawSvgIcon(ctx, 'M12 2.1c-3.1 0-5.2 2.5-5.2 5.7 0 .8.1 1.7.2 2.4-.4.2-1 .3-1.5.1-.8-.3-1.3 1-.5 1.5.4.3 1.1.5 1.5.7-.5 1.2-1.5 2.3-3.1 3-.6.3-.5 1.2.1 1.4 1 .4 2 .5 2.8.7.3.1.5.7.8 1.2.2.3.6.4 1 .3.8-.2 1.6-.5 2.9-.5s2.1.3 2.9.5c.4.1.8 0 1-.3.3-.5.5-1.1.8-1.2.8-.2 1.8-.3 2.8-.7.6-.2.7-1.1.1-1.4-1.6-.7-2.6-1.8-3.1-3 .4-.2 1.1-.4 1.5-.7.8-.5.3-1.8-.5-1.5-.5.2-1.1.1-1.5-.1.1-.7.2-1.6.2-2.4 0-3.2-2.1-5.7-5.2-5.7Z', 238, 1280, 18);
-          drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 274, 1280, 18);
-          drawSvgIcon(ctx, 'M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z', 310, 1280, 18);
-          ctx.fillText('@almohammdin', 338, 1286);
-          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 568, 1286);
+          drawContainImage(ctx, sign, 84, 1018, 124, 35);
+          drawSnapchatIcon(ctx, 238, 1038, 22);
+          drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 274, 1038, 18);
+          drawSvgIcon(ctx, 'M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z', 310, 1038, 18);
+          ctx.fillText('@almohammdin', 338, 1044);
+          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 568, 1044);
           ctx.direction = 'rtl';
           ctx.textAlign = 'right';
 
@@ -1174,11 +1212,11 @@
 
       function closePreview() { $('#previewOverlay').hidden = true; document.body.style.overflow = ''; }
       function downloadPrepared() {
-        if (!state.preparedImage) return toast('جهّز الصورة أولا.');
+        if (!state.preparedImage) return toast('جهز الصورة قبل التنزيل.');
         const a = document.createElement('a'); a.href = state.preparedImage.url; a.download = state.preparedImage.file.name; document.body.appendChild(a); a.click(); a.remove();
       }
       async function sharePrepared() {
-        if (!state.preparedImage) return toast('جهّز الصورة أولا.');
+        if (!state.preparedImage) return toast('جهز الصورة قبل المشاركة.');
         if (navigator.share && navigator.canShare && navigator.canShare({ files:[state.preparedImage.file] })) {
           try { await navigator.share({ files:[state.preparedImage.file], title:'نتيجة أداة توسّع', text:'نتيجة تقييم قرار الفرع' }); return; } catch(e) { if (e.name !== 'AbortError') console.error(e); }
         }
@@ -1203,24 +1241,32 @@
       $('#prevBtn').addEventListener('click', prevStep);
       $('#previewBtn').addEventListener('click', buildResultImage);
       $('#editAnswersBtn').addEventListener('click', editAnswers);
-      $('#resetBtn').addEventListener('click', resetAll);
-      $('#resetTopBtn').addEventListener('click', resetAll);
-      $('#resetInlineBtn').addEventListener('click', resetAll);
+      $('#resetBtn').addEventListener('click', requestReset);
+      $('#resetTopBtn').addEventListener('click', requestReset);
+      $('#resetInlineBtn').addEventListener('click', requestReset);
+      $('#cancelResetBtn').addEventListener('click', closeResetConfirm);
+      $('#confirmResetBtn').addEventListener('click', resetAll);
       $('#advancedModeBtn').addEventListener('click', e => {
         const card = e.currentTarget;
         card.classList.remove('is-tapped');
         void card.offsetWidth;
         card.classList.add('is-tapped');
         window.setTimeout(() => card.classList.remove('is-tapped'), 650);
-        toast('النسخة المتقدمة قريبا.');
+        toast('النسخة المتقدمة قيد التطوير.');
       });
       $('#branchName').addEventListener('input', e => { state.branchName = e.target.value.slice(0, 70); saveState(); });
       $('#closePreviewBtn').addEventListener('click', closePreview);
       $('#downloadBtn').addEventListener('click', downloadPrepared);
       $('#shareBtn').addEventListener('click', sharePrepared);
       $('#previewOverlay').addEventListener('click', e => { if (e.target.id === 'previewOverlay') closePreview(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#previewOverlay').hidden) closePreview(); });
+      $('#resetConfirm').addEventListener('click', e => { if (e.target.id === 'resetConfirm') closeResetConfirm(); });
+      document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+        if (!$('#resetConfirm').hidden) closeResetConfirm();
+        else if (!$('#previewOverlay').hidden) closePreview();
+      });
 
+      $('#footerVersion').textContent = `الإصدار ${APP_VERSION}`;
       restoreState();
       renderStep();
       if (state.result) renderResult();
