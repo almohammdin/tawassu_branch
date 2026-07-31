@@ -97,7 +97,7 @@
     .hero { padding: 28px 0 18px; }
     .hero-card { position: relative; isolation: isolate; overflow: hidden; background: rgba(255,255,255,.95); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 30px; padding: 26px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: center; }
     .card-watermark { position: absolute; z-index: 0; width: 520px; height: auto; pointer-events: none; user-select: none; opacity: .075; }
-    .card-watermark.hero-mark { inset-inline-start: -92px; bottom: -106px; transform: rotate(-5deg); }
+    .card-watermark.hero-mark { width: 480px; inset-inline-start: auto; inset-inline-end: -185px; bottom: -155px; transform: rotate(8deg); opacity: .045; }
     .card-watermark.tool-mark { width: 440px; inset-inline-end: -92px; top: -96px; transform: rotate(7deg); opacity: .062; }
     .hero-card > :not(.card-watermark), .tool-head > :not(.card-watermark) { position: relative; z-index: 1; }
     .hero-logo { background: linear-gradient(180deg, rgba(13,67,141,.03), rgba(23,191,208,.03)); border: 1px solid #eef2f7; border-radius: 24px; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 250px; }
@@ -311,7 +311,7 @@
       .site-watermark { width: 430px; height: 308px; opacity: .025; }
       .site-watermark.top { top: 150px; inset-inline-end: -135px; }
       .site-watermark.bottom { width: 370px; height: 264px; inset-inline-start: -105px; opacity: .02; }
-      .card-watermark.hero-mark { width: 390px; inset-inline-start: -116px; bottom: -76px; opacity: .052; }
+      .card-watermark.hero-mark { width: 360px; inset-inline-start: auto; inset-inline-end: -145px; bottom: -118px; opacity: .035; }
       .card-watermark.tool-mark { width: 330px; inset-inline-end: -112px; top: -68px; opacity: .043; }
       .header-inner { flex-direction: column; align-items: stretch; }
       .brand img { width: 118px; height: 68px; }
@@ -583,7 +583,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.2.1</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.2.2</span>
         </div>
       </div>
       <div class="footer-social">
@@ -638,7 +638,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v4';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.2.1';
+      const APP_VERSION = '1.2.2';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -1458,8 +1458,8 @@
           ctx.fillStyle = '#c9a84c'; roundRect(ctx, 82, 75, 108, 2, 1, true, false);
           ctx.fillStyle = '#0d438d'; roundRect(ctx, 822, 67, 176, 4, 2, true, false);
           ctx.fillStyle = '#c9a84c'; roundRect(ctx, 890, 75, 108, 2, 1, true, false);
-          drawLocationMotif(ctx, 26, 56, 1.45, .072);
-          drawLocationMotif(ctx, 1040, canvasHeight - 410, 1.08, .034, true);
+          drawLocationMotif(ctx, 26, 56, 1.45, .036);
+          drawLocationMotif(ctx, 1040, canvasHeight - 410, 1.08, .02, true);
 
           drawContainImage(ctx, logo, 394, 64, 292, 134);
           ctx.textAlign = 'center';
