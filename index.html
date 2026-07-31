@@ -123,8 +123,13 @@
     .question-title-row h3 { flex: 1; }
     .tip-wrap { position: relative; flex: 0 0 auto; }
     .tip-btn { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid rgba(201,168,76,.45); border-radius: 50%; background: #fffaf0; color: #806419; cursor: help; font-size: .78rem; font-weight: 700; }
-    .tip-box { position: absolute; z-index: 50; top: calc(100% + 8px); inset-inline-end: 0; width: min(410px, calc(100vw - 76px)); padding: 12px 13px; border: 1px solid rgba(201,168,76,.38); border-radius: 12px; background: #fffdf7; color: #596675; box-shadow: 0 14px 34px rgba(10,14,26,.14); font-size: .78rem; line-height: 1.75; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: .16s ease; }
+    .tip-box { position: absolute; z-index: 50; top: calc(100% + 8px); inset-inline-end: 0; width: min(560px, calc(100vw - 76px)); max-height: min(68vh, 560px); overflow-y: auto; padding: 14px 15px; border: 1px solid rgba(201,168,76,.38); border-radius: 12px; background: #fffdf7; color: #596675; box-shadow: 0 14px 34px rgba(10,14,26,.14); font-size: .78rem; line-height: 1.8; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: .16s ease; }
     .tip-wrap:hover .tip-box, .tip-wrap.open .tip-box, .tip-btn:focus + .tip-box { opacity: 1; visibility: visible; transform: translateY(0); }
+    .tip-paragraph { display: block; }
+    .tip-paragraph + .tip-paragraph { margin-top: 9px; }
+    .tip-reference { display: block; margin-top: 11px; padding-top: 10px; border-top: 1px solid rgba(201,168,76,.25); color: #7a7567; font-size: .7rem; line-height: 1.8; }
+    .tip-reference + .tip-reference { margin-top: 7px; padding-top: 0; border-top: 0; }
+    .tip-reference a { color: var(--navy); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(13,67,141,.28); text-underline-offset: 3px; }
 
     .progress-stats { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-weight: 700; }
     .progress-stats b { color: var(--gold); font-size: 1.05rem; }
@@ -133,6 +138,22 @@
     .bar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--gold) 0%, #d9bb73 30%, var(--navy) 100%); transition: width .25s ease; }
 
     .questions-wrap { padding: 20px 24px 12px; }
+    .pre-assessment-guide { position: relative; margin-bottom: 20px; padding: 20px; overflow: hidden; border: 1px solid rgba(13,67,141,.18); border-radius: 20px; background: linear-gradient(135deg, rgba(13,67,141,.045), rgba(23,191,208,.035) 62%, rgba(201,168,76,.07)); }
+    .pre-assessment-guide[hidden] { display: none; }
+    .guide-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .guide-icon { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 14px; background: rgba(13,67,141,.09); color: var(--navy); }
+    .guide-icon svg { width: 23px; height: 23px; }
+    .guide-heading h3 { margin: 0; color: var(--ink); font-size: 1.12rem; }
+    .guide-copy { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.9; }
+    .guide-copy + .guide-copy { margin-top: 7px; }
+    .guide-reference-title { margin: 17px 0 10px; color: var(--ink-soft); font-size: .92rem; font-weight: 700; }
+    .guide-references { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .guide-reference { min-width: 0; padding: 14px; border: 1px solid rgba(13,67,141,.12); border-radius: 15px; background: rgba(255,255,255,.86); }
+    .guide-reference a { display: inline-flex; align-items: center; gap: 6px; color: var(--navy); font-size: .9rem; font-weight: 700; line-height: 1.55; text-decoration: underline; text-decoration-color: rgba(13,67,141,.24); text-underline-offset: 4px; }
+    .guide-reference a svg { width: 14px; height: 14px; flex: 0 0 auto; }
+    .guide-reference ul { margin: 9px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: .76rem; line-height: 1.75; }
+    .guide-reference li + li { margin-top: 2px; }
+    .guide-reference b { color: var(--ink-soft); font-weight: 600; }
     .section-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding: 16px 18px; border: 1px solid rgba(13,67,141,.14); border-radius: 18px; background: linear-gradient(135deg, rgba(13,67,141,.045), rgba(23,191,208,.035)); }
     .section-icon { width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center; flex: 0 0 auto; color: #fff; background: linear-gradient(135deg, var(--navy), #116a91); box-shadow: 0 10px 20px rgba(13,67,141,.16); }
     .section-icon svg { width: 25px; height: 25px; }
@@ -264,6 +285,7 @@
 
     @media (max-width: 980px) {
       .hero-card, .result-grid, .lists, .mode-bar { grid-template-columns: 1fr; }
+      .guide-references { grid-template-columns: 1fr; }
       .facts { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 760px) {
@@ -357,6 +379,44 @@
         </div>
 
         <div class="questions-wrap">
+          <aside class="pre-assessment-guide" id="preAssessmentGuide" aria-labelledby="preAssessmentGuideTitle">
+            <div class="guide-heading">
+              <span class="guide-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"></path><path d="M4 5.5v16"></path><path d="M8 7h8"></path><path d="M8 11h7"></path></svg>
+              </span>
+              <h3 id="preAssessmentGuideTitle">معلومات تساعدك قبل التقييم</h3>
+            </div>
+            <p class="guide-copy">تختلف المتطلبات البلدية بحسب كود النشاط ونوع الموقع ورخصة البناء. تتضمن التوضيحات داخل الأسئلة أمثلة مختارة من الوثائق والأدلة المنشورة من وزارة البلديات والإسكان؛ لمساعدتك على اكتشاف المتطلبات التي تحتاج إلى تحقق قبل توقيع العقد.</p>
+            <p class="guide-copy">اعتمد في التحقق على اسم النشاط وكوده التفصيلي في منصة بلدي، وراجع رخصة البناء، واستعن بمكتب هندسي عند تقييم الجاهزية الفنية للموقع.</p>
+            <div class="guide-reference-title">المراجع المستخدمة في الأداة</div>
+            <div class="guide-references">
+              <article class="guide-reference">
+                <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"></path><path d="m10 14 11-11"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
+                <ul>
+                  <li><b>نوع الوثيقة:</b> اشتراطات</li>
+                  <li><b>الجهة المصدرة:</b> وزارة البلديات والإسكان</li>
+                  <li><b>تاريخ نشر المستند:</b> 11/11/2025</li>
+                  <li><b>نطاق الوثيقة:</b> المطاعم مع الخدمة، والمطاعم بدون خدمة، والمقاهي، والمطابخ السحابية، والأكشاك الغذائية</li>
+                </ul>
+              </article>
+              <article class="guide-reference">
+                <a href="https://momah.gov.sa/ar/node/15712" target="_blank" rel="noopener noreferrer">«دليل المداخن للأنشطة التجارية»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"></path><path d="m10 14 11-11"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
+                <ul>
+                  <li><b>نوع الوثيقة:</b> دليل</li>
+                  <li><b>الجهة المصدرة:</b> وزارة البلديات والإسكان</li>
+                  <li><b>تاريخ الإصدار:</b> 23/11/2025</li>
+                  <li><b>الحالة:</b> ساري</li>
+                </ul>
+              </article>
+              <article class="guide-reference">
+                <a href="https://apps.balady.gov.sa/LicenseStandard/Default?sid=7010" target="_blank" rel="noopener noreferrer">«خدمة الاستعلام عن تفاصيل الأنشطة»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"></path><path d="m10 14 11-11"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
+                <ul>
+                  <li><b>الجهة المقدمة:</b> منصة بلدي التابعة لوزارة البلديات والإسكان</li>
+                  <li><b>الغرض:</b> البحث باسم النشاط أو كوده والاطلاع على اشتراطات الموقع والاشتراطات الخاصة المرتبطة بالنشاط</li>
+                </ul>
+              </article>
+            </div>
+          </aside>
           <div class="branch-field" id="branchNameWrap">
             <label for="branchName">
               <span class="branch-label">
@@ -467,7 +527,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.1.0</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.1.1</span>
         </div>
       </div>
       <div class="footer-social">
@@ -522,7 +582,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v4';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.1.0';
+      const APP_VERSION = '1.1.1';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -684,26 +744,26 @@
       };
 
       const QUESTION_TIPS = {
-        activityType: 'اختر النشاط المقرر تشغيله في هذا الفرع. مثال: مطعم بوجبات كاملة يختلف في احتياجاته عن مقهى أو كشك صغير.',
+        activityType: `<span class="tip-paragraph">اختر النشاط المقرر تشغيله في هذا الفرع. تختلف احتياجات المطعم عن المقهى أو الكشك من ناحية المساحة والتجهيزات والخدمات.</span><span class="tip-paragraph">إذا كان النشاط مطعما أو مقهى، تحدد الاشتراطات مساحة لا تقل عن 16 m². أما الكشك الغذائي فتبدأ مساحته من 4 m² داخل المباني والمجمعات والأسواق، ومن 10 m² على الأرض التجارية أو المختلطة. تحقق من انطباق الحد المرتبط بنشاطك وموقعك.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البنود 3.1 و3.3.</span>`,
         salesModel: 'فكر في مصدر أغلب الطلبات بعد الافتتاح: زبائن يجلسون في الفرع، استلام سريع، أو توصيل. خدمة السيارات تُحدد بصورة مستقلة في السؤال التالي.',
         driveThru: 'اختر قناة رئيسية عندما تعتمد نسبة مهمة من الطلبات على خدمة السيارات، واختر قناة مساندة عندما تكون مكملة للمحلي أو الاستلام أو التوصيل.',
-        locationType: 'اختر وصف الموقع نفسه، وليس الحي فقط. مثال: محل على شارع مفتوح يختلف عن محل داخل مجمع تجاري أو محطة وقود.',
+        locationType: `<span class="tip-paragraph">اختر وصف الموقع نفسه، وليس الحي فقط. فالمحل على شارع تجاري مفتوح يختلف عن المحل داخل مجمع أو مركز حي أو وجهة مستقلة.</span><span class="tip-paragraph">عند اختيار كشك داخل مجمع، تحقق من وجود مسافة لا تقل عن 6 m بين الكشك ومدخل أي مبنى أو مكان تجمع، مع توفير ممر مشاة صاف لا يقل عرضه عن 1.8 m.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 3.3.</span>`,
         parking: 'اختبر المواقف في وقت الذروة الفعلي، وليس وقت الزيارة الهادئ. راقب سهولة الدخول والخروج ومدة البحث عن موقف.',
-        driveThruFlow: 'راقب طول المسار وعدد السيارات التي يستوعبها وموقع نقطتي الطلب والاستلام. تأكد أن الطابور لا يغلق المواقف أو يمتد إلى الشارع.',
-        courierAccess: 'جرّب مسار مندوب التوصيل من الوصول حتى استلام الطلب. الزحام أو عدم وجود نقطة استلام قد يسبب تأخير الطلبات باستمرار.',
+        driveThruFlow: `<span class="tip-paragraph">راقب طول المسار وعدد السيارات التي يستوعبها وموقع نقطتي الطلب والاستلام. تأكد أن الطابور يحافظ على انسيابية الشارع والمواقف.</span><span class="tip-paragraph">تجيز اشتراطات المطاعم إضافة خدمة السيارات بشرط أن تكون مضافة في رخصة البناء. راجع الرخصة، ثم قيّم قدرة المسار على استيعاب الذروة.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 5.1.</span>`,
+        courierAccess: `<span class="tip-paragraph">جرّب مسار مندوب التوصيل من الوصول إلى الموقع حتى استلام الطلب. راقب سهولة الوقوف والوصول إلى نقطة الاستلام وتأثير حركة المندوبين في العملاء والمواقف.</span><span class="tip-paragraph">إذا كان النشاط مرخصا كمطبخ سحابي، تخصص منطقة انتظار وتسليم لا تقل مساحتها عن 6 m² للمطبخ المستقل، و24 m² لمجمع المطابخ السحابية، مع مسافة لا تقل عن 90 cm بين المدخل ومنطقة الاستقبال.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 5.1.</span>`,
         deliveryCoverage: 'افتح تطبيقات التوصيل من الموقع نفسه وتأكد من نطاق التغطية والطلب المتوقع، فدخول المندوب للموقع وحده لا يكفي.',
         visibility: 'شاهد الموقع من اتجاه حركة السيارات ومن مسافة مناسبة. تأكد أن الواجهة واللوحة يمكن ملاحظتهما قبل تجاوز المدخل.',
         areaActivity: 'زر الموقع في أوقات تشغيل الفرع المتوقعة، مع التركيز على أوقات الذروة وأيام الأسبوع المختلفة. مثال: قد يزدحم الموقع في الصباح ويهدأ وقت العشاء.',
         competition: 'احصر المنافسين الذين يقدمون العرض نفسه حول الموقع، ثم راقب الإقبال والأسعار ونقاط تميزهم. كثرة المنافسين قد تعني قوة في الطلب أو تشبع في السوق يتطلب ميزة تنافسية.',
         cannibalization: 'قارن نطاق خدمة الموقع الجديد بفروعك الحالية ومصادر طلباتها. مثال: قرب الفرعين قد ينقل المبيعات القائمة عوض إضافة مبيعات جديدة.',
         anchorTenant: 'تحقق من وجود جهات جذب فعلية ومستقرة داخل المجمع، مثل متجر رئيسي أو خدمات يومية، وراقب هل تصنع حركة في أوقات عمل فرعك.',
-        activityPermission: 'بعض المواقع لها اشتراطات خاصة، مثل مطابخ الإعاشة أو المواقع داخل محطات الوقود. تأكد من السماح بالنشاط المختار داخل الموقع، وليس فقط أن العقار تجاري.',
+        activityPermission: `<span class="tip-paragraph">يعتمد التحقق على كود النشاط التفصيلي، وليس المسمى العام وحده. ابحث باسم النشاط أو كوده في منصة بلدي، ثم راجع اشتراطات الموقع والاشتراطات الخاصة المرتبطة به.</span><span class="tip-paragraph">تحقق كذلك من توافق النشاط مع رخصة البناء ومن إدراج خدمة السيارات فيها عند وجودها، قبل توقيع العقد.</span><span class="tip-reference">أداة التحقق: <a href="https://apps.balady.gov.sa/LicenseStandard/Default?sid=7010" target="_blank" rel="noopener noreferrer">«خدمة الاستعلام عن تفاصيل الأنشطة»</a>، منصة بلدي التابعة لوزارة البلديات والإسكان.</span>`,
         rentSense: 'احسبها بقسمة الإيجار السنوي على المبيعات السنوية المتوقعة، ثم قارن النتيجة بفروعك المشابهة أو بمنشآت تعمل في النشاط نفسه.',
         gracePeriod: 'فترة السماح هي المدة التي تجهز فيها الفرع قبل بدء الإيجار أو كامل الالتزامات. تأكد أنها تناسب حجم التجهيزات والتراخيص.',
         annualIncrease: 'راجع قيمة الأجرة لكل سنة في العقد الموثق على منصة إيجار، ثم اختر التقييم الأقرب للزيادة أو ثبات الأجرة.',
         contractFlex: 'راجع مدة الالتزام، التجديد، شروط التخارج المبكر، والغرامات. قد ينجح العقد الطويل عندما تكون شروطه مرنة.',
-        infraReadiness: 'تحقق من كفاية الأحمال الكهربائية، وجاهزية نظام التهوية، وتوفر تمديدات المياه والصرف والغاز بما يناسب نشاط الفرع.',
-        fitoutSupport: 'قيّم التجهيزات الصالحة للاستخدام، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.',
+        infraReadiness: `<span class="tip-paragraph">تحقق من كفاية الأحمال الكهربائية، وجاهزية نظام التهوية، وتوفر تمديدات المياه والصرف والغاز بما يناسب النشاط.</span><span class="tip-paragraph">تنص وثيقة «اشتراطات المطاعم» على توافق نظام التهوية مع متطلبات كود البناء السعودي، وألا تتجاوز درجة الحرارة المحيطة 25°C، مع الالتزام بدليل المداخن للأنشطة التجارية.</span><span class="tip-paragraph">اطلب فحصا فنيا يحدد قدرة الموقع وتكلفة استكمال المتطلبات؛ فقد تؤثر أعمال المداخن ورفع الأحمال والتمديدات في تكلفة التجهيز ومدة الافتتاح.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 4.7.</span><span class="tip-reference">المرجع: <a href="https://momah.gov.sa/ar/node/15712" target="_blank" rel="noopener noreferrer">«دليل المداخن للأنشطة التجارية»</a>، وزارة البلديات والإسكان، صادر في 23/11/2025.</span>`,
+        fitoutSupport: `<span class="tip-paragraph">قيّم التجهيزات الصالحة للاستخدام، مثل الأرضيات والأسقف والإضاءة والواجهة والتقسيمات الداخلية، بعد التأكد من حالتها وملاءمتها للنشاط.</span><span class="tip-paragraph">عند تقييم التقسيمات، انتبه إلى أن مساحة المخزن الملحق لا تتجاوز 25% من المساحة المرخصة أو 150 m²، أيهما أقل. قارن التقسيم القائم بالمخطط الذي يحتاجه نشاطك قبل احتساب ما سيوفره الموقع.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 4.8.</span>`,
         downside: 'تخيل أن المبيعات في أول الأشهر أقل من الخطة. هل يستطيع الفرع تحمل الإيجار والرواتب والتشغيل حتى يتحسن الأداء؟'
       };
 
@@ -728,6 +788,7 @@
         $('#sectionTitle').textContent = copy.sectionTitle;
         $('#sectionIcon').innerHTML = copy.icon;
         $('#stepIntro').textContent = copy.intro;
+        $('#preAssessmentGuide').hidden = state.step !== 1;
         $('#branchNameWrap').hidden = state.step !== 1;
         $('#branchName').value = state.branchName;
         $('#prevBtn').style.display = state.step === 1 ? 'none' : 'inline-flex';
