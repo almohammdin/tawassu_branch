@@ -114,7 +114,7 @@
     .current-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
     .current-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6cf0d8; box-shadow: 0 0 0 4px rgba(108,240,216,.14); }
     .lock-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.18); color: #7c5d11; border: 1px solid rgba(201,168,76,.34); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
-    .progress-zone { position: sticky; top: 104px; z-index: 24; margin: 0 14px; padding: 14px 16px; border: 1px solid rgba(201,168,76,.34); border-radius: 16px; background: rgba(255,255,255,.97); box-shadow: 0 12px 30px rgba(10,14,26,.12); backdrop-filter: blur(16px); }
+    .progress-zone { position: sticky; top: 104px; z-index: 24; margin: 0 14px; padding: 12px 16px 14px; border: 1px solid rgba(201,168,76,.34); border-radius: 16px; background: rgba(255,255,255,.97); box-shadow: 0 12px 30px rgba(10,14,26,.12); backdrop-filter: blur(16px); }
     .tool-card.completed .questions-wrap,
     .tool-card.completed .actions { display: none; }
     .question-title-row { display: flex; align-items: flex-start; gap: 8px; }
@@ -124,11 +124,9 @@
     .tip-box { position: absolute; z-index: 50; top: calc(100% + 8px); inset-inline-end: 0; width: min(410px, calc(100vw - 76px)); padding: 12px 13px; border: 1px solid rgba(201,168,76,.38); border-radius: 12px; background: #fffdf7; color: #596675; box-shadow: 0 14px 34px rgba(10,14,26,.14); font-size: .78rem; line-height: 1.75; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: .16s ease; }
     .tip-wrap:hover .tip-box, .tip-wrap.open .tip-box, .tip-btn:focus + .tip-box { opacity: 1; visibility: visible; transform: translateY(0); }
 
-    .progress-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
-    .progress-top .copy strong { display: block; color: var(--ink); }
-    .progress-top .copy span { color: var(--muted); font-size: .9rem; }
     .progress-stats { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-weight: 700; }
     .progress-stats b { color: var(--gold); font-size: 1.05rem; }
+    .progress-guidance { margin-bottom: 9px; color: var(--muted); font-size: .82rem; line-height: 1.55; }
     .bar-track { height: 14px; border-radius: 999px; background: #edf1f6; overflow: hidden; border: 1px solid #e4eaf1; }
     .bar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--gold) 0%, #d9bb73 30%, var(--navy) 100%); transition: width .25s ease; }
 
@@ -140,6 +138,8 @@
     .section-kicker { display: block; margin-bottom: 2px; color: var(--gold); font-size: .78rem; font-weight: 700; }
     .section-heading h3 { margin: 0; color: var(--ink); font-size: 1.2rem; }
     .step-hint { color: var(--muted); line-height: 1.8; margin: 5px 0 0; }
+    .progress-zone .section-heading { margin: 0 0 10px; padding: 0 0 10px; border: 0; border-bottom: 1px solid rgba(13,67,141,.11); border-radius: 0; background: transparent; }
+    .progress-zone .progress-stats { margin-inline-start: auto; flex: 0 0 auto; }
     .branch-field { position: relative; margin-bottom: 20px; padding: 18px; border: 1px solid rgba(13,67,141,.24); border-radius: 20px; background: linear-gradient(135deg, rgba(13,67,141,.055), rgba(23,191,208,.045) 58%, rgba(201,168,76,.075)); box-shadow: 0 10px 24px rgba(13,67,141,.07); overflow: hidden; }
     .branch-field::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 5px; background: linear-gradient(180deg, var(--navy), var(--teal), var(--gold)); }
     .branch-field[hidden] { display: none; }
@@ -170,7 +170,7 @@
     .choice.selected .dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--navy); }
     .actions { padding: 0 24px 24px; }
     .actions-main { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
-    .actions .group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .actions-main #nextBtn { margin-inline-start: auto; }
     .reset-row { width: 100%; display: flex; justify-content: flex-start; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
 
     .results { display: none; border-top: 1px solid var(--line); background: linear-gradient(180deg, rgba(13,67,141,.02), transparent); }
@@ -251,7 +251,14 @@
       .hero-card { grid-template-columns: 1fr; padding: 20px; }
       .hero-logo { min-height: 210px; }
       .tool-head, .questions-wrap, .actions, .result-inner { padding-inline: 16px; }
-      .progress-zone { top: 132px; margin-inline: 8px; padding-inline: 12px; }
+      .progress-zone { top: 104px; margin-inline: 8px; padding-inline: 12px; }
+      .progress-zone .section-heading { gap: 10px; }
+      .progress-zone .section-icon { width: 40px; height: 40px; border-radius: 12px; }
+      .progress-zone .section-icon svg { width: 21px; height: 21px; }
+      .progress-zone .section-heading h3 { font-size: 1rem; }
+      .progress-zone .step-hint { display: none; }
+      .progress-zone .progress-stats { gap: 6px; font-size: .78rem; }
+      .progress-guidance { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .options.cols-2, .options.cols-3, .options.cols-4, .facts { grid-template-columns: 1fr; }
       .choice { min-height: 44px; }
       .footer-card { align-items: flex-start; }
@@ -311,21 +318,6 @@
         </div>
 
         <div class="progress-zone">
-          <div class="progress-top">
-            <div class="copy">
-              <strong id="stepTitle">الخطوة 1 من 3: تعريف الفرع</strong>
-              <span id="stepHint">ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.</span>
-            </div>
-            <div class="progress-stats">
-              <span>المكتمل</span>
-              <b id="progressPercent">0%</b>
-              <span id="progressCount">0 / 0</span>
-            </div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
-        </div>
-
-        <div class="questions-wrap">
           <div class="section-heading">
             <span class="section-icon" id="sectionIcon" aria-hidden="true"></span>
             <div class="section-copy">
@@ -333,7 +325,17 @@
               <h3 id="sectionTitle">تعريف الفرع</h3>
               <p class="step-hint" id="stepIntro">هذه المرحلة تضبط منطق الأسئلة التالية حتى تكون أقرب لواقع القرار.</p>
             </div>
+            <div class="progress-stats">
+              <span>المكتمل</span>
+              <b id="progressPercent">0%</b>
+              <span id="progressCount">0 / 0</span>
+            </div>
           </div>
+          <div class="progress-guidance" id="stepHint">ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع.</div>
+          <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+        </div>
+
+        <div class="questions-wrap">
           <div class="branch-field" id="branchNameWrap">
             <label for="branchName">
               <span class="branch-label">
@@ -350,10 +352,8 @@
 
         <div class="actions">
           <div class="actions-main">
-            <div class="group">
-              <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
-              <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
-            </div>
+            <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
+            <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
           </div>
           <div class="reset-row">
             <button class="btn btn-reset" type="button" id="resetInlineBtn">ابدأ من جديد</button>
@@ -665,7 +665,6 @@
 
       function renderStep() {
         const copy = STEP_COPY[state.step];
-        $('#stepTitle').textContent = copy.title;
         $('#stepHint').textContent = copy.hint;
         $('#sectionKicker').textContent = copy.sectionKicker;
         $('#sectionTitle').textContent = copy.sectionTitle;
