@@ -130,6 +130,7 @@
     .tip-reference { display: block; margin-top: 11px; padding-top: 10px; border-top: 1px solid rgba(201,168,76,.25); color: #7a7567; font-size: .7rem; line-height: 1.8; }
     .tip-reference + .tip-reference { margin-top: 7px; padding-top: 0; border-top: 0; }
     .tip-reference a { color: var(--navy); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(13,67,141,.28); text-underline-offset: 3px; }
+    .tip-wrap.open-up .tip-box { top: auto; bottom: calc(100% + 8px); }
 
     .progress-stats { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-weight: 700; }
     .progress-stats b { color: var(--gold); font-size: 1.05rem; }
@@ -1353,8 +1354,18 @@
 
       document.addEventListener('click', e => {
         const tipToggle = e.target.closest('[data-tip-toggle]');
-        if (tipToggle) { const wrap = tipToggle.closest('.tip-wrap'); document.querySelectorAll('.tip-wrap.open').forEach(x => { if (x!==wrap) x.classList.remove('open'); }); wrap.classList.toggle('open'); return; }
-        if (!e.target.closest('.tip-wrap')) document.querySelectorAll('.tip-wrap.open').forEach(x=>x.classList.remove('open'));
+        if (tipToggle) {
+          const wrap = tipToggle.closest('.tip-wrap');
+          document.querySelectorAll('.tip-wrap.open').forEach(x => { if (x!==wrap) { x.classList.remove('open'); x.classList.remove('open-up'); } });
+          wrap.classList.remove('open-up');
+          wrap.classList.toggle('open');
+          if (wrap.classList.contains('open')) {
+            const tip = wrap.querySelector('.tip-box');
+            if (tip.getBoundingClientRect().bottom > window.innerHeight - 12) wrap.classList.add('open-up');
+          }
+          return;
+        }
+        if (!e.target.closest('.tip-wrap')) document.querySelectorAll('.tip-wrap.open').forEach(x=>x.classList.remove('open','open-up'));
         const choice = e.target.closest('.choice');
         if (choice) { choose(choice.dataset.question, choice.dataset.value); return; }
         const jump = e.target.closest('[data-jump]');
