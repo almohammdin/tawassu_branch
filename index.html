@@ -67,10 +67,10 @@
         linear-gradient(180deg, #fbfcff 0%, var(--bg) 100%);
       color: var(--ink);
     }
-    .site-watermark { position: fixed; z-index: 0; width: 560px; height: 400px; opacity: .032; pointer-events: none; user-select: none; filter: saturate(.88); }
+    .site-watermark { position: fixed; z-index: 0; width: 620px; height: 442px; opacity: .045; pointer-events: none; user-select: none; filter: saturate(.88); }
     .site-watermark svg { width: 100%; height: 100%; display: block; }
-    .site-watermark.top { top: 122px; inset-inline-end: -210px; transform: rotate(-4deg); }
-    .site-watermark.bottom { width: 490px; height: 350px; bottom: -105px; inset-inline-start: -170px; transform: rotate(176deg); opacity: .024; }
+    .site-watermark.top { top: 122px; inset-inline-end: -128px; transform: rotate(-4deg); }
+    .site-watermark.bottom { width: 520px; height: 372px; bottom: -82px; inset-inline-start: -110px; transform: rotate(176deg); opacity: .032; }
     .accent, main, .site-footer { position: relative; z-index: 1; }
     img { max-width: 100%; display: block; }
     button, input, select { font: inherit; }
@@ -95,7 +95,11 @@
     .btn-ghost { background: transparent; color: var(--navy); padding-inline: 0; }
     .btn:hover { transform: translateY(-1px); }
     .hero { padding: 28px 0 18px; }
-    .hero-card { background: rgba(255,255,255,.95); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 30px; padding: 26px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: center; }
+    .hero-card { position: relative; isolation: isolate; overflow: hidden; background: rgba(255,255,255,.95); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 30px; padding: 26px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: center; }
+    .card-watermark { position: absolute; z-index: 0; width: 520px; height: auto; pointer-events: none; user-select: none; opacity: .075; }
+    .card-watermark.hero-mark { inset-inline-start: -92px; bottom: -106px; transform: rotate(-5deg); }
+    .card-watermark.tool-mark { width: 440px; inset-inline-end: -92px; top: -96px; transform: rotate(7deg); opacity: .062; }
+    .hero-card > :not(.card-watermark), .tool-head > :not(.card-watermark) { position: relative; z-index: 1; }
     .hero-logo { background: linear-gradient(180deg, rgba(13,67,141,.03), rgba(23,191,208,.03)); border: 1px solid #eef2f7; border-radius: 24px; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 250px; }
     .hero-logo img { width: min(470px, 100%); }
     .hero-copy h1 { margin: 0 0 10px; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.16; color: var(--ink); }
@@ -104,7 +108,7 @@
 
     .tool-section { padding: 6px 0 24px; }
     .tool-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); overflow: visible; }
-    .tool-head { padding: 22px 24px 18px; border-bottom: 1px solid var(--line); border-radius: 28px 28px 0 0; background: rgba(255,255,255,.98); }
+    .tool-head { position: relative; isolation: isolate; overflow: hidden; padding: 22px 24px 18px; border-bottom: 1px solid var(--line); border-radius: 28px 28px 0 0; background: rgba(255,255,255,.98); }
     .tool-head h2 { margin: 0; font-size: 1.35rem; color: var(--ink); }
     .tool-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.8; }
     .mode-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
@@ -304,9 +308,11 @@
       .facts { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 760px) {
-      .site-watermark { width: 410px; height: 294px; opacity: .018; }
-      .site-watermark.top { top: 150px; inset-inline-end: -185px; }
-      .site-watermark.bottom { width: 350px; height: 250px; inset-inline-start: -145px; opacity: .015; }
+      .site-watermark { width: 430px; height: 308px; opacity: .025; }
+      .site-watermark.top { top: 150px; inset-inline-end: -135px; }
+      .site-watermark.bottom { width: 370px; height: 264px; inset-inline-start: -105px; opacity: .02; }
+      .card-watermark.hero-mark { width: 390px; inset-inline-start: -116px; bottom: -76px; opacity: .052; }
+      .card-watermark.tool-mark { width: 330px; inset-inline-end: -112px; top: -68px; opacity: .043; }
       .header-inner { flex-direction: column; align-items: stretch; }
       .brand img { width: 118px; height: 68px; }
       .hero-card { grid-template-columns: 1fr; padding: 20px; }
@@ -361,6 +367,13 @@
   <main id="top">
     <section class="hero shell">
       <div class="hero-card">
+        <svg class="card-watermark hero-mark" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M382 216 320 166 257 193 194 137 126 174 48 139" fill="none" stroke="#0d438d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+          <g fill="#0d438d"><path d="M321 38c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/><path d="M96 102c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/></g>
+          <path d="M210 72c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z" fill="#17bfd0"/>
+          <g fill="#fff"><circle cx="321" cy="74" r="12"/><circle cx="210" cy="108" r="12"/><circle cx="96" cy="138" r="12"/></g>
+          <path d="M390 243C287 249 153 209 58 63M58 63l12 28M58 63l29 7" fill="none" stroke="#c9a84c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         <div class="hero-logo">
           <img src="tawassu-logo.png" alt="شعار توسّع">
         </div>
@@ -377,6 +390,13 @@
     <section class="tool-section shell" id="tool">
       <div class="tool-card">
         <div class="tool-head">
+          <svg class="card-watermark tool-mark" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M382 216 320 166 257 193 194 137 126 174 48 139" fill="none" stroke="#0d438d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+            <g fill="#0d438d"><path d="M321 38c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/><path d="M96 102c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/></g>
+            <path d="M210 72c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z" fill="#17bfd0"/>
+            <g fill="#fff"><circle cx="321" cy="74" r="12"/><circle cx="210" cy="108" r="12"/><circle cx="96" cy="138" r="12"/></g>
+            <path d="M390 243C287 249 153 209 58 63M58 63l12 28M58 63l29 7" fill="none" stroke="#c9a84c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <h2>محرك تقييم قرار الفرع</h2>
           <p>اختر الإجابة الأقرب لواقع الفرع في كل سؤال. الأسئلة تتكيّف مع طبيعة النشاط ونمط المبيعات ونوع الموقع. بعد ذلك ستحصل على قراءة حسب شدة المخاطر.</p>
           <div class="mode-bar">
@@ -563,7 +583,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.2.0</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.2.1</span>
         </div>
       </div>
       <div class="footer-social">
@@ -618,7 +638,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v4';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.2.0';
+      const APP_VERSION = '1.2.1';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -1174,6 +1194,27 @@
         return yy;
       }
 
+      function getWrappedLines(ctx, text, maxWidth, font) {
+        ctx.font = font;
+        const words = String(text || '').trim().split(/\s+/).filter(Boolean);
+        const lines = [];
+        let line = '';
+        words.forEach(word => {
+          const test = line ? `${line} ${word}` : word;
+          if (!line || ctx.measureText(test).width <= maxWidth) line = test;
+          else { lines.push(line); line = word; }
+        });
+        if (line) lines.push(line);
+        return lines.length ? lines : [''];
+      }
+
+      function drawWrappedLines(ctx, lines, x, y, lineHeight, font, color) {
+        ctx.font = font;
+        ctx.fillStyle = color;
+        lines.forEach((line, index) => ctx.fillText(line, x, y + index * lineHeight));
+        return y + (lines.length - 1) * lineHeight;
+      }
+
       function roundRect(ctx, x, y, w, h, r, fill=true, stroke=false) {
         if (w < 2*r) r = w/2; if (h < 2*r) r = h/2;
         ctx.beginPath();
@@ -1251,6 +1292,37 @@
         ctx.restore();
       }
 
+      function drawScoreSeal(ctx, centerX, centerY, score, bandColor) {
+        ctx.save();
+        ctx.shadowColor = 'rgba(10,14,26,.09)';
+        ctx.shadowBlur = 18;
+        ctx.shadowOffsetY = 8;
+        ctx.fillStyle = '#fff';
+        ctx.beginPath(); ctx.arc(centerX, centerY, 91, 0, Math.PI * 2); ctx.fill();
+        ctx.shadowColor = 'transparent';
+        ctx.strokeStyle = 'rgba(201,168,76,.62)';
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.arc(centerX, centerY, 91, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = '#0d438d';
+        ctx.lineWidth = 7;
+        ctx.beginPath(); ctx.arc(centerX, centerY, 80, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = bandColor;
+        ctx.lineWidth = 7;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 80, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.max(.02, score / 100));
+        ctx.stroke();
+        ctx.textAlign = 'center';
+        ctx.direction = 'rtl';
+        ctx.fillStyle = '#0d438d';
+        ctx.font = '700 60px "IBM Plex Sans Arabic"';
+        ctx.fillText(String(score), centerX, centerY + 18);
+        ctx.fillStyle = '#6b7486';
+        ctx.font = '600 14px "IBM Plex Sans Arabic"';
+        ctx.fillText('من 100', centerX, centerY + 46);
+        ctx.restore();
+      }
+
       function drawSvgIcon(ctx, pathData, centerX, centerY, size) {
         const path = new Path2D(pathData);
         ctx.save();
@@ -1307,10 +1379,64 @@
             await document.fonts.ready;
           }
           const [logo, sign] = await Promise.all([loadImage('tawassu-logo.png'), loadImage('naif-logo-v2.png')]);
+          const branchName = state.branchName.trim();
+          const serviceLabel = driveThruLabel(state.result.driveThru || state.answers.driveThru);
+          const d = new Intl.DateTimeFormat('ar-SA-u-nu-latn', { year:'numeric', month:'long', day:'numeric' }).format(new Date());
+          const chipBg = state.result.band==='good' ? '#eef8f2' : state.result.band==='mid' ? '#fff8e8' : '#fff2f2';
+          const chipFg = state.result.band==='good' ? '#1f8b5f' : state.result.band==='mid' ? '#9f7300' : '#c54747';
+          const measureCanvas = document.createElement('canvas');
+          const measureCtx = measureCanvas.getContext('2d');
+          measureCtx.direction = 'rtl';
+          const panelFont = '400 18px "IBM Plex Sans Arabic"';
+          const panelWidth = 444;
+          const panelTextWidth = 350;
+          const panels = [
+            { x:84, type:'good', color:'#1f8b5f', bg:'#eef8f2', title:'أبرز الإشارات المطمئنة', items:(state.result.strengths.length?state.result.strengths.map(x=>x.text):['لا توجد إشارات مطمئنة بارزة بما يكفي.']).slice(0,2) },
+            { x:552, type:'bad', color:'#c54747', bg:'#fff2f2', title:'أبرز مصادر الخطر', items:(state.result.risks.length?state.result.risks.map(x=>x.text):['لم تظهر مخاطر كبيرة تتجاوز المعتاد.']).slice(0,2) },
+            { x:84, type:'action', color:'#9f7300', bg:'#fff8e8', title:'أولويات التفاوض أو التحقق', items:(state.result.actions.length?state.result.actions.map(x=>x.text):['وثق الشروط الأساسية قبل التوقيع.']).slice(0,2) },
+            { x:552, type:'recommend', color:'#0d438d', bg:'#eef4ff', title:'التوصية التنفيذية', items:(state.result.recommendations.length?state.result.recommendations:['أكمل التحقق المعتاد قبل التوقيع.']).slice(0,2) }
+          ];
+          panels.forEach(panel => {
+            panel.itemLines = panel.items.map(item => getWrappedLines(measureCtx, item, panelTextWidth, panelFont));
+            const contentSpan = panel.itemLines.reduce((sum, lines) => sum + (lines.length - 1) * 29, 0) + Math.max(0, panel.itemLines.length - 1) * 38;
+            panel.height = Math.max(170, 120 + contentSpan);
+          });
+          const rowOneHeight = Math.max(panels[0].height, panels[1].height);
+          const rowTwoHeight = Math.max(panels[2].height, panels[3].height);
+          const primaryMetaFont = branchName ? '600 20px "IBM Plex Sans Arabic"' : '400 19px "IBM Plex Sans Arabic"';
+          const primaryMetaLines = getWrappedLines(measureCtx, branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 720, primaryMetaFont);
+          const serviceLines = serviceLabel ? getWrappedLines(measureCtx, serviceLabel, 720, '500 16px "IBM Plex Sans Arabic"') : [];
+          const decisionLines = getWrappedLines(measureCtx, state.result.decision, 500, '700 30px "IBM Plex Sans Arabic"');
+          const summaryLines = getWrappedLines(measureCtx, state.result.summary, 500, '400 19px "IBM Plex Sans Arabic"');
+
+          let metaY = 274;
+          const primaryMetaY = metaY;
+          metaY += (primaryMetaLines.length - 1) * 27;
+          const serviceY = serviceLines.length ? metaY + 29 : 0;
+          if (serviceLines.length) metaY = serviceY + (serviceLines.length - 1) * 24;
+          const dateY = metaY + 30;
+          const headerDividerY = dateY + 28;
+          const resultY = headerDividerY + 22;
+          const resultHeight = Math.max(324, 226 + (decisionLines.length - 1) * 38 + (summaryLines.length - 1) * 30);
+          const panelTop = resultY + resultHeight + 24;
+          const secondRowY = panelTop + rowOneHeight + 22;
+          panels[0].y = panelTop; panels[1].y = panelTop;
+          panels[2].y = secondRowY; panels[3].y = secondRowY;
+
+          const noticeText = state.result.blockers.length
+            ? 'يلزم معالجة: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • ')
+            : 'المعطيات الحالية تسمح باستكمال التحقق قبل اتخاذ القرار.';
+          const noticeLines = getWrappedLines(measureCtx, noticeText, 824, '600 18px "IBM Plex Sans Arabic"');
+          const noticeY = secondRowY + rowTwoHeight + 22;
+          const noticeHeight = Math.max(68, 34 + noticeLines.length * 26);
+          const footerY = noticeY + noticeHeight + 42;
+          const cardBottom = footerY + 66;
+          const canvasHeight = cardBottom + 44;
+
           const canvas = document.createElement('canvas');
           const exportScale = 2;
           canvas.width = 1080 * exportScale;
-          canvas.height = 1620 * exportScale;
+          canvas.height = canvasHeight * exportScale;
           const ctx = canvas.getContext('2d');
           ctx.scale(exportScale, exportScale);
           ctx.imageSmoothingEnabled = true;
@@ -1318,89 +1444,87 @@
           ctx.direction = 'rtl';
           ctx.textAlign = 'right';
           ctx.textBaseline = 'alphabetic';
-          ctx.fillStyle = '#f7f5ef'; ctx.fillRect(0,0,1080,1620);
-          ctx.fillStyle = 'rgba(13,67,141,.055)'; ctx.beginPath(); ctx.arc(980, 120, 250, 0, Math.PI*2); ctx.fill();
-          ctx.fillStyle = 'rgba(201,168,76,.065)'; ctx.beginPath(); ctx.arc(120, 1480, 230, 0, Math.PI*2); ctx.fill();
-          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; ctx.lineWidth = 1; roundRect(ctx, 50, 50, 980, 1520, 30, true, true);
-          ctx.strokeStyle = 'rgba(201,168,76,.34)'; ctx.lineWidth = 1; roundRect(ctx, 62, 62, 956, 1496, 26, false, true);
-          drawReportCorner(ctx, 78, 78, 1, 1);
-          drawReportCorner(ctx, 1002, 78, -1, 1);
-          drawReportCorner(ctx, 78, 1542, 1, -1);
-          drawReportCorner(ctx, 1002, 1542, -1, -1);
-          drawLocationMotif(ctx, 62, 74, .72, .026);
-          drawLocationMotif(ctx, 1016, 1190, .78, .02, true);
-          drawContainImage(ctx, logo, 770, 66, 212, 136);
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '600 30px "IBM Plex Sans Arabic"'; ctx.fillText('نتيجة تقييم الفرع', 712, 108);
-          const branchName = state.branchName.trim();
-          const serviceLabel = driveThruLabel(state.result.driveThru || state.answers.driveThru);
-          ctx.fillStyle = branchName ? '#0d438d' : '#6b7486';
-          ctx.font = branchName ? '600 21px "IBM Plex Sans Arabic"' : '400 21px "IBM Plex Sans Arabic"';
-          let metaY = wrapText(ctx, branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 712, 147, 560, 27, ctx.font, ctx.fillStyle);
-          if (serviceLabel) {
-            metaY = wrapText(ctx, serviceLabel, 712, metaY + 26, 560, 23, '500 15px "IBM Plex Sans Arabic"', '#6b7486');
-          }
-          const dateY = metaY + 30;
-          const d = new Intl.DateTimeFormat('ar-SA-u-nu-latn', { year:'numeric', month:'long', day:'numeric' }).format(new Date());
-          ctx.fillStyle = '#6b7486'; ctx.font = '400 20px "IBM Plex Sans Arabic"';
-          ctx.fillText(d, 712, dateY);
 
-          const resultY = Math.max(270, dateY + 28);
-          const headerDividerY = resultY - 18;
-          ctx.strokeStyle = 'rgba(13,67,141,.18)'; ctx.lineWidth = 1;
+          ctx.fillStyle = '#f7f5ef'; ctx.fillRect(0, 0, 1080, canvasHeight);
+          ctx.fillStyle = 'rgba(13,67,141,.055)'; ctx.beginPath(); ctx.arc(980, 118, 250, 0, Math.PI*2); ctx.fill();
+          ctx.fillStyle = 'rgba(201,168,76,.07)'; ctx.beginPath(); ctx.arc(112, canvasHeight - 96, 230, 0, Math.PI*2); ctx.fill();
+          ctx.fillStyle = '#fff'; ctx.strokeStyle = '#dfe4ec'; ctx.lineWidth = 1; roundRect(ctx, 44, 44, 992, cardBottom - 44, 32, true, true);
+          ctx.strokeStyle = 'rgba(201,168,76,.46)'; ctx.lineWidth = 1.4; roundRect(ctx, 57, 57, 966, cardBottom - 70, 27, false, true);
+          drawReportCorner(ctx, 76, 76, 1, 1);
+          drawReportCorner(ctx, 1004, 76, -1, 1);
+          drawReportCorner(ctx, 76, cardBottom - 20, 1, -1);
+          drawReportCorner(ctx, 1004, cardBottom - 20, -1, -1);
+          ctx.fillStyle = '#0d438d'; roundRect(ctx, 82, 67, 176, 4, 2, true, false);
+          ctx.fillStyle = '#c9a84c'; roundRect(ctx, 82, 75, 108, 2, 1, true, false);
+          ctx.fillStyle = '#0d438d'; roundRect(ctx, 822, 67, 176, 4, 2, true, false);
+          ctx.fillStyle = '#c9a84c'; roundRect(ctx, 890, 75, 108, 2, 1, true, false);
+          drawLocationMotif(ctx, 26, 56, 1.45, .072);
+          drawLocationMotif(ctx, 1040, canvasHeight - 410, 1.08, .034, true);
+
+          drawContainImage(ctx, logo, 394, 64, 292, 134);
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '600 32px "IBM Plex Sans Arabic"'; ctx.fillText('نتيجة تقييم الفرع', 540, 226);
+          ctx.fillStyle = '#9b7b25'; ctx.font = '600 12px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير تنفيذي لقرار التوسع', 540, 248);
+          drawWrappedLines(ctx, primaryMetaLines, 540, primaryMetaY, 27, primaryMetaFont, branchName ? '#0d438d' : '#6b7486');
+          if (serviceLines.length) drawWrappedLines(ctx, serviceLines, 540, serviceY, 24, '500 16px "IBM Plex Sans Arabic"', '#14879a');
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 17px "IBM Plex Sans Arabic"'; ctx.fillText(d, 540, dateY);
+          ctx.textAlign = 'right';
+
+          ctx.strokeStyle = 'rgba(13,67,141,.17)'; ctx.lineWidth = 1;
           ctx.beginPath(); ctx.moveTo(84, headerDividerY); ctx.lineTo(996, headerDividerY); ctx.stroke();
           ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 2.5;
-          ctx.beginPath(); ctx.moveTo(836, headerDividerY); ctx.lineTo(996, headerDividerY); ctx.stroke();
-          ctx.fillStyle = '#17bfd0'; ctx.beginPath(); ctx.arc(825, headerDividerY, 3.5, 0, Math.PI * 2); ctx.fill();
-          ctx.fillStyle = '#fbfcff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, 84, resultY, 912, 400, 26, true, true);
-          const chipBg = state.result.band==='good' ? '#eef8f2' : state.result.band==='mid' ? '#fff8e8' : '#fff2f2';
-          const chipFg = state.result.band==='good' ? '#1f8b5f' : state.result.band==='mid' ? '#9f7300' : '#c54747';
-          ctx.fillStyle = chipFg; roundRect(ctx, 986, resultY + 30, 4, 106, 2, true, false);
-          ctx.fillStyle = chipBg; roundRect(ctx, 736, resultY + 22, 212, 44, 22, true, false);
-          ctx.fillStyle = chipFg; ctx.font = '700 23px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 922, resultY + 51);
-          ctx.fillStyle = '#0d438d'; ctx.font = '700 82px "IBM Plex Sans Arabic"'; ctx.fillText(String(state.result.score), 920, resultY + 160);
-          ctx.fillStyle = '#6b7486'; ctx.font = '600 16px "IBM Plex Sans Arabic"'; ctx.fillText('من 100 • الأقل أفضل', 920, resultY + 188);
-          wrapText(ctx, state.result.decision, 652, resultY + 104, 500, 38, '700 29px "IBM Plex Sans Arabic"', '#0a0e1a');
-          const summaryBottom = wrapText(ctx, state.result.summary, 652, resultY + 148, 500, 32, '400 21px "IBM Plex Sans Arabic"', '#6b7486');
-          const scaleY = Math.max(resultY + 310, summaryBottom + 40);
-          const grad = ctx.createLinearGradient(500, scaleY + 7, 140, scaleY + 7); grad.addColorStop(0,'#1f8b5f'); grad.addColorStop(.25,'#1f8b5f'); grad.addColorStop(.25,'#d09a21'); grad.addColorStop(.55,'#d09a21'); grad.addColorStop(.55,'#c54747'); grad.addColorStop(1,'#c54747');
-          ctx.fillStyle = grad; roundRect(ctx, 140, scaleY, 360, 14, 7, true, false);
-          const px = 500 - (360 * state.result.score / 100);
-          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, scaleY + 7, 10, 0, Math.PI*2); ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = '#0a0e1a'; ctx.stroke();
-          ctx.fillStyle = '#6b7486'; ctx.font = '400 18px "IBM Plex Sans Arabic"';
-          ctx.fillText('منخفض', 500, scaleY + 34); ctx.fillText('متوسط', 332, scaleY + 34); ctx.fillText('مرتفع', 142, scaleY + 34);
+          ctx.beginPath(); ctx.moveTo(84, headerDividerY); ctx.lineTo(248, headerDividerY); ctx.stroke();
+          ctx.fillStyle = '#17bfd0'; ctx.beginPath(); ctx.arc(259, headerDividerY, 3.5, 0, Math.PI * 2); ctx.fill();
 
-          const panelTop = resultY + 428;
-          const secondRowY = panelTop + 324;
-          const panelHeight = 300;
-          const panels = [
-            { x:84, y:panelTop, type:'good', color:'#1f8b5f', bg:'#eef8f2', title:'أبرز الإشارات المطمئنة', items:(state.result.strengths.length?state.result.strengths.map(x=>x.text):['لا توجد إشارات مطمئنة بارزة بما يكفي.']).slice(0,2) },
-            { x:564, y:panelTop, type:'bad', color:'#c54747', bg:'#fff2f2', title:'أبرز مصادر الخطر', items:(state.result.risks.length?state.result.risks.map(x=>x.text):['لم تظهر مخاطر كبيرة تتجاوز المعتاد.']).slice(0,2) },
-            { x:84, y:secondRowY, type:'action', color:'#9f7300', bg:'#fff8e8', title:'أولويات التفاوض أو التحقق', items:(state.result.actions.length?state.result.actions.map(x=>x.text):['وثق الشروط الأساسية قبل التوقيع.']).slice(0,2) },
-            { x:564, y:secondRowY, type:'recommend', color:'#0d438d', bg:'#eef4ff', title:'التوصية التنفيذية', items:state.result.recommendations.slice(0,2) }
-          ];
-          panels.forEach(p => {
-            const panelWidth = 432;
-            ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e3e7ee'; roundRect(ctx, p.x, p.y, panelWidth, panelHeight, 24, true, true);
+          ctx.fillStyle = '#fbfcff'; ctx.strokeStyle = '#dfe4ec'; ctx.lineWidth = 1.2; roundRect(ctx, 84, resultY, 912, resultHeight, 26, true, true);
+          ctx.fillStyle = chipFg; roundRect(ctx, 988, resultY + 30, 4, 112, 2, true, false);
+          ctx.fillStyle = chipBg; roundRect(ctx, 746, resultY + 26, 196, 42, 21, true, false);
+          ctx.textAlign = 'center';
+          ctx.fillStyle = chipFg; ctx.font = '700 21px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 844, resultY + 53);
+          drawScoreSeal(ctx, 844, resultY + 164, state.result.score, chipFg);
+          ctx.fillStyle = '#6b7486'; ctx.font = '600 14px "IBM Plex Sans Arabic"'; ctx.fillText('مؤشر الخطر • الأقل أفضل', 844, resultY + 278);
+          ctx.textAlign = 'right';
+
+          const decisionY = resultY + 70;
+          const decisionBottom = drawWrappedLines(ctx, decisionLines, 650, decisionY, 38, '700 30px "IBM Plex Sans Arabic"', '#0a0e1a');
+          const summaryY = decisionBottom + 45;
+          const summaryBottom = drawWrappedLines(ctx, summaryLines, 650, summaryY, 30, '400 19px "IBM Plex Sans Arabic"', '#6b7486');
+          const priorityY = summaryBottom + 28;
+          ctx.fillStyle = 'rgba(201,168,76,.11)'; roundRect(ctx, 152, priorityY - 21, 498, 42, 13, true, false);
+          ctx.fillStyle = '#8b6a18'; ctx.font = '600 16px "IBM Plex Sans Arabic"'; ctx.fillText(`الأولوية الآن: ${state.result.priority}`, 626, priorityY + 6);
+
+          const scaleY = resultY + resultHeight - 58;
+          const grad = ctx.createLinearGradient(650, scaleY + 7, 150, scaleY + 7);
+          grad.addColorStop(0,'#1f8b5f'); grad.addColorStop(.25,'#1f8b5f'); grad.addColorStop(.25,'#d09a21'); grad.addColorStop(.55,'#d09a21'); grad.addColorStop(.55,'#c54747'); grad.addColorStop(1,'#c54747');
+          ctx.fillStyle = grad; roundRect(ctx, 150, scaleY, 500, 14, 7, true, false);
+          const px = 650 - (500 * state.result.score / 100);
+          ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, scaleY + 7, 10, 0, Math.PI*2); ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = '#0a0e1a'; ctx.stroke();
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 14px "IBM Plex Sans Arabic"';
+          ctx.fillText('منخفض', 650, scaleY + 36); ctx.textAlign = 'center'; ctx.fillText('متوسط', 400, scaleY + 36); ctx.textAlign = 'left'; ctx.fillText('مرتفع', 150, scaleY + 36); ctx.textAlign = 'right';
+
+          panels.forEach((p, index) => {
+            const panelHeight = index < 2 ? rowOneHeight : rowTwoHeight;
+            ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e1e6ee'; ctx.lineWidth = 1.2; roundRect(ctx, p.x, p.y, panelWidth, panelHeight, 22, true, true);
             ctx.save(); ctx.globalAlpha = .26; ctx.fillStyle = p.color; roundRect(ctx, p.x + 24, p.y + 1, panelWidth - 48, 3, 1.5, true, false); ctx.restore();
             drawPanelIcon(ctx, p.type, p.x+panelWidth-40, p.y+34, p.color, p.bg);
             ctx.fillStyle = '#0a0e1a'; ctx.font = '700 22px "IBM Plex Sans Arabic"'; ctx.fillText(p.title, p.x+panelWidth-62, p.y+41);
-            let ly = p.y+82;
-            p.items.forEach(item => {
-              ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x+panelWidth-30, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
-              ly = wrapText(ctx, item, p.x+panelWidth-48, ly, 334, 30, '400 18px "IBM Plex Sans Arabic"', '#6b7486') + 38;
+            let ly = p.y + 92;
+            p.itemLines.forEach(lines => {
+              ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x+panelWidth-27, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
+              ly = drawWrappedLines(ctx, lines, p.x+panelWidth-45, ly, 29, panelFont, '#6b7486') + 38;
             });
           });
 
-          const noticeY = secondRowY + 328;
           if (state.result.blockers.length) {
-            ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, noticeY, 912, 78, 16, true, false);
-            wrapText(ctx, 'يلزم معالجة: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • '), 968, noticeY + 34, 846, 26, '600 19px "IBM Plex Sans Arabic"', '#9a2f2f');
+            ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, noticeY, 912, noticeHeight, 16, true, false);
+            ctx.fillStyle = '#c54747'; roundRect(ctx, 984, noticeY + 12, 4, noticeHeight - 24, 2, true, false);
+            drawWrappedLines(ctx, noticeLines, 960, noticeY + 39, 26, '600 18px "IBM Plex Sans Arabic"', '#9a2f2f');
           } else {
-            ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, noticeY, 912, 78, 16, true, false);
-            ctx.fillStyle = '#1f8b5f'; ctx.font = '600 19px "IBM Plex Sans Arabic"'; ctx.fillText('المعطيات الحالية تسمح باستكمال التحقق قبل اتخاذ القرار.', 962, noticeY + 47);
+            ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, noticeY, 912, noticeHeight, 16, true, false);
+            ctx.fillStyle = '#1f8b5f'; roundRect(ctx, 984, noticeY + 12, 4, noticeHeight - 24, 2, true, false);
+            drawWrappedLines(ctx, noticeLines, 960, noticeY + 39, 26, '600 18px "IBM Plex Sans Arabic"', '#1f8b5f');
           }
 
-          const footerY = noticeY + 112;
           ctx.strokeStyle = 'rgba(13,67,141,.16)'; ctx.lineWidth = 1;
           ctx.beginPath(); ctx.moveTo(84, footerY - 22); ctx.lineTo(996, footerY - 22); ctx.stroke();
           ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 2;
@@ -1416,8 +1540,9 @@
           drawSnapchatIcon(ctx, 238, footerY + 32, 18);
           drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 274, footerY + 32, 18);
           drawSvgIcon(ctx, 'M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z', 310, footerY + 32, 18);
-          ctx.fillText('@almohammdin', 338, footerY + 38);
-          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 568, footerY + 38);
+          drawSvgIcon(ctx, 'M13.736 5.852 17.644 2l1.92 1.92-3.852 3.736h5.644v2.736h-5.66l3.868 3.752-1.92 1.92-5.276-5.28-5.276 5.28-1.92-1.92 3.868-3.752H3.38V7.656h5.644L5.172 3.92 7.092 2l3.932 3.852V0h2.712v5.852ZM11.024 24v-8.604h2.712V24h-2.712Z', 346, footerY + 32, 18);
+          ctx.fillText('@almohammdin', 378, footerY + 38);
+          ctx.fillText('https://almohammdin.github.io/tawassu_branch/', 604, footerY + 38);
           ctx.direction = 'rtl';
           ctx.textAlign = 'right';
 
