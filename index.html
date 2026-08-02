@@ -601,7 +601,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.3.2</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.4.0</span>
         </div>
       </div>
       <div class="footer-social">
@@ -654,9 +654,10 @@
 
   <script>
     (() => {
-      const STORAGE_KEY = 'tawassu_assessment_pro_v5';
-      const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const APP_VERSION = '1.3.2';
+      const STORAGE_KEY = 'tawassu_assessment_pro_v6';
+      const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v5';
+      const OLDER_STORAGE_KEY = 'tawassu_assessment_pro_v4';
+      const APP_VERSION = '1.4.0';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -703,24 +704,39 @@
             { value:'driveThru', label:'الطلب أو الاستلام من السيارة', note:'خدمة السيارات (Drive-thru) دون مغادرة السيارة' },
             { value:'delivery', label:'توصيل عبر التطبيقات', note:'تصل الطلبات إلى العملاء عبر المندوبين' }
           ] },
+          { id:'primaryChannel', contextOnly:true, title:'أي قناة تتوقع أن تحقق الحصة الأكبر من مبيعات الفرع؟', help:'اختر القناة الأقرب، أو اختر تقارب القنوات إذا لم تتوقع فرقًا مؤثرًا.', when:s=>Array.isArray(s.serviceChannels)&&s.serviceChannels.length>1, options:[
+            { value:'dineIn', label:'تناول داخل الفرع', when:s=>s.serviceChannels?.includes('dineIn') },
+            { value:'pickupInside', label:'استلام من داخل الفرع', when:s=>s.serviceChannels?.includes('pickupInside') },
+            { value:'driveThru', label:'الطلب أو الاستلام من السيارة', when:s=>s.serviceChannels?.includes('driveThru') },
+            { value:'delivery', label:'توصيل عبر التطبيقات', when:s=>s.serviceChannels?.includes('delivery') },
+            { value:'balanced', label:'القنوات متقاربة في المبيعات' }
+          ] },
           { id:'locationType', domain:'location', title:'أين يقع الموقع الذي تفكر فيه؟', help:'اختر الوصف الأقرب للموقع.', options:[
             { value:'street', label:'شارع تجاري مفتوح', note:'الواجهة والمواقف مهمتان', risk:38 },
             { value:'mall', label:'داخل مجمع أو وجهة', note:'حركة الزوار والقيود أهم', risk:44 },
+            { value:'fuelStation', label:'داخل محطة وقود', note:'الدخول والخروج واشتراطات المحطة أهم', risk:44 },
             { value:'neighborhood', label:'مركز حي أو مجمع خدمات', note:'خدمة متكررة وقرب من السكان', risk:26 },
             { value:'destination', label:'وجهة مستقلة', note:'يعتمد أكثر على الجذب والسمعة', risk:34 }
           ] }
         ],
         2: [
-          { id:'parking', domain:'location', title:'هل المواقف كافية وسهلة وقت الذروة؟', help:'قيّم الوضع في أوقات الذروة، وليس في الأوقات الهادئة.', when:s=>s.serviceChannels?.includes('dineIn')||s.serviceChannels?.includes('pickupInside'), options:[
+          { id:'parking', domain:'location', title:'هل المواقف كافية وسهلة وقت الذروة؟', help:'قيّم الوضع في أوقات الذروة، وليس في الأوقات الهادئة.', when:s=>s.serviceChannels?.includes('dineIn'), options:[
             { value:'strong', label:'وفيرة وسهلة', risk:8, good:'المواقف مناسبة لطبيعة الفرع.', action:'حافظ على سهولة الدخول والخروج ولا تكتفِ بعدد المواقف فقط.' },
             { value:'fair', label:'مقبولة مع بعض الضغط', risk:32, action:'اختبر الموقع وقت الذروة وتأكد من خطة الاستلام السريع.' },
-            { value:'weak', label:'ضعيفة أو مربكة', risk:78, bad:'المواقف لا تدعم قنوات الخدمة المختارة.', action:'إعادة النظر أو إيجاد حل مناسب للمواقف والاستلام.' },
+            { value:'weak', label:'ضعيفة أو مربكة', risk:78, bad:'المواقف لا تدعم خدمة العملاء داخل الفرع.', action:'إعادة النظر أو إيجاد حل مناسب للمواقف.' },
             { value:'unknown', label:'لم أتحقق بعد', risk:56, bad:'المواقف تحتاج إلى تحقق ميداني.', action:'زيارة ميدانية في وقت الذروة مطلوبة قبل التوقيع.' }
+          ] },
+          { id:'pickupAccess', domain:'location', title:'هل يستطيع العميل استلام طلبه والمغادرة بسهولة؟', help:'فكر في الوقوف القصير والوصول إلى نقطة الاستلام دون تعطيل الحركة.', when:s=>s.serviceChannels?.includes('pickupInside'), options:[
+            { value:'easy', label:'سهل وسريع', risk:10, good:'استلام الطلبات من داخل الفرع يبدو سهلًا وسريعًا.' },
+            { value:'fair', label:'مقبول مع بعض الضغط', risk:34, action:'اختبر الاستلام وقت الذروة وجهز نقطة استلام مباشرة.' },
+            { value:'difficult', label:'صعب أو يسبب تعطيل الحركة', risk:76, bad:'استلام الطلبات من داخل الفرع قد يسبب تعطيلًا يوميًا.', action:'حسّن الوقوف القصير ومسار الوصول إلى نقطة الاستلام أو أعد تقييم الموقع.' },
+            { value:'unknown', label:'لم أختبر ذلك', risk:55, action:'اختبر رحلة العميل من الوقوف حتى استلام الطلب والمغادرة.' }
           ] },
           { id:'driveThruFlow', domain:'location', title:'هل يستوعب مسار خدمة السيارات الدخول والطلب والاستلام والخروج وقت الذروة دون تعطيل الشارع أو المواقف؟', help:'قيّم المسار من نقطة الدخول حتى الخروج، مع تقدير سعة طابور السيارات وقت الذروة.', when:s=>s.serviceChannels?.includes('driveThru'), options:[
             { value:'strong', label:'مناسب ويستوعب الذروة', risk:10, good:'مسار خدمة السيارات مناسب لحركة الطلبات.' },
             { value:'fair', label:'مقبول مع بعض الضغط', risk:38, action:'اختبر سعة مسار خدمة السيارات وقت الذروة.' },
-            { value:'weak', label:'ضعيف أو يسبب تكدس السيارات', risk:86, bad:'مسار خدمة السيارات قد يعطل الشارع أو المواقف.', action:'أعد تصميم مسار خدمة السيارات قبل اعتماد الموقع.' },
+            { value:'reorganize', label:'يحتاج إعادة تنظيم', risk:68, bad:'مسار خدمة السيارات يحتاج إلى تنظيم أفضل ليستوعب الذروة.', action:'أعد تنظيم مسار خدمة السيارات قبل اعتماد الموقع.' },
+            { value:'disruptive', label:'يسبب تكدس السيارات أو يعطل الحركة', risk:92, bad:'مسار خدمة السيارات قد يسبب تكدسًا أو يعطل الشارع أو المواقف.', action:'لا تعتمد المسار قبل معالجة التكدس وتعطيل الحركة.' },
             { value:'unknown', label:'لم أتحقق بعد', risk:62, bad:'مسار خدمة السيارات لم يتم التحقق منه.', action:'اختبر دخول السيارات وطابورها وخروجها قبل التوقيع.' }
           ] },
           { id:'courierAccess', domain:'location', title:'هل دخول مندوبي التوصيل إلى الموقع سهل؟', help:'فكر في سهولة وقوف المندوب ووصوله إلى نقطة استلام الطلب دون تعطيل الحركة.', when:s=>s.serviceChannels?.includes('delivery'), options:[
@@ -816,9 +832,11 @@
       const QUESTION_TIPS = {
         activityType: `<span class="tip-paragraph">اختر النشاط المقرر تشغيله في هذا الفرع. تختلف احتياجات المطعم عن المقهى أو الكشك من ناحية المساحة والتجهيزات والخدمات.</span><span class="tip-paragraph">إذا كان النشاط مطعما أو مقهى، تحدد الاشتراطات مساحة لا تقل عن 16 m². أما الكشك الغذائي فتبدأ مساحته من 4 m² داخل المباني والمجمعات والأسواق، ومن 10 m² على الأرض التجارية أو المختلطة. تحقق من انطباق الحد المرتبط بنشاطك وموقعك.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البنود 3.1 و3.3.</span>`,
         serviceChannels: 'اختر قنوات الخدمة التي ستسهم في مبيعات الفرع. اجمع بين أكثر من خيار عندما يخدم الفرع العملاء داخل الفرع أو عند نقطة الاستلام أو من السيارة أو عبر تطبيقات التوصيل.',
-        locationType: `<span class="tip-paragraph">اختر وصف الموقع نفسه، وليس الحي فقط. فالمحل على شارع تجاري مفتوح يختلف عن المحل داخل مجمع أو مركز حي أو وجهة مستقلة.</span><span class="tip-paragraph">عند اختيار كشك داخل مجمع، تحقق من وجود مسافة لا تقل عن 6 m بين الكشك ومدخل أي مبنى أو مكان تجمع، مع توفير ممر مشاة صاف لا يقل عرضه عن 1.8 m.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 3.3.</span>`,
+        primaryChannel: 'اختر القناة التي تتوقع أن تصنع الحصة الأكبر من المبيعات. إذا كانت القنوات متقاربة ولا توجد قناة مسيطرة، اختر القنوات متقاربة في المبيعات.',
+        locationType: `<span class="tip-paragraph">اختر وصف الموقع نفسه، وليس الحي فقط. فالمحل على شارع تجاري مفتوح يختلف عن المحل داخل مجمع أو محطة وقود أو مركز حي أو وجهة مستقلة.</span><span class="tip-paragraph">إذا كان الموقع داخل محطة وقود، تأكد من مشغل المحطة أن النشاط مسموح، وأن المحل ومسار العملاء مناسبين لاشتراطات المحطة قبل توقيع العقد.</span><span class="tip-paragraph">عند اختيار كشك داخل مجمع، تحقق من وجود مسافة لا تقل عن 6 m بين الكشك ومدخل أي مبنى أو مكان تجمع، مع توفير ممر مشاة صاف لا يقل عرضه عن 1.8 m.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 3.3.</span>`,
         parking: 'اختبر المواقف في وقت الذروة الفعلي، وليس وقت الزيارة الهادئ. راقب سهولة الدخول والخروج ومدة البحث عن موقف.',
-        driveThruFlow: `<span class="tip-paragraph">راقب طول المسار وعدد السيارات التي يستوعبها وموقع نقطتي الطلب والاستلام. تأكد أن الطابور يحافظ على انسيابية الشارع والمواقف.</span><span class="tip-paragraph">تجيز اشتراطات المطاعم إضافة خدمة السيارات بشرط أن تكون مضافة في رخصة البناء. راجع الرخصة، ثم قيّم قدرة المسار على استيعاب الذروة.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 5.1.</span>`,
+        pickupAccess: 'جرّب رحلة العميل وقت الذروة: أين يقف، وكم يمشي، وكيف يصل إلى نقطة الاستلام ثم يغادر. قيّم سهولة الوقوف القصير وتأثيره في حركة السيارات.',
+        driveThruFlow: `<span class="tip-paragraph">راقب طول المسار وعدد السيارات التي يستوعبها وموقع نقطتي الطلب والاستلام. اختر «يحتاج إعادة تنظيم» إذا كان المسار قابلًا للتحسين دون أن يعطل الحركة، واختر «يسبب تكدس السيارات أو يعطل الحركة» إذا امتد الطابور إلى الشارع أو المواقف.</span><span class="tip-paragraph">تجيز اشتراطات المطاعم إضافة خدمة السيارات بشرط أن تكون مضافة في رخصة البناء. راجع الرخصة، ثم قيّم قدرة المسار على استيعاب الذروة.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 5.1.</span>`,
         courierAccess: `<span class="tip-paragraph">جرّب مسار مندوب التوصيل من الوصول إلى الموقع حتى استلام الطلب. راقب سهولة الوقوف والوصول إلى نقطة الاستلام وتأثير حركة المندوبين في العملاء والمواقف.</span><span class="tip-paragraph">إذا كان النشاط مرخصا كمطبخ سحابي، تخصص منطقة انتظار وتسليم لا تقل مساحتها عن 6 m² للمطبخ المستقل، و24 m² لمجمع المطابخ السحابية، مع مسافة لا تقل عن 90 cm بين المدخل ومنطقة الاستقبال.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 5.1.</span>`,
         deliveryCoverage: 'افتح تطبيقات التوصيل من الموقع نفسه وتأكد من نطاق التغطية والطلب المتوقع، فدخول المندوب للموقع وحده لا يكفي.',
         visibility: 'شاهد الموقع من اتجاه حركة السيارات ومن مسافة مناسبة. تأكد أن الواجهة واللوحة يمكن ملاحظتهما قبل تجاوز المدخل.',
@@ -844,9 +862,13 @@
         return QUESTIONS[step].filter(q => !q.when || q.when(state.answers));
       }
 
+      function questionOptions(q) {
+        return q.options.filter(opt => !opt.when || opt.when(state.answers));
+      }
+
       function optionCols(count) {
         if (count <= 2) return 'cols-2';
-        if (count === 3) return 'cols-3';
+        if (count === 3 || count === 5) return 'cols-3';
         return 'cols-4';
       }
 
@@ -868,30 +890,33 @@
 
       function renderQuestions() {
         const list = visibleQuestions(state.step);
-        const html = list.map((q, i) => `
-          <article class="question-card" data-id="${q.id}">
-            <div class="question-head">
-              <div class="q-badge">${i+1}</div>
-              <div style="flex:1;min-width:0;">
-                <div class="question-title-row">
-                  <h3>${q.title}</h3>
-                  ${QUESTION_TIPS[q.id] ? `<span class="tip-wrap"><button class="tip-btn" type="button" aria-label="تعليمات السؤال" data-tip-toggle>؟</button><span class="tip-box">${QUESTION_TIPS[q.id]}</span></span>` : ''}
-                </div>
-                ${q.help ? `<p>${q.help}</p>` : ''}
-              </div>
-            </div>
-            <div class="options ${optionCols(q.options.length)}">
-              ${q.options.map(opt => `
-                <button class="choice${q.multi ? ' multi' : ''} ${q.multi ? (state.answers[q.id]?.includes(opt.value)?'selected':'') : (state.answers[q.id]===opt.value?'selected':'')}" type="button" data-question="${q.id}" data-value="${opt.value}"${q.multi ? ` role="checkbox" aria-checked="${state.answers[q.id]?.includes(opt.value) ? 'true' : 'false'}"` : ''}>
-                  <div>
-                    <strong>${opt.label}</strong>
-                    ${opt.note ? `<small>${opt.note}</small>` : ''}
+        const html = list.map((q, i) => {
+          const options = questionOptions(q);
+          return `
+            <article class="question-card" data-id="${q.id}">
+              <div class="question-head">
+                <div class="q-badge">${i+1}</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="question-title-row">
+                    <h3>${q.title}</h3>
+                    ${QUESTION_TIPS[q.id] ? `<span class="tip-wrap"><button class="tip-btn" type="button" aria-label="تعليمات السؤال" data-tip-toggle>؟</button><span class="tip-box">${QUESTION_TIPS[q.id]}</span></span>` : ''}
                   </div>
-                  <span class="dot" aria-hidden="true"></span>
-                </button>
-              `).join('')}
-            </div>
-          </article>`).join('');
+                  ${q.help ? `<p>${q.help}</p>` : ''}
+                </div>
+              </div>
+              <div class="options ${optionCols(options.length)}">
+                ${options.map(opt => `
+                  <button class="choice${q.multi ? ' multi' : ''} ${q.multi ? (state.answers[q.id]?.includes(opt.value)?'selected':'') : (state.answers[q.id]===opt.value?'selected':'')}" type="button" data-question="${q.id}" data-value="${opt.value}"${q.multi ? ` role="checkbox" aria-checked="${state.answers[q.id]?.includes(opt.value) ? 'true' : 'false'}"` : ''}>
+                    <div>
+                      <strong>${opt.label}</strong>
+                      ${opt.note ? `<small>${opt.note}</small>` : ''}
+                    </div>
+                    <span class="dot" aria-hidden="true"></span>
+                  </button>
+                `).join('')}
+              </div>
+            </article>`;
+        }).join('');
         $('#questionList').innerHTML = html;
       }
 
@@ -922,7 +947,7 @@
 
       function getOption(qid, value) {
         const q = getQuestion(qid);
-        return q?.options.find(o => o.value === value);
+        return q ? questionOptions(q).find(o => o.value === value) : undefined;
       }
 
       function serviceChannelsLabel(values = state.answers.serviceChannels) {
@@ -949,7 +974,9 @@
         }
         if (questionId === 'serviceChannels') {
           const channels = state.answers.serviceChannels;
-          if (!channels.includes('dineIn') && !channels.includes('pickupInside')) delete state.answers.parking;
+          if (channels.length <= 1 || (state.answers.primaryChannel !== 'balanced' && !channels.includes(state.answers.primaryChannel))) delete state.answers.primaryChannel;
+          if (!channels.includes('dineIn')) delete state.answers.parking;
+          if (!channels.includes('pickupInside')) delete state.answers.pickupAccess;
           if (!channels.includes('driveThru')) delete state.answers.driveThruFlow;
           if (!channels.includes('delivery')) {
             delete state.answers.courierAccess;
@@ -993,6 +1020,14 @@
       function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
       function clamp(n,min,max) { return Math.max(min, Math.min(max, n)); }
 
+      function channelIssueFloor(channel) {
+        const channels = state.answers.serviceChannels || [];
+        if (channels.length === 1 && channels[0] === channel) return 70;
+        if (state.answers.primaryChannel === 'balanced') return 54;
+        if (state.answers.primaryChannel === channel) return 70;
+        return 45;
+      }
+
       function calculateResult() {
         const visible = allVisibleQuestions();
         const records = [];
@@ -1004,7 +1039,7 @@
 
         visible.forEach(q => {
           if (q.multi) {
-            const selectedOptions = q.options.filter(opt => state.answers[q.id]?.includes(opt.value));
+            const selectedOptions = questionOptions(q).filter(opt => state.answers[q.id]?.includes(opt.value));
             if (q.contextOnly) selectedOptions.forEach(opt => records.push({ question:q.title, domain:'context', risk:null, opt }));
             return;
           }
@@ -1031,9 +1066,11 @@
 
         let score = Math.round(axisScores.location*0.30 + axisScores.deal*0.30 + axisScores.ops*0.25 + axisScores.market*0.15);
         const serviceChannels = state.answers.serviceChannels || [];
-        if ((serviceChannels.includes('dineIn') || serviceChannels.includes('pickupInside')) && state.answers.parking === 'weak') score = Math.max(score, 70);
-        if (serviceChannels.includes('delivery') && state.answers.courierAccess === 'difficult') score = Math.max(score, 68);
-        if (serviceChannels.includes('driveThru') && state.answers.driveThruFlow === 'weak') score = Math.max(score, 70);
+        if (serviceChannels.includes('dineIn') && state.answers.parking === 'weak') score = Math.max(score, channelIssueFloor('dineIn'));
+        if (serviceChannels.includes('pickupInside') && state.answers.pickupAccess === 'difficult') score = Math.max(score, channelIssueFloor('pickupInside'));
+        if (serviceChannels.includes('delivery') && state.answers.courierAccess === 'difficult') score = Math.max(score, channelIssueFloor('delivery'));
+        if (serviceChannels.includes('driveThru') && state.answers.driveThruFlow === 'reorganize') score = Math.max(score, channelIssueFloor('driveThru'));
+        if (serviceChannels.includes('driveThru') && state.answers.driveThruFlow === 'disruptive') score = Math.max(score, 74);
         if (serviceChannels.includes('driveThru') && state.answers.driveThruFlow === 'unknown') score = Math.max(score, 56);
         if (blockers.length) score = Math.max(score, 88);
         score = clamp(score, 0, 100);
@@ -1068,9 +1105,12 @@
         const axisName = { location:'الموقع والوصول', deal:'الصفقة والمرونة', ops:'الجاهزية التشغيلية', market:'السوق والتعارض' }[weakestAxis];
         if (score >= 26) summary += ` أعلى مصدر خطر حاليا هو محور ${axisName}.`;
 
-        if (state.answers.driveThruFlow === 'weak') {
-          summary += ' مسار خدمة السيارات يضغط على الموقع، وقد يعطل الشارع أو المواقف.';
-          recommendations.unshift('أعد تصميم مسار خدمة السيارات (Drive-thru) قبل اعتماد الموقع.');
+        if (state.answers.driveThruFlow === 'disruptive') {
+          summary += ' مسار خدمة السيارات يسبب تكدسًا أو يعطل الشارع أو المواقف.';
+          recommendations.unshift('عالج تكدس مسار خدمة السيارات (Drive-thru) وتعطيل الحركة قبل اعتماد الموقع.');
+        } else if (state.answers.driveThruFlow === 'reorganize') {
+          summary += ' مسار خدمة السيارات يحتاج إلى تنظيم أفضل ليستوعب الذروة.';
+          recommendations.unshift('أعد تنظيم مسار خدمة السيارات (Drive-thru) قبل اعتماد الموقع.');
         } else if (state.answers.driveThruFlow === 'unknown') {
           summary += ' مسار خدمة السيارات يحتاج إلى تجربة وقت الذروة قبل اعتماد الموقع.';
           recommendations.unshift('تحقق من مسار خدمة السيارات (Drive-thru) في وقت الذروة.');
@@ -1087,6 +1127,7 @@
         state.result = {
           score, band, bandTitle, decision, priority, summary, axisScores,
           serviceChannels: [...serviceChannels],
+          primaryChannel: serviceChannels.length === 1 ? serviceChannels[0] : state.answers.primaryChannel,
           strengths: sortUnique(strengths, true).slice(0,5),
           risks: sortUnique(risks, true).slice(0,5),
           actions: sortUnique(actions, true).slice(0,5),
@@ -1160,7 +1201,7 @@
       function restoreState() {
         try {
           const currentRaw = localStorage.getItem(STORAGE_KEY);
-          const raw = currentRaw || localStorage.getItem(LEGACY_STORAGE_KEY);
+          const raw = currentRaw || localStorage.getItem(LEGACY_STORAGE_KEY) || localStorage.getItem(OLDER_STORAGE_KEY);
           if (!raw) return false;
           const saved = JSON.parse(raw);
           const hasAnswers = saved.answers && Object.keys(saved.answers).length;
@@ -1168,15 +1209,33 @@
           if (!hasAnswers && !hasBranchName) return false;
           if (typeof saved.branchName === 'string') state.branchName = saved.branchName.slice(0, 70);
           if (saved.answers) state.answers = saved.answers;
-          const validChannels = Array.isArray(state.answers.serviceChannels) && state.answers.serviceChannels.length > 0;
-          if (!currentRaw || !validChannels) {
+          const allowedChannels = ['dineIn', 'pickupInside', 'driveThru', 'delivery'];
+          const validChannels = Array.isArray(state.answers.serviceChannels) && state.answers.serviceChannels.length > 0 && state.answers.serviceChannels.every(channel => allowedChannels.includes(channel));
+          const needsMigration = !currentRaw || saved.version !== APP_VERSION;
+          if (!validChannels) {
             delete state.answers.salesModel;
             delete state.answers.driveThru;
             delete state.answers.serviceChannels;
+            delete state.answers.primaryChannel;
             delete state.answers.parking;
+            delete state.answers.pickupAccess;
             delete state.answers.driveThruFlow;
             delete state.answers.courierAccess;
             delete state.answers.deliveryCoverage;
+            state.step = 1;
+            state.result = null;
+            saveState();
+          } else if (needsMigration) {
+            delete state.answers.salesModel;
+            delete state.answers.driveThru;
+            delete state.answers.primaryChannel;
+            delete state.answers.pickupAccess;
+            delete state.answers.driveThruFlow;
+            if (!state.answers.serviceChannels.includes('dineIn')) delete state.answers.parking;
+            if (!state.answers.serviceChannels.includes('delivery')) {
+              delete state.answers.courierAccess;
+              delete state.answers.deliveryCoverage;
+            }
             state.step = 1;
             state.result = null;
             saveState();
@@ -1184,10 +1243,6 @@
             if (saved.step) state.step = clamp(saved.step, 1, 3);
             if (saved.result) {
               state.result = saved.result;
-              if (saved.version !== APP_VERSION) {
-                state.result = null;
-                calculateResult();
-              }
             }
           }
           return true;
@@ -1222,6 +1277,7 @@
         state.step = 1; state.branchName = ''; state.answers = {}; state.result = null; state.preparedImage = null;
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem(LEGACY_STORAGE_KEY);
+        localStorage.removeItem(OLDER_STORAGE_KEY);
         $('#results').classList.remove('show');
         $('.tool-card').classList.remove('completed');
         renderStep();
