@@ -597,7 +597,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.2.4</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.3.0</span>
         </div>
       </div>
       <div class="footer-social">
@@ -650,9 +650,9 @@
 
   <script>
     (() => {
-      const STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v3';
-      const APP_VERSION = '1.2.4';
+      const STORAGE_KEY = 'tawassu_assessment_pro_v5';
+      const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v4';
+      const APP_VERSION = '1.3.0';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -661,7 +661,7 @@
       const STEP_COPY = {
         1: {
           title: 'الخطوة 1 من 3: تعريف الفرع',
-          hint: 'ابدأ بطبيعة النشاط ونمط المبيعات ونوع الموقع وخدمة السيارات.',
+          hint: 'ابدأ بطبيعة النشاط وقنوات الخدمة ونوع الموقع.',
           sectionKicker: 'القسم 1 من 3',
           sectionTitle: 'تعريف الفرع',
           intro: 'هذه المرحلة تضبط منطق الأسئلة التالية حسب قنوات الخدمة وواقع الموقع.',
@@ -693,15 +693,11 @@
             { value:'kiosk', label:'كشك أو وحدة صغيرة', note:'تشغيل أخف', risk:24, rationale:'الوحدة الصغيرة أخف من ناحية الالتزامات.' },
             { value:'retail', label:'تجزئة أو خدمة', note:'متطلبات تشغيل أخف', risk:22, rationale:'متطلبات التشغيل عادة أخف من المطاعم.' }
           ] },
-          { id:'salesModel', domain:'location', title:'من أين تتوقع أن تأتي أغلب مبيعات الفرع؟', help:'اختر القناة التي تتوقع أن تعتمد عليها أكثر، ثم حدد وجود خدمة السيارات في السؤال التالي.', options:[
-            { value:'local', label:'اعتماد أكبر على المحلي والجلسات', note:'المواقف والوصول أهم', risk:50 },
-            { value:'balanced', label:'توازن بين المحلي والاستلام والتوصيل', note:'توازن في الموقع والخدمة', risk:35 },
-            { value:'delivery', label:'اعتماد أكبر على التوصيل والاستلام', note:'الوصول للمندوبين أهم', risk:40 }
-          ] },
-          { id:'driveThru', contextOnly:true, title:'هل يتضمن الفرع خدمة السيارات (Drive-thru)؟', help:'حدد مدى اعتماد الفرع عليها، سواء اجتمعت مع المحلي أو الاستلام أو التوصيل.', options:[
-            { value:'primary', label:'نعم، قناة رئيسية', note:'جزء أساسي من مبيعات الفرع' },
-            { value:'secondary', label:'نعم، قناة مساندة', note:'تعمل مع قنوات الخدمة الأخرى' },
-            { value:'none', label:'لا', note:'لا توجد خدمة سيارات' }
+          { id:'serviceChannels', contextOnly:true, multi:true, title:'ما قنوات الخدمة التي ستسهم في مبيعات الفرع؟', help:'اختر كل ما ينطبق على الفرع. يمكنك اختيار أكثر من قناة.', options:[
+            { value:'dineIn', label:'تناول داخل الفرع', note:'جلسات وخدمة داخلية' },
+            { value:'pickupInside', label:'استلام من داخل الفرع', note:'يستلم العميل طلبه من نقطة الاستلام' },
+            { value:'driveThru', label:'استلام من السيارة', note:'يستلم العميل طلبه دون مغادرة السيارة' },
+            { value:'delivery', label:'توصيل عبر التطبيقات', note:'تصل الطلبات إلى العملاء عبر المندوبين' }
           ] },
           { id:'locationType', domain:'location', title:'أين يقع الموقع الذي تفكر فيه؟', help:'اختر الوصف الأقرب للموقع.', options:[
             { value:'street', label:'شارع تجاري مفتوح', note:'الواجهة والمواقف مهمتان', risk:38 },
@@ -711,25 +707,25 @@
           ] }
         ],
         2: [
-          { id:'parking', domain:'location', title:'هل المواقف كافية وسهلة وقت الذروة؟', help:'قيّم الوضع في أوقات الذروة، وليس في الأوقات الهادئة.', when:s=>s.salesModel!=='delivery', options:[
+          { id:'parking', domain:'location', title:'هل المواقف كافية وسهلة وقت الذروة؟', help:'قيّم الوضع في أوقات الذروة، وليس في الأوقات الهادئة.', when:s=>s.serviceChannels?.includes('dineIn')||s.serviceChannels?.includes('pickupInside'), options:[
             { value:'strong', label:'وفيرة وسهلة', risk:8, good:'المواقف مناسبة لطبيعة الفرع.', action:'حافظ على سهولة الدخول والخروج ولا تكتفِ بعدد المواقف فقط.' },
             { value:'fair', label:'مقبولة مع بعض الضغط', risk:32, action:'اختبر الموقع وقت الذروة وتأكد من خطة الاستلام السريع.' },
-            { value:'weak', label:'ضعيفة أو مربكة', risk:78, bad:'المواقف لا تدعم الاعتماد على المحلي.', action:'إعادة النظر أو إيجاد حل واضح للمواقف والاستلام.' },
+            { value:'weak', label:'ضعيفة أو مربكة', risk:78, bad:'المواقف لا تدعم قنوات الخدمة المختارة.', action:'إعادة النظر أو إيجاد حل مناسب للمواقف والاستلام.' },
             { value:'unknown', label:'لم أتحقق بعد', risk:56, bad:'المواقف تحتاج إلى تحقق ميداني.', action:'زيارة ميدانية في وقت الذروة مطلوبة قبل التوقيع.' }
           ] },
-          { id:'driveThruFlow', domain:'location', title:'هل يستوعب مسار خدمة السيارات الدخول والطلب والاستلام والخروج وقت الذروة دون تعطيل الشارع أو المواقف؟', help:'قيّم المسار من نقطة الدخول حتى الخروج، مع تقدير سعة طابور السيارات وقت الذروة.', when:s=>s.driveThru==='primary'||s.driveThru==='secondary', options:[
+          { id:'driveThruFlow', domain:'location', title:'هل يستوعب مسار خدمة السيارات الدخول والطلب والاستلام والخروج وقت الذروة دون تعطيل الشارع أو المواقف؟', help:'قيّم المسار من نقطة الدخول حتى الخروج، مع تقدير سعة طابور السيارات وقت الذروة.', when:s=>s.serviceChannels?.includes('driveThru'), options:[
             { value:'strong', label:'مناسب ويستوعب الذروة', risk:10, good:'مسار خدمة السيارات مناسب لحركة الطلبات.' },
             { value:'fair', label:'مقبول مع بعض الضغط', risk:38, action:'اختبر سعة مسار خدمة السيارات وقت الذروة.' },
             { value:'weak', label:'ضعيف أو يسبب تكدس السيارات', risk:86, bad:'مسار خدمة السيارات قد يعطل الشارع أو المواقف.', action:'أعد تصميم مسار خدمة السيارات قبل اعتماد الموقع.' },
             { value:'unknown', label:'لم أتحقق بعد', risk:62, bad:'مسار خدمة السيارات لم يتم التحقق منه.', action:'اختبر دخول السيارات وطابورها وخروجها قبل التوقيع.' }
           ] },
-          { id:'courierAccess', domain:'location', title:'هل دخول مندوبي التوصيل والاستلام للموقع سهل وواضح؟', help:'فكر في سهولة الوقوف والوصول واستلام الطلب دون تعطيل الحركة.', when:s=>s.salesModel!=='local', options:[
+          { id:'courierAccess', domain:'location', title:'هل دخول مندوبي التوصيل إلى الموقع سهل؟', help:'فكر في سهولة وقوف المندوب ووصوله إلى نقطة استلام الطلب دون تعطيل الحركة.', when:s=>s.serviceChannels?.includes('delivery'), options:[
             { value:'easy', label:'سهل وواضح', risk:10, good:'حركة التوصيل تبدو عملية وواضحة.' },
             { value:'fair', label:'مقبول مع بعض الملاحظات', risk:34, action:'جهز نقطة استلام واضحة ومباشرة.' },
             { value:'difficult', label:'صعب أو يسبب تعطيل الحركة', risk:76, bad:'حركة التوصيل قد تتحول إلى عنق زجاجة يومي.', action:'تحديد نقطة الاستلام أو إعادة تقييم الموقع.' },
-            { value:'unknown', label:'غير واضح', risk:55, action:'اختبر الموقع مع مندوب أو سيارة استلام.' }
+            { value:'unknown', label:'غير واضح', risk:55, action:'اختبر الموقع مع أحد مندوبي التوصيل.' }
           ] },
-          { id:'deliveryCoverage', domain:'market', title:'هل تغطية المنطقة في تطبيقات التوصيل كافية؟', help:'تأكد من التغطية الفعلية للمنطقة داخل التطبيقات، وليس فقط سهولة دخول المندوب.', when:s=>s.salesModel!=='local', options:[
+          { id:'deliveryCoverage', domain:'market', title:'هل تغطية المنطقة في تطبيقات التوصيل كافية؟', help:'تأكد من التغطية الفعلية للمنطقة داخل التطبيقات، وليس فقط سهولة دخول المندوب.', when:s=>s.serviceChannels?.includes('delivery'), options:[
             { value:'strong', label:'جيدة وواضحة', risk:12, good:'تغطية تطبيقات التوصيل داعمة.' },
             { value:'fair', label:'مقبولة', risk:34 },
             { value:'weak', label:'ضعيفة أو غير مؤكدة', risk:68, bad:'تغطية تطبيقات التوصيل لا تبدو مطمئنة.', action:'تحقق من التغطية الفعلية قبل الالتزام.' }
@@ -815,8 +811,7 @@
 
       const QUESTION_TIPS = {
         activityType: `<span class="tip-paragraph">اختر النشاط المقرر تشغيله في هذا الفرع. تختلف احتياجات المطعم عن المقهى أو الكشك من ناحية المساحة والتجهيزات والخدمات.</span><span class="tip-paragraph">إذا كان النشاط مطعما أو مقهى، تحدد الاشتراطات مساحة لا تقل عن 16 m². أما الكشك الغذائي فتبدأ مساحته من 4 m² داخل المباني والمجمعات والأسواق، ومن 10 m² على الأرض التجارية أو المختلطة. تحقق من انطباق الحد المرتبط بنشاطك وموقعك.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البنود 3.1 و3.3.</span>`,
-        salesModel: 'فكر في مصدر أغلب الطلبات بعد الافتتاح: زبائن يجلسون في الفرع، استلام سريع، أو توصيل. خدمة السيارات تُحدد بصورة مستقلة في السؤال التالي.',
-        driveThru: 'اختر قناة رئيسية عندما تعتمد نسبة مهمة من الطلبات على خدمة السيارات، واختر قناة مساندة عندما تكون مكملة للمحلي أو الاستلام أو التوصيل.',
+        serviceChannels: 'اختر قنوات الخدمة التي ستسهم في مبيعات الفرع. اجمع بين أكثر من خيار عندما يخدم الفرع العملاء داخل الفرع أو عند نقطة الاستلام أو من السيارة أو عبر تطبيقات التوصيل.',
         locationType: `<span class="tip-paragraph">اختر وصف الموقع نفسه، وليس الحي فقط. فالمحل على شارع تجاري مفتوح يختلف عن المحل داخل مجمع أو مركز حي أو وجهة مستقلة.</span><span class="tip-paragraph">عند اختيار كشك داخل مجمع، تحقق من وجود مسافة لا تقل عن 6 m بين الكشك ومدخل أي مبنى أو مكان تجمع، مع توفير ممر مشاة صاف لا يقل عرضه عن 1.8 m.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 3.3.</span>`,
         parking: 'اختبر المواقف في وقت الذروة الفعلي، وليس وقت الزيارة الهادئ. راقب سهولة الدخول والخروج ومدة البحث عن موقف.',
         driveThruFlow: `<span class="tip-paragraph">راقب طول المسار وعدد السيارات التي يستوعبها وموقع نقطتي الطلب والاستلام. تأكد أن الطابور يحافظ على انسيابية الشارع والمواقف.</span><span class="tip-paragraph">تجيز اشتراطات المطاعم إضافة خدمة السيارات بشرط أن تكون مضافة في رخصة البناء. راجع الرخصة، ثم قيّم قدرة المسار على استيعاب الذروة.</span><span class="tip-reference">المرجع: <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»</a>، وزارة البلديات والإسكان، منشورة في 11/11/2025، البند 5.1.</span>`,
@@ -883,7 +878,7 @@
             </div>
             <div class="options ${optionCols(q.options.length)}">
               ${q.options.map(opt => `
-                <button class="choice ${state.answers[q.id]===opt.value?'selected':''}" type="button" data-question="${q.id}" data-value="${opt.value}">
+                <button class="choice ${q.multi ? (state.answers[q.id]?.includes(opt.value)?'selected':'') : (state.answers[q.id]===opt.value?'selected':'')}" type="button" data-question="${q.id}" data-value="${opt.value}"${q.multi ? ` aria-pressed="${state.answers[q.id]?.includes(opt.value) ? 'true' : 'false'}"` : ''}>
                   <div>
                     <strong>${opt.label}</strong>
                     ${opt.note ? `<small>${opt.note}</small>` : ''}
@@ -896,16 +891,22 @@
         $('#questionList').innerHTML = html;
       }
 
+      function isAnswered(q) {
+        const answer = state.answers[q.id];
+        return q.multi ? Array.isArray(answer) && answer.length > 0 : !!answer;
+      }
+
       function answeredStats() {
         const all = allVisibleQuestions();
-        const done = all.filter(q => !!state.answers[q.id]).length;
+        const done = all.filter(isAnswered).length;
         return { done, total: all.length };
       }
 
       function updateProgress() {
         const { done, total } = answeredStats();
         const completedSteps = state.step - 1;
-        const overall = Math.round(((completedSteps + (total ? (visibleQuestions(state.step).filter(q => !!state.answers[q.id]).length / visibleQuestions(state.step).length) : 0)) / state.totalSteps) * 100);
+        const currentQuestions = visibleQuestions(state.step);
+        const overall = Math.round(((completedSteps + (total ? (currentQuestions.filter(isAnswered).length / currentQuestions.length) : 0)) / state.totalSteps) * 100);
         $('#progressPercent').textContent = overall + '%';
         $('#progressCount').textContent = `${done} من ${total}`;
         $('#barFill').style.width = overall + '%';
@@ -920,16 +921,37 @@
         return q?.options.find(o => o.value === value);
       }
 
-      function driveThruLabel(value = state.answers.driveThru) {
-        if (value === 'primary') return 'نمط الخدمة: خدمة السيارات (Drive-thru)، قناة رئيسية';
-        if (value === 'secondary') return 'نمط الخدمة: خدمة السيارات (Drive-thru)، قناة مساندة';
-        return '';
+      function serviceChannelsLabel(values = state.answers.serviceChannels) {
+        if (!Array.isArray(values) || !values.length) return '';
+        const labels = {
+          dineIn: 'تناول داخل الفرع',
+          pickupInside: 'استلام من داخل الفرع',
+          driveThru: 'استلام من السيارة',
+          delivery: 'توصيل عبر التطبيقات'
+        };
+        return `قنوات الخدمة: ${values.map(value => labels[value]).filter(Boolean).join('، ')}`;
       }
 
       function choose(questionId, value) {
-        const changed = state.answers[questionId] !== value;
-        state.answers[questionId] = value;
-        if (questionId === 'driveThru' && value === 'none') delete state.answers.driveThruFlow;
+        const question = getQuestion(questionId);
+        let changed = false;
+        if (question?.multi) {
+          const current = Array.isArray(state.answers[questionId]) ? state.answers[questionId] : [];
+          state.answers[questionId] = current.includes(value) ? current.filter(item => item !== value) : [...current, value];
+          changed = true;
+        } else {
+          changed = state.answers[questionId] !== value;
+          state.answers[questionId] = value;
+        }
+        if (questionId === 'serviceChannels') {
+          const channels = state.answers.serviceChannels;
+          if (!channels.includes('dineIn') && !channels.includes('pickupInside')) delete state.answers.parking;
+          if (!channels.includes('driveThru')) delete state.answers.driveThruFlow;
+          if (!channels.includes('delivery')) {
+            delete state.answers.courierAccess;
+            delete state.answers.deliveryCoverage;
+          }
+        }
         if (changed && state.result) state.result = null;
         if (changed && state.preparedImage) {
           if (state.preparedImage.url) URL.revokeObjectURL(state.preparedImage.url);
@@ -940,7 +962,7 @@
       }
 
       function stepValid(step) {
-        return visibleQuestions(step).every(q => !!state.answers[q.id]);
+        return visibleQuestions(step).every(isAnswered);
       }
 
       function nextStep() {
@@ -977,6 +999,11 @@
         const blockers = [];
 
         visible.forEach(q => {
+          if (q.multi) {
+            const selectedOptions = q.options.filter(opt => state.answers[q.id]?.includes(opt.value));
+            if (q.contextOnly) selectedOptions.forEach(opt => records.push({ question:q.title, domain:'context', risk:null, opt }));
+            return;
+          }
           const opt = getOption(q.id, state.answers[q.id]);
           if (!opt) return;
           if (q.contextOnly) {
@@ -999,11 +1026,11 @@
         };
 
         let score = Math.round(axisScores.location*0.30 + axisScores.deal*0.30 + axisScores.ops*0.25 + axisScores.market*0.15);
-        if (state.answers.salesModel === 'local' && state.answers.parking === 'weak') score = Math.max(score, 70);
-        if (state.answers.salesModel !== 'local' && state.answers.courierAccess === 'difficult') score = Math.max(score, 68);
-        if (state.answers.driveThru === 'primary' && state.answers.driveThruFlow === 'weak') score = Math.max(score, 70);
-        if (state.answers.driveThru === 'primary' && state.answers.driveThruFlow === 'unknown') score = Math.max(score, 56);
-        if (state.answers.driveThru === 'secondary' && state.answers.driveThruFlow === 'weak') score = Math.max(score, 45);
+        const serviceChannels = state.answers.serviceChannels || [];
+        if ((serviceChannels.includes('dineIn') || serviceChannels.includes('pickupInside')) && state.answers.parking === 'weak') score = Math.max(score, 70);
+        if (serviceChannels.includes('delivery') && state.answers.courierAccess === 'difficult') score = Math.max(score, 68);
+        if (serviceChannels.includes('driveThru') && state.answers.driveThruFlow === 'weak') score = Math.max(score, 70);
+        if (serviceChannels.includes('driveThru') && state.answers.driveThruFlow === 'unknown') score = Math.max(score, 56);
         if (blockers.length) score = Math.max(score, 88);
         score = clamp(score, 0, 100);
 
@@ -1043,7 +1070,7 @@
         } else if (state.answers.driveThruFlow === 'unknown') {
           summary += ' مسار خدمة السيارات يحتاج إلى تجربة وقت الذروة قبل اعتماد الموقع.';
           recommendations.unshift('تحقق من مسار خدمة السيارات (Drive-thru) في وقت الذروة.');
-        } else if (state.answers.driveThru === 'primary' && state.answers.driveThruFlow === 'fair') {
+        } else if (serviceChannels.includes('driveThru') && state.answers.driveThruFlow === 'fair') {
           recommendations.unshift('اختبر سعة مسار خدمة السيارات (Drive-thru) في وقت الذروة.');
         }
 
@@ -1055,7 +1082,7 @@
 
         state.result = {
           score, band, bandTitle, decision, priority, summary, axisScores,
-          driveThru: state.answers.driveThru,
+          serviceChannels: [...serviceChannels],
           strengths: sortUnique(strengths, true).slice(0,5),
           risks: sortUnique(risks, true).slice(0,5),
           actions: sortUnique(actions, true).slice(0,5),
@@ -1072,7 +1099,7 @@
         const branchName = state.branchName.trim();
         $('#resultBranch').hidden = !branchName;
         $('#resultBranch').textContent = branchName ? `اسم الفرع: ${branchName}` : '';
-        const serviceLabel = driveThruLabel(r.driveThru || state.answers.driveThru);
+        const serviceLabel = serviceChannelsLabel(r.serviceChannels || state.answers.serviceChannels);
         $('#resultDriveThru').hidden = !serviceLabel;
         $('#resultDriveThru').textContent = serviceLabel;
         $('#resultTags').hidden = !branchName && !serviceLabel;
@@ -1137,10 +1164,16 @@
           if (!hasAnswers && !hasBranchName) return false;
           if (typeof saved.branchName === 'string') state.branchName = saved.branchName.slice(0, 70);
           if (saved.answers) state.answers = saved.answers;
-          const validDriveThru = ['primary','secondary','none'].includes(state.answers.driveThru);
-          const needsDriveThruFlow = ['primary','secondary'].includes(state.answers.driveThru) && !state.answers.driveThruFlow;
-          if (!currentRaw || !validDriveThru || needsDriveThruFlow) {
-            state.step = validDriveThru ? 2 : 1;
+          const validChannels = Array.isArray(state.answers.serviceChannels) && state.answers.serviceChannels.length > 0;
+          if (!currentRaw || !validChannels) {
+            delete state.answers.salesModel;
+            delete state.answers.driveThru;
+            delete state.answers.serviceChannels;
+            delete state.answers.parking;
+            delete state.answers.driveThruFlow;
+            delete state.answers.courierAccess;
+            delete state.answers.deliveryCoverage;
+            state.step = 1;
             state.result = null;
             saveState();
           } else {
@@ -1399,7 +1432,7 @@
           }
           const [logo, sign] = await Promise.all([loadImage('tawassu-logo.png'), loadImage('naif-logo-v2.png')]);
           const branchName = state.branchName.trim();
-          const serviceLabel = driveThruLabel(state.result.driveThru || state.answers.driveThru);
+          const serviceLabel = serviceChannelsLabel(state.result.serviceChannels || state.answers.serviceChannels);
           const now = new Date();
           const dayName = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', { weekday:'long' }).format(now);
           const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura-nu-latn', { day:'numeric', month:'long', year:'numeric', era:'short' }).format(now);
