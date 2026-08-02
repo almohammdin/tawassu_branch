@@ -601,7 +601,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.3.1</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.3.2</span>
         </div>
       </div>
       <div class="footer-social">
@@ -656,7 +656,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v5';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const APP_VERSION = '1.3.1';
+      const APP_VERSION = '1.3.2';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -700,7 +700,7 @@
           { id:'serviceChannels', contextOnly:true, multi:true, title:'ما قنوات الخدمة التي ستسهم في مبيعات الفرع؟', help:'اختر كل ما ينطبق على الفرع. <strong class="multi-hint">يمكنك اختيار أكثر من قناة.</strong>', options:[
             { value:'dineIn', label:'تناول داخل الفرع', note:'جلسات وخدمة داخلية' },
             { value:'pickupInside', label:'استلام من داخل الفرع', note:'يستلم العميل طلبه من نقطة الاستلام' },
-            { value:'driveThru', label:'استلام من السيارة', note:'يستلم العميل طلبه دون مغادرة السيارة' },
+            { value:'driveThru', label:'الطلب أو الاستلام من السيارة', note:'خدمة السيارات (Drive-thru) دون مغادرة السيارة' },
             { value:'delivery', label:'توصيل عبر التطبيقات', note:'تصل الطلبات إلى العملاء عبر المندوبين' }
           ] },
           { id:'locationType', domain:'location', title:'أين يقع الموقع الذي تفكر فيه؟', help:'اختر الوصف الأقرب للموقع.', options:[
@@ -930,7 +930,7 @@
         const labels = {
           dineIn: 'تناول داخل الفرع',
           pickupInside: 'استلام من داخل الفرع',
-          driveThru: 'استلام من السيارة',
+          driveThru: 'الطلب أو الاستلام من السيارة',
           delivery: 'توصيل عبر التطبيقات'
         };
         return `قنوات الخدمة: ${values.map(value => labels[value]).filter(Boolean).join('، ')}`;
