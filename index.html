@@ -197,6 +197,7 @@
     .q-badge { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, rgba(13,67,141,.1), rgba(23,191,208,.1)); color: var(--navy); font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
     .question-head h3 { margin: 0; font-size: 1.05rem; color: var(--ink); line-height: 1.55; }
     .question-head p { margin: 4px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+    .multi-hint { display: inline-block; margin-inline-start: 4px; padding: 1px 7px; border-radius: 6px; background: rgba(13,67,141,.08); color: var(--navy); font-weight: 700; }
     .options { display: grid; gap: 10px; }
     .options.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .options.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -209,6 +210,9 @@
     .choice.selected { border-color: rgba(13,67,141,.34); background: rgba(13,67,141,.05); box-shadow: 0 0 0 3px rgba(13,67,141,.06); }
     .choice.selected .dot { border-color: var(--navy); }
     .choice.selected .dot::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--navy); }
+    .choice.multi .dot { border-radius: 4px; }
+    .choice.multi.selected .dot { background: var(--navy); }
+    .choice.multi.selected .dot::after { content: ''; inset: auto; width: 5px; height: 9px; top: 1px; left: 5px; border: solid #fff; border-width: 0 2px 2px 0; border-radius: 0; background: transparent; transform: rotate(45deg); }
     .actions { padding: 0 24px 24px; }
     .actions-main { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
     .actions-main #nextBtn { margin-inline-start: auto; }
@@ -597,7 +601,7 @@
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
-          <span class="footer-version" id="footerVersion">الإصدار 1.3.0</span>
+          <span class="footer-version" id="footerVersion">الإصدار 1.3.1</span>
         </div>
       </div>
       <div class="footer-social">
@@ -652,7 +656,7 @@
     (() => {
       const STORAGE_KEY = 'tawassu_assessment_pro_v5';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const APP_VERSION = '1.3.0';
+      const APP_VERSION = '1.3.1';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -693,7 +697,7 @@
             { value:'kiosk', label:'كشك أو وحدة صغيرة', note:'تشغيل أخف', risk:24, rationale:'الوحدة الصغيرة أخف من ناحية الالتزامات.' },
             { value:'retail', label:'تجزئة أو خدمة', note:'متطلبات تشغيل أخف', risk:22, rationale:'متطلبات التشغيل عادة أخف من المطاعم.' }
           ] },
-          { id:'serviceChannels', contextOnly:true, multi:true, title:'ما قنوات الخدمة التي ستسهم في مبيعات الفرع؟', help:'اختر كل ما ينطبق على الفرع. يمكنك اختيار أكثر من قناة.', options:[
+          { id:'serviceChannels', contextOnly:true, multi:true, title:'ما قنوات الخدمة التي ستسهم في مبيعات الفرع؟', help:'اختر كل ما ينطبق على الفرع. <strong class="multi-hint">يمكنك اختيار أكثر من قناة.</strong>', options:[
             { value:'dineIn', label:'تناول داخل الفرع', note:'جلسات وخدمة داخلية' },
             { value:'pickupInside', label:'استلام من داخل الفرع', note:'يستلم العميل طلبه من نقطة الاستلام' },
             { value:'driveThru', label:'استلام من السيارة', note:'يستلم العميل طلبه دون مغادرة السيارة' },
@@ -878,7 +882,7 @@
             </div>
             <div class="options ${optionCols(q.options.length)}">
               ${q.options.map(opt => `
-                <button class="choice ${q.multi ? (state.answers[q.id]?.includes(opt.value)?'selected':'') : (state.answers[q.id]===opt.value?'selected':'')}" type="button" data-question="${q.id}" data-value="${opt.value}"${q.multi ? ` aria-pressed="${state.answers[q.id]?.includes(opt.value) ? 'true' : 'false'}"` : ''}>
+                <button class="choice${q.multi ? ' multi' : ''} ${q.multi ? (state.answers[q.id]?.includes(opt.value)?'selected':'') : (state.answers[q.id]===opt.value?'selected':'')}" type="button" data-question="${q.id}" data-value="${opt.value}"${q.multi ? ` role="checkbox" aria-checked="${state.answers[q.id]?.includes(opt.value) ? 'true' : 'false'}"` : ''}>
                   <div>
                     <strong>${opt.label}</strong>
                     ${opt.note ? `<small>${opt.note}</small>` : ''}
