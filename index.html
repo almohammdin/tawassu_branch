@@ -29,6 +29,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tawassu-assistant.css?v=1.5.0">
+  <meta name="tawassu-assistant-enabled" content="true">
   <style>
     :root {
       --bg: #f7f5ef;
@@ -419,16 +421,46 @@
               <span>المسار الأساسي لتقييم قرار فرع واحد</span>
             </div>
             <button class="mode-pill locked" type="button" id="advancedModeBtn" aria-label="النسخة المتقدمة، قيد التطوير">
-              <div class="lock-badge">
+              <span class="lock-badge">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 قيد التطوير
-              </div>
+              </span>
               <strong>النسخة المتقدمة</strong>
               <span>تحليل أوسع يساعدك على فهم الجدوى والمخاطر واتخاذ قرار أدق.</span>
             </button>
           </div>
         </div>
 
+        <section class="assessment-mode-picker" id="assessmentModePicker" aria-labelledby="assessmentModeTitle">
+          <div class="assessment-mode-heading">
+            <span class="assessment-mode-mark" aria-hidden="true">✦</span>
+            <div>
+              <span>مساعد توسع</span>
+              <h3 id="assessmentModeTitle">كيف تحب تقيّم فرصة الفرع؟</h3>
+            </div>
+            <button class="assessment-mode-change" id="assessmentModeChange" type="button" hidden>تغيير الطريقة</button>
+          </div>
+          <div class="assessment-mode-options">
+            <button class="assessment-mode-option" type="button" data-assistant-mode="guided">
+              <span class="assessment-mode-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4.5a8.5 8.5 0 0 0-8.5 8.5c0 6.4 8.5 14 8.5 14s8.5-7.6 8.5-14A8.5 8.5 0 0 0 16 4.5Z"></path><path class="mode-sound" d="M12 15v2m4-5v8m4-6v4"></path></svg></span>
+              <strong>حاورني وقيّمني</strong>
+              <small>أجب بالصوت أو الكتابة وسأكمل التقييم معك</small>
+            </button>
+            <button class="assessment-mode-option" type="button" data-assistant-mode="think">
+              <span class="assessment-mode-icon" aria-hidden="true">◈</span>
+              <strong>ساعدني أفكر</strong>
+              <small>ناقش الفرصة معي وحدد المعلومات والمخاطر</small>
+            </button>
+            <button class="assessment-mode-option" type="button" data-assistant-mode="manual">
+              <span class="assessment-mode-icon" aria-hidden="true">✓</span>
+              <strong>أعبئ النموذج بنفسي</strong>
+              <small>استخدم النموذج واحصل على شرح عند الحاجة</small>
+            </button>
+          </div>
+        </section>
+
+        <div class="assessment-workspace" id="assessmentWorkspace">
+          <div class="assessment-main">
         <div class="progress-zone">
           <div class="section-heading">
             <span class="section-icon" id="sectionIcon" aria-hidden="true"></span>
@@ -502,12 +534,55 @@
 
         <div class="actions">
           <div class="actions-main">
-            <button class="btn btn-secondary" type="button" id="prevBtn" style="display:none;">السابق</button>
+            <button class="btn btn-secondary btn-prev" type="button" id="prevBtn">السابق</button>
             <button class="btn btn-primary" type="button" id="nextBtn">التالي</button>
           </div>
           <div class="reset-row">
             <button class="btn btn-reset" type="button" id="resetInlineBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v6h6"></path></svg>ابدأ من جديد</button>
           </div>
+        </div>
+          </div>
+
+          <aside class="tawassu-assistant" id="tawassuAssistant" aria-label="مساعد توسع" hidden>
+            <div class="tawassu-assistant-head">
+              <div class="tawassu-assistant-identity">
+                <span class="tawassu-assistant-orb" aria-hidden="true">✦</span>
+                <div><strong>خبير توسع</strong><small id="assistantModeLabel">مساعد تقييم الفرع</small></div>
+              </div>
+              <div class="tawassu-assistant-head-actions">
+                <button type="button" id="assistantSoundToggle" aria-label="كتم صوت المساعد" aria-pressed="true"><span aria-hidden="true">◖))</span></button>
+                <button type="button" id="assistantEnd" aria-label="إنهاء المحادثة الصوتية"><span aria-hidden="true">■</span></button>
+                <button type="button" id="assistantMinimize" aria-label="تصغير لوحة المساعد" aria-expanded="true">⌄</button>
+              </div>
+            </div>
+            <div class="tawassu-assistant-body" id="assistantBody">
+              <div class="assistant-state" id="assistantState"><span></span><b>جاهز</b></div>
+              <div class="assistant-current" id="assistantCurrentQuestion"></div>
+              <div class="assistant-conversation" id="assistantConversation" aria-live="polite"></div>
+              <div class="assistant-confirm" id="assistantConfirm" hidden></div>
+              <div class="assistant-suggestions" id="assistantSuggestions"></div>
+              <div class="assistant-transcript" id="assistantTranscript" hidden></div>
+              <div class="assistant-notice" id="assistantNotice" hidden></div>
+              <form class="assistant-compose" id="assistantForm">
+                <button class="assistant-mic" type="button" id="assistantMic" aria-label="ابدأ الإجابة الصوتية" data-state="ready">
+                  <span class="voice-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" focusable="false">
+                      <circle class="voice-halo" cx="16" cy="16" r="13"></circle>
+                      <path class="voice-pin" d="M16 5.5a8 8 0 0 0-8 8c0 6 8 13 8 13s8-7 8-13a8 8 0 0 0-8-8Z"></path>
+                      <g class="voice-bars"><path d="M12 15v2"></path><path d="M16 12.5v7"></path><path d="M20 14v4"></path></g>
+                      <path class="voice-slash" d="m9 9 14 14"></path>
+                    </svg>
+                  </span>
+                </button>
+                <input id="assistantInput" type="text" maxlength="1800" autocomplete="off" placeholder="اكتب إجابتك أو سؤالك">
+                <button class="assistant-send" type="submit" id="assistantSend">إرسال</button>
+              </form>
+              <div class="assistant-footer-actions">
+                <button type="button" id="assistantPrevious">السؤال السابق</button>
+                <button type="button" id="assistantExplain">اشرح هذا السؤال</button>
+              </div>
+            </div>
+          </aside>
         </div>
 
         <section class="results" id="results">
@@ -558,7 +633,7 @@
               </article>
 
               <article class="panel">
-                <h4 style="margin:0 0 14px; color:var(--ink);">درجة الخطر حسب محاور التحليل</h4>
+                <h4 class="axis-title">درجة الخطر حسب محاور التحليل</h4>
                 <p class="axis-note">الأسئلة مرتبة في 3 أقسام، بينما التحليل يقيس 4 محاور مستقلة. كل محور من 100، والأقل أفضل، ولا تُجمع درجات المحاور.</p>
                 <div class="axis-list">
                   <div class="axis-card"><div class="axis-head"><span class="axis-name">الموقع والوصول <small class="axis-weight">وزنه 30%</small></span><span class="axis-value" id="axisLocationTxt">0 من 100</span></div><div class="axis-track"><div class="axis-fill" id="axisLocationBar"></div></div></div>
@@ -575,6 +650,22 @@
               <article class="panel list-panel"><h5><span class="list-title-icon action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle><path d="m15 9 5-5"></path><path d="M16 4h4v4"></path></svg></span>أولويات التفاوض أو التحقق</h5><ul id="actionList"><li>ستظهر بعد التقييم.</li></ul></article>
               <article class="panel list-panel"><h5><span class="list-title-icon recommend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"></path><path d="m13 7 5 5-5 5"></path><circle cx="5" cy="12" r="2"></circle></svg></span>التوصية التنفيذية</h5><ul id="recommendList"><li>ستظهر بعد التقييم.</li></ul></article>
             </div>
+
+            <section class="expert-reading" id="expertReading" aria-labelledby="expertReadingTitle">
+              <div class="expert-reading-head">
+                <span aria-hidden="true">✦</span>
+                <div><small>مساعد توسع</small><h4 id="expertReadingTitle">قراءة خبير توسع</h4></div>
+                <button class="btn btn-secondary" type="button" id="explainResultBtn">اشرح لي النتيجة</button>
+              </div>
+              <div class="expert-reading-grid">
+                <article><h5>ملخص تنفيذي</h5><p id="expertSummary">تظهر القراءة بعد اكتمال التقييم.</p></article>
+                <article><h5>لماذا ظهرت هذه النتيجة؟</h5><p id="expertWhy">—</p></article>
+                <article><h5>ما الذي يدعم التوسع؟</h5><ul id="expertSupports"><li>—</li></ul></article>
+                <article><h5>ما الذي يحتاج معالجة؟</h5><ul id="expertNeeds"><li>—</li></ul></article>
+                <article><h5>شروط المضي</h5><ul id="expertConditions"><li>—</li></ul></article>
+                <article><h5>الخطوات التالية</h5><ul id="expertNext"><li>—</li></ul></article>
+              </div>
+            </section>
 
             <div class="result-actions">
               <div class="result-actions-main">
@@ -646,7 +737,7 @@
           <button class="btn btn-ghost" type="button" id="closePreviewBtn">إغلاق</button>
         </div>
       </div>
-      <div class="preview-image"><img id="previewImage" alt="صورة نتيجة التقييم"></div>
+      <div class="preview-image"><img id="previewImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="صورة نتيجة التقييم"></div>
     </div>
   </div>
 
@@ -657,7 +748,7 @@
       const STORAGE_KEY = 'tawassu_assessment_pro_v6';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v5';
       const OLDER_STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const APP_VERSION = '1.4.0';
+      const APP_VERSION = '1.5.0';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -990,6 +1081,38 @@
         }
         saveState();
         renderStep();
+        emitAssessmentChange('answer', { questionId, value, answer: state.answers[questionId] });
+      }
+
+      function setAnswer(questionId, value) {
+        const question = getQuestion(questionId);
+        if (!question) return { ok:false, error:'question_not_found' };
+        const options = questionOptions(question);
+        const values = question.multi ? (Array.isArray(value) ? value : [value]) : [Array.isArray(value) ? value[0] : value];
+        const allowed = new Set(options.map(option => option.value));
+        const valid = values.filter(item => allowed.has(item));
+        if (!valid.length || (!question.multi && valid.length !== 1)) return { ok:false, error:'answer_not_allowed' };
+        state.answers[questionId] = question.multi ? [...new Set(valid)] : valid[0];
+        if (questionId === 'serviceChannels') {
+          const channels = state.answers.serviceChannels;
+          if (channels.length <= 1 || (state.answers.primaryChannel !== 'balanced' && !channels.includes(state.answers.primaryChannel))) delete state.answers.primaryChannel;
+          if (!channels.includes('dineIn')) delete state.answers.parking;
+          if (!channels.includes('pickupInside')) delete state.answers.pickupAccess;
+          if (!channels.includes('driveThru')) delete state.answers.driveThruFlow;
+          if (!channels.includes('delivery')) { delete state.answers.courierAccess; delete state.answers.deliveryCoverage; }
+        }
+        state.result = null;
+        state.preparedImage = null;
+        const targetStep = Number(Object.entries(QUESTIONS).find(([,items]) => items.some(item => item.id === questionId))?.[0]) || state.step;
+        state.step = targetStep;
+        saveState();
+        renderStep();
+        emitAssessmentChange('answer', { questionId, answer: state.answers[questionId], source:'assistant' });
+        return { ok:true, answer:state.answers[questionId] };
+      }
+
+      function emitAssessmentChange(type, detail={}) {
+        window.dispatchEvent(new CustomEvent(`tawassu:${type}`, { detail:{ ...detail, step:state.step, answers:{...state.answers} } }));
       }
 
       function stepValid(step) {
@@ -1002,6 +1125,7 @@
           state.step += 1;
           saveState();
           renderStep();
+          emitAssessmentChange('step', { direction:'next' });
           document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
           return;
         }
@@ -1013,6 +1137,7 @@
           state.step -= 1;
           saveState();
           renderStep();
+          emitAssessmentChange('step', { direction:'previous' });
           document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
         }
       }
@@ -1136,6 +1261,7 @@
         };
         saveState();
         renderResult();
+        emitAssessmentChange('result', { result:state.result });
       }
 
       function renderResult() {
@@ -1281,6 +1407,7 @@
         $('#results').classList.remove('show');
         $('.tool-card').classList.remove('completed');
         renderStep();
+        emitAssessmentChange('reset');
         document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
       }
 
@@ -1746,7 +1873,29 @@
       restoreState();
       renderStep();
       if (state.result) renderResult();
+
+      window.TawassuApp = {
+        version: APP_VERSION,
+        getState: () => ({ step:state.step, totalSteps:state.totalSteps, branchName:state.branchName, answers:{...state.answers}, result:state.result }),
+        getQuestion: id => { const q=getQuestion(id),step=Number(Object.entries(QUESTIONS).find(([,items])=>items.some(item=>item.id===id))?.[0]); return q ? { ...q, step, options:questionOptions(q).map(option=>({...option})) } : null; },
+        getQuestions: () => allVisibleQuestions().map(q => ({ ...q, step:Number(Object.entries(QUESTIONS).find(([,items])=>items.includes(q))?.[0]), options:questionOptions(q).map(option=>({...option})) })),
+        getCurrentQuestion: () => { const q=visibleQuestions(state.step).find(item=>!isAnswered(item)) || visibleQuestions(state.step)[0] || null; return q ? { ...q, step:state.step, options:questionOptions(q).map(option=>({...option})) } : null; },
+        getQuestionGuide: id => ({ html:QUESTION_TIPS[id] || '', text:(QUESTION_TIPS[id] || '').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim() }),
+        setAnswer,
+        choose,
+        goToStep: step => { if(step>=1&&step<=state.totalSteps){state.step=step;saveState();renderStep();emitAssessmentChange('step',{source:'assistant'});return true}return false },
+        nextStep,
+        previousStep: prevStep,
+        getProgress: answeredStats,
+        getMissingAnswers: () => allVisibleQuestions().filter(q=>!isAnswered(q)).map(q=>q.id),
+        calculateAssessment: () => { if(allVisibleQuestions().every(isAnswered)){calculateResult();return state.result}return null },
+        renderResult,
+        toast,
+        resetAll
+      };
+      emitAssessmentChange('ready');
     })();
   </script>
+  <script src="tawassu-assistant.js?v=1.5.0" defer></script>
 </body>
 </html>
