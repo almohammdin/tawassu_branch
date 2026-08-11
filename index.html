@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tawassu-assistant.css?v=1.5.1">
+  <link rel="stylesheet" href="tawassu-assistant.css?v=1.6.0">
   <meta name="tawassu-assistant-enabled" content="true">
   <style>
     :root {
@@ -435,27 +435,36 @@
           <div class="assessment-mode-heading">
             <span class="assessment-mode-mark" aria-hidden="true">✦</span>
             <div>
-              <span>مساعد توسع</span>
-              <h3 id="assessmentModeTitle">كيف تحب تقيّم فرصة الفرع؟</h3>
+              <span>مساعد توسع الذكي</span>
+              <h3 id="assessmentModeTitle">صف فرصة الفرع بطريقتك، وسأقيّمها معك خطوة بخطوة</h3>
             </div>
             <button class="assessment-mode-change" id="assessmentModeChange" type="button" hidden>تغيير الطريقة</button>
           </div>
           <div class="assessment-mode-options">
-            <button class="assessment-mode-option" type="button" data-assistant-mode="guided">
-              <span class="assessment-mode-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4.5a8.5 8.5 0 0 0-8.5 8.5c0 6.4 8.5 14 8.5 14s8.5-7.6 8.5-14A8.5 8.5 0 0 0 16 4.5Z"></path><path class="mode-sound" d="M12 15v2m4-5v8m4-6v4"></path></svg></span>
+            <article class="assessment-mode-option assessment-mode-voice">
+              <span class="assessment-mode-icon" aria-hidden="true"><span class="assessment-mode-spark">✦</span><svg viewBox="0 0 32 32"><path d="M16 4.5a8.5 8.5 0 0 0-8.5 8.5c0 6.4 8.5 14 8.5 14s8.5-7.6 8.5-14A8.5 8.5 0 0 0 16 4.5Z"></path><path class="mode-sound" d="M12 15v2m4-5v8m4-6v4"></path></svg></span>
               <strong>حاورني وقيّمني</strong>
-              <small>أجب بالصوت أو الكتابة وسأكمل التقييم معك</small>
-            </button>
-            <button class="assessment-mode-option" type="button" data-assistant-mode="think">
+              <small>محادثة صوتية ذكية تكمل التقييم معك</small>
+              <button class="assessment-mode-action assessment-mode-voice-action" type="button" data-assistant-mode="guided" data-start-live-voice>
+                <span class="assessment-mode-action-copy"><b>تحدث مع خبير توسع</b><em>محادثة صوتية ذكية · Gemini</em></span>
+                <span class="assessment-mode-wave" aria-hidden="true"><i></i><i></i><i></i></span>
+              </button>
+            </article>
+            <article class="assessment-mode-option assessment-mode-think">
               <span class="assessment-mode-icon" aria-hidden="true">◈</span>
               <strong>ساعدني أفكر</strong>
               <small>ناقش الفرصة معي وحدد المعلومات والمخاطر</small>
-            </button>
-            <button class="assessment-mode-option" type="button" data-assistant-mode="manual">
+              <form class="assessment-think-form" id="assessmentThinkForm">
+                <input id="assessmentThinkInput" type="text" maxlength="1200" autocomplete="off" placeholder="احك لي عن الفرصة وما الذي يحيرك">
+                <button type="submit" data-assistant-mode="think">ناقش الفرصة</button>
+              </form>
+            </article>
+            <article class="assessment-mode-option assessment-mode-manual">
               <span class="assessment-mode-icon" aria-hidden="true">✓</span>
               <strong>أعبئ النموذج بنفسي</strong>
               <small>استخدم النموذج واحصل على شرح عند الحاجة</small>
-            </button>
+              <button class="assessment-mode-action assessment-mode-manual-action" type="button" data-assistant-mode="manual">ابدأ التعبئة</button>
+            </article>
           </div>
         </section>
 
@@ -550,12 +559,13 @@
                 <div><strong>خبير توسع</strong><small id="assistantModeLabel">مساعد تقييم الفرع</small></div>
               </div>
               <div class="tawassu-assistant-head-actions">
-                <button type="button" id="assistantSoundToggle" aria-label="كتم صوت المساعد" aria-pressed="true"><span aria-hidden="true">◖))</span></button>
+                <button type="button" id="assistantSoundToggle" aria-label="كتم صوت خبير توسع" aria-pressed="true"><span aria-hidden="true">◖))</span></button>
                 <button type="button" id="assistantEnd" aria-label="إنهاء المحادثة الصوتية"><span aria-hidden="true">■</span></button>
                 <button type="button" id="assistantMinimize" aria-label="تصغير لوحة المساعد" aria-expanded="true">⌄</button>
               </div>
             </div>
             <div class="tawassu-assistant-body" id="assistantBody">
+              <div id="assistantVoiceHost"></div>
               <div class="assistant-state" id="assistantState"><span></span><b>جاهز</b></div>
               <div class="assistant-current" id="assistantCurrentQuestion"></div>
               <div class="assistant-conversation" id="assistantConversation" aria-live="polite"></div>
@@ -564,11 +574,11 @@
               <div class="assistant-transcript" id="assistantTranscript" hidden></div>
               <div class="assistant-notice" id="assistantNotice" hidden></div>
               <form class="assistant-compose" id="assistantForm">
-                <button class="assistant-mic" type="button" id="assistantMic" aria-label="ابدأ الإجابة الصوتية" data-state="ready">
+                <button class="assistant-mic" type="button" id="assistantMic" aria-label="ابدأ محادثة صوتية ذكية مع خبير توسع" data-state="ready">
                   <span class="voice-icon" aria-hidden="true">
                     <svg viewBox="0 0 32 32" focusable="false">
                       <circle class="voice-halo" cx="16" cy="16" r="13"></circle>
-                      <path class="voice-pin" d="M16 5.5a8 8 0 0 0-8 8c0 6 8 13 8 13s8-7 8-13a8 8 0 0 0-8-8Z"></path>
+                      <path class="voice-pin" d="M16 4.5 18.4 12 26 16l-7.6 4L16 27.5 13.6 20 6 16l7.6-4Z"></path>
                       <g class="voice-bars"><path d="M12 15v2"></path><path d="M16 12.5v7"></path><path d="M20 14v4"></path></g>
                       <path class="voice-slash" d="m9 9 14 14"></path>
                     </svg>
@@ -748,7 +758,8 @@
       const STORAGE_KEY = 'tawassu_assessment_pro_v6';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v5';
       const OLDER_STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const APP_VERSION = '1.5.1';
+      const APP_VERSION = '1.6.0';
+      const STATE_SCHEMA_VERSION = '1.5.1';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -993,6 +1004,7 @@
                     ${QUESTION_TIPS[q.id] ? `<span class="tip-wrap"><button class="tip-btn" type="button" aria-label="تعليمات السؤال" data-tip-toggle>؟</button><span class="tip-box">${QUESTION_TIPS[q.id]}</span></span>` : ''}
                   </div>
                   ${q.help ? `<p>${q.help}</p>` : ''}
+                  <button class="manual-assistant-help" type="button" data-ask-expert="${q.id}"><span aria-hidden="true">✦</span> اسأل خبير توسع عن هذا السؤال</button>
                 </div>
               </div>
               <div class="options ${optionCols(options.length)}">
@@ -1321,7 +1333,7 @@
       }
 
       function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: APP_VERSION, step: state.step, branchName: state.branchName, answers: state.answers, result: state.result }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: STATE_SCHEMA_VERSION, step: state.step, branchName: state.branchName, answers: state.answers, result: state.result }));
       }
 
       function restoreState() {
@@ -1337,7 +1349,7 @@
           if (saved.answers) state.answers = saved.answers;
           const allowedChannels = ['dineIn', 'pickupInside', 'driveThru', 'delivery'];
           const validChannels = Array.isArray(state.answers.serviceChannels) && state.answers.serviceChannels.length > 0 && state.answers.serviceChannels.every(channel => allowedChannels.includes(channel));
-          const needsMigration = !currentRaw || saved.version !== APP_VERSION;
+          const needsMigration = !currentRaw || saved.version !== STATE_SCHEMA_VERSION;
           if (!validChannels) {
             delete state.answers.salesModel;
             delete state.answers.driveThru;
@@ -1857,7 +1869,7 @@
         window.setTimeout(() => card.classList.remove('is-tapped'), 650);
         toast('النسخة المتقدمة قيد التطوير.');
       });
-      $('#branchName').addEventListener('input', e => { state.branchName = e.target.value.slice(0, 70); saveState(); });
+      $('#branchName').addEventListener('input', e => { state.branchName = e.target.value.slice(0, 70); saveState(); emitAssessmentChange('branch', { branchName:state.branchName, source:'manual' }); });
       $('#closePreviewBtn').addEventListener('click', closePreview);
       $('#downloadBtn').addEventListener('click', downloadPrepared);
       $('#shareBtn').addEventListener('click', sharePrepared);
@@ -1896,6 +1908,9 @@
       emitAssessmentChange('ready');
     })();
   </script>
-  <script src="tawassu-assistant.js?v=1.5.1" defer></script>
+  <script type="module" src="tawassu-voice-appcheck.js?v=1.6.0"></script>
+  <script type="module" src="tawassu-text-ai.js?v=1.6.0"></script>
+  <script type="module" src="tawassu-assistant.js?v=1.6.0"></script>
+  <script type="module" src="tawassu-voice.js?v=1.6.0"></script>
 </body>
 </html>
