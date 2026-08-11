@@ -11,7 +11,7 @@ const NEEDS_VERIFICATION_VALUES=new Set(['unknown','pending']);
 
 let app=null,mode='',activeQuestionId='',history=[],answerMeta={},pendingProposals=[],chatBusy=false,aiUnavailable=false,currentConversationId='';
 
-function escapeHtml(value=''){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[ch]))}
+function escapeHtml(value=''){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function stripHtml(value=''){const node=document.createElement('div');node.innerHTML=String(value);return (node.textContent||'').replace(/\s+/g,' ').trim()}
 function state(){return app?.getState?.()||{step:1,branchName:'',answers:{},result:null}}
 function questions(){return app?.getQuestions?.()||[]}
