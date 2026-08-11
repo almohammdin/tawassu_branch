@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tawassu-assistant.css?v=1.5.0">
+  <link rel="stylesheet" href="tawassu-assistant.css?v=1.5.1">
   <meta name="tawassu-assistant-enabled" content="true">
   <style>
     :root {
@@ -748,7 +748,7 @@
       const STORAGE_KEY = 'tawassu_assessment_pro_v6';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v5';
       const OLDER_STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const APP_VERSION = '1.5.0';
+      const APP_VERSION = '1.5.1';
       const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
@@ -1896,6 +1896,6 @@
       emitAssessmentChange('ready');
     })();
   </script>
-  <script src="tawassu-assistant.js?v=1.5.0" defer></script>
+  <script src="tawassu-assistant.js?v=1.5.1" defer></script>
 </body>
 </html>
