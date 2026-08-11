@@ -5,21 +5,32 @@
 
 .assistant-entry.is-compact {
   position: sticky;
-  top: 8px;
+  top: 54px;
   z-index: 40;
 }
 
 .assistant-entry-large,
 .assistant-entry-compact,
 .assistant-chat-panel {
-  border: 1px solid rgba(13, 67, 141, .18);
+  border: 1px solid rgba(13, 67, 141, .34);
   border-radius: 18px;
-  background: rgba(255, 255, 255, .98);
-  box-shadow: 0 10px 26px rgba(10, 14, 26, .07);
+  background: linear-gradient(135deg, rgba(240, 247, 255, .98), rgba(255, 255, 255, .98) 58%, rgba(255, 250, 240, .96));
+  box-shadow: 0 10px 26px rgba(13, 67, 141, .09);
 }
 
 .assistant-entry-large {
+  position: relative;
+  overflow: hidden;
   padding: 14px 16px;
+}
+
+.assistant-entry-large::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #0d438d, #17bfd0 58%, #c9a84c);
 }
 
 .assistant-entry-heading {
@@ -412,8 +423,8 @@
 .tawassu-voice-session {
   position: fixed;
   right: 50%;
-  bottom: max(8px, env(safe-area-inset-bottom));
-  z-index: 100;
+  bottom: calc(max(8px, env(safe-area-inset-bottom)) + var(--tawassu-footer-offset, 0px));
+  z-index: 1000;
   display: grid;
   width: min(620px, calc(100% - 20px));
   grid-template-columns: 40px minmax(0, 1fr) auto;
@@ -426,6 +437,7 @@
   background: linear-gradient(135deg, #0b356f, #0d438d 68%, #116a91);
   color: #fff;
   box-shadow: 0 12px 30px rgba(10, 14, 26, .25);
+  transition: bottom .16s ease;
 }
 
 .tawassu-voice-session[hidden] { display: none; }
@@ -462,6 +474,7 @@
 @keyframes tawassuLiveBars { 50% { opacity: .58; transform: scaleY(.45); } }
 
 @media (max-width: 760px) {
+  .assistant-entry.is-compact { top: 50px; }
   .assistant-entry-large { padding: 13px; }
   .assistant-entry-large > p:not(.ai-disclaimer) { margin-right: 0; }
   .assistant-entry-form { grid-template-columns: minmax(0, 1fr) auto; }
@@ -486,6 +499,8 @@
   .assistant-compact-voice { min-width: 84px; padding-inline: 8px; }
   .assistant-compact-main { padding-inline: 9px; }
   .assistant-footer-actions { justify-content: space-between; }
+  .tawassu-voice-session { width: calc(100% - 14px); grid-template-columns: 36px minmax(0, 1fr) auto; gap: 7px; padding: 7px; }
+  .tawassu-live-mark { width: 34px; height: 34px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

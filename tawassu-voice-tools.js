@@ -27,7 +27,7 @@ export const TAWASSU_TOOL_DECLARATIONS=[
   {name:'focus_assessment_question',description:'انتقل فعليا إلى سؤال في نموذج توسع وميزه أمام المستخدم.',parametersJsonSchema:{type:'object',properties:{question_id:QUESTION_SCHEMA,message:{type:'string'}},required:['question_id','message'],additionalProperties:false}},
   {name:'explain_assessment_question',description:'اقرأ تعليمات السؤال من محرك توسع واشرح المقصود باختصار وبمثال مرتبط بالنشاط.',parametersJsonSchema:{type:'object',properties:{question_id:QUESTION_SCHEMA},required:['question_id'],additionalProperties:false}},
   {name:'propose_assessment_answer',description:'اعرض فهمك لإجابة المستخدم دون تسجيلها. استخدمه عندما تحتاج الإجابة إلى تأكيد.',parametersJsonSchema:{type:'object',properties:{question_id:QUESTION_SCHEMA,answer_values:VALUES_SCHEMA,interpretation:{type:'string'},certainty:{type:'string',enum:['confirmed','estimated','unknown']}},required:['question_id','answer_values','interpretation','certainty'],additionalProperties:false}},
-  {name:'set_assessment_answer',description:'سجل الإجابة فعليا بعد اعتماد المستخدم. إذا سألت هل أعتمد فلا تستخدم هذه الأداة حتى يوافق في دور لاحق.',parametersJsonSchema:{type:'object',properties:{question_id:QUESTION_SCHEMA,answer_values:VALUES_SCHEMA,confirmed:{type:'boolean'},certainty:{type:'string',enum:['confirmed','estimated']}},required:['question_id','answer_values','confirmed','certainty'],additionalProperties:false}},
+  {name:'set_assessment_answer',description:'سجل الإجابة فعليا بعد اعتماد المستخدم، ثم اعرض السؤال التالي تلقائيا. إذا سألت هل أعتمد فلا تستخدم هذه الأداة حتى يوافق في دور لاحق، ولا تستدع go_to_next_question بعدها.',parametersJsonSchema:{type:'object',properties:{question_id:QUESTION_SCHEMA,answer_values:VALUES_SCHEMA,confirmed:{type:'boolean'},certainty:{type:'string',enum:['confirmed','estimated']}},required:['question_id','answer_values','confirmed','certainty'],additionalProperties:false}},
   {name:'go_to_next_question',description:'انتقل إلى السؤال التالي الناقص بعد قراءة حالة التقييم.',parametersJsonSchema:{type:'object',properties:{},additionalProperties:false}},
   {name:'go_to_previous_question',description:'انتقل فعليا إلى السؤال السابق الظاهر.',parametersJsonSchema:{type:'object',properties:{},additionalProperties:false}},
   {name:'get_missing_answers',description:'اعرض الأسئلة الناقصة حاليا مع أقسامها وخياراتها.',parametersJsonSchema:{type:'object',properties:{},additionalProperties:false}},
@@ -50,7 +50,9 @@ export async function executeTawassuTool(name,args={}){
   if(name==='propose_assessment_answer')return bridge.proposeAssessmentAnswer(args.question_id,validValues(args.question_id,args.answer_values),args.interpretation,args.certainty);
   if(name==='set_assessment_answer'){
     if(args.confirmed!==true)return {ok:false,error:'explicit-confirmation-required'};
-    return bridge.setAssessmentAnswer(args.question_id,validValues(args.question_id,args.answer_values),{confirmed:true,certainty:args.certainty||'confirmed',source:'assistant'});
+    const result=bridge.setAssessmentAnswer(args.question_id,validValues(args.question_id,args.answer_values),{confirmed:true,certainty:args.certainty||'confirmed',source:'assistant'});
+    if(!result?.ok)return result;
+    return {...result,navigation:bridge.goToNextQuestion()};
   }
   if(name==='go_to_next_question')return bridge.goToNextQuestion();
   if(name==='go_to_previous_question')return bridge.goToPreviousQuestion();
