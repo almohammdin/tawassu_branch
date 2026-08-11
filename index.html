@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tawassu-assistant.css?v=1.6.0">
+  <link rel="stylesheet" href="tawassu-assistant.css?v=1.7.2">
   <meta name="tawassu-assistant-enabled" content="true">
   <style>
     :root {
@@ -96,40 +96,8 @@
     .btn-reset svg { width: 18px; height: 18px; flex: 0 0 auto; }
     .btn-ghost { background: transparent; color: var(--navy); padding-inline: 0; }
     .btn:hover { transform: translateY(-1px); }
-    .hero { padding: 28px 0 18px; }
-    .hero-card { position: relative; isolation: isolate; overflow: hidden; background: rgba(255,255,255,.95); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 30px; padding: 26px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; align-items: center; }
-    .card-watermark { position: absolute; z-index: 0; width: 520px; height: auto; pointer-events: none; user-select: none; opacity: .075; }
-    .card-watermark.hero-mark { width: 480px; inset-inline-start: auto; inset-inline-end: -185px; bottom: -155px; transform: rotate(8deg); opacity: .045; }
-    .card-watermark.tool-mark { width: 440px; inset-inline-end: -92px; top: -96px; transform: rotate(7deg); opacity: .062; }
-    .hero-card > :not(.card-watermark), .tool-head > :not(.card-watermark) { position: relative; z-index: 1; }
-    .hero-logo { background: linear-gradient(180deg, rgba(13,67,141,.03), rgba(23,191,208,.03)); border: 1px solid #eef2f7; border-radius: 24px; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 250px; }
-    .hero-logo img { width: min(470px, 100%); }
-    .hero-copy h1 { margin: 0 0 10px; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.16; color: var(--ink); }
-    .hero-copy p { margin: 0; color: var(--muted); line-height: 1.95; font-size: 1rem; }
-    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-
     .tool-section { padding: 6px 0 24px; }
     .tool-card { background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); overflow: visible; }
-    .tool-head { position: relative; isolation: isolate; overflow: hidden; padding: 22px 24px 18px; border-bottom: 1px solid var(--line); border-radius: 28px 28px 0 0; background: rgba(255,255,255,.98); }
-    .tool-head h2 { margin: 0; font-size: 1.35rem; color: var(--ink); }
-    .tool-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.8; }
-    .mode-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
-    .mode-pill { position: relative; width: 100%; min-height: 132px; border: 1px solid var(--line); border-radius: 18px; padding: 54px 18px 17px; overflow: hidden; font: inherit; text-align: right; }
-    .mode-pill strong { color: var(--ink); display: block; }
-    .mode-pill span { color: var(--muted); font-size: .9rem; display: block; margin-top: 4px; }
-    .mode-pill.active { border-color: transparent; background: linear-gradient(135deg, #0d438d, #0b356f 68%, #116a91); box-shadow: 0 14px 28px rgba(13,67,141,.18); }
-    .mode-pill.active::after { content: ""; position: absolute; width: 170px; height: 170px; border-radius: 50%; inset-inline-end: -70px; bottom: -105px; background: rgba(23,191,208,.18); }
-    .mode-pill.active strong { color: #fff; position: relative; z-index: 1; }
-    .mode-pill.active span { color: rgba(255,255,255,.76); position: relative; z-index: 1; }
-    .mode-pill.locked { border: 1px dashed rgba(201,168,76,.62); background: linear-gradient(180deg, #fffdf7, #fff9e9); cursor: pointer; appearance: none; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease; }
-    .mode-pill.locked strong { color: #594611; }
-    .mode-pill.locked span { color: #7b6d4c; }
-    .mode-pill.locked:hover,
-    .mode-pill.locked:focus-visible { transform: translateY(-2px); border-color: rgba(201,168,76,.9); box-shadow: 0 14px 28px rgba(122,91,17,.12); outline: none; }
-    .mode-pill.locked.is-tapped { background: linear-gradient(180deg, #fff8df, #fff1c7); box-shadow: 0 0 0 4px rgba(201,168,76,.13), 0 14px 28px rgba(122,91,17,.12); }
-    .current-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
-    .current-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6cf0d8; box-shadow: 0 0 0 4px rgba(108,240,216,.14); }
-    .lock-badge { position: absolute; inset-inline-start: 14px; top: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.18); color: #7c5d11; border: 1px solid rgba(201,168,76,.34); border-radius: 999px; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
     .progress-zone { position: sticky; top: 104px; z-index: 24; margin: 0 14px; padding: 12px 16px 14px; border: 1px solid rgba(201,168,76,.34); border-radius: 16px; background: rgba(255,255,255,.97); box-shadow: 0 12px 30px rgba(10,14,26,.12); backdrop-filter: blur(16px); }
     .tool-card.completed .progress-zone,
     .tool-card.completed .questions-wrap,
@@ -153,28 +121,8 @@
     .bar-track { height: 14px; border-radius: 999px; background: #edf1f6; overflow: hidden; border: 1px solid #e4eaf1; }
     .bar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--gold) 0%, #d9bb73 30%, var(--navy) 100%); transition: width .25s ease; }
 
-    .questions-wrap { padding: 20px 24px 12px; }
-    .pre-assessment-guide { position: relative; margin-bottom: 20px; padding: 20px; overflow: hidden; border: 1px solid rgba(13,67,141,.18); border-radius: 20px; background: linear-gradient(135deg, rgba(13,67,141,.045), rgba(23,191,208,.035) 62%, rgba(201,168,76,.07)); }
-    .pre-assessment-guide[hidden] { display: none; }
-    .guide-heading { display: flex; align-items: center; gap: 12px; margin: 0; cursor: pointer; list-style: none; }
-    .guide-heading::-webkit-details-marker { display: none; }
-    .pre-assessment-guide[open] .guide-heading { margin-bottom: 10px; }
-    .guide-icon { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 14px; background: rgba(13,67,141,.09); color: var(--navy); }
-    .guide-icon svg { width: 23px; height: 23px; }
-    .guide-title { color: var(--ink); font-size: 1.12rem; font-weight: 700; }
-    .guide-chevron { width: 20px; height: 20px; margin-inline-start: auto; color: var(--navy); transition: transform .18s ease; }
-    .pre-assessment-guide[open] .guide-chevron { transform: rotate(180deg); }
-    .guide-copy { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.9; }
-    .guide-copy + .guide-copy { margin-top: 7px; }
-    .guide-reference-title { margin: 17px 0 10px; color: var(--ink-soft); font-size: .92rem; font-weight: 700; }
-    .guide-references { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .guide-reference { min-width: 0; padding: 14px; border: 1px solid rgba(13,67,141,.12); border-radius: 15px; background: rgba(255,255,255,.86); }
-    .guide-reference a { display: inline-flex; align-items: center; gap: 6px; color: var(--navy); font-size: .9rem; font-weight: 700; line-height: 1.55; text-decoration: underline; text-decoration-color: rgba(13,67,141,.24); text-underline-offset: 4px; }
-    .guide-reference a svg { width: 14px; height: 14px; flex: 0 0 auto; }
-    .guide-reference ul { margin: 9px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: .76rem; line-height: 1.75; }
-    .guide-reference li + li { margin-top: 2px; }
-    .guide-reference b { color: var(--ink-soft); font-weight: 600; }
-    .section-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding: 16px 18px; border: 1px solid rgba(13,67,141,.14); border-radius: 18px; background: linear-gradient(135deg, rgba(13,67,141,.045), rgba(23,191,208,.035)); }
+    .questions-wrap { padding: 12px 14px 8px; }
+    .section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 12px 14px; border: 1px solid rgba(13,67,141,.14); border-radius: 14px; background: linear-gradient(135deg, rgba(13,67,141,.045), rgba(23,191,208,.035)); }
     .section-icon { width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center; flex: 0 0 auto; color: #fff; background: linear-gradient(135deg, var(--navy), #116a91); box-shadow: 0 10px 20px rgba(13,67,141,.16); }
     .section-icon svg { width: 25px; height: 25px; }
     .section-copy { min-width: 0; }
@@ -183,7 +131,7 @@
     .step-hint { color: var(--muted); line-height: 1.8; margin: 5px 0 0; }
     .progress-zone .section-heading { margin: 0 0 10px; padding: 0 0 10px; border: 0; border-bottom: 1px solid rgba(13,67,141,.11); border-radius: 0; background: transparent; }
     .progress-zone .progress-stats { margin-inline-start: auto; flex: 0 0 auto; }
-    .branch-field { position: relative; margin-bottom: 20px; padding: 18px; border: 1px solid rgba(13,67,141,.24); border-radius: 20px; background: linear-gradient(135deg, rgba(13,67,141,.055), rgba(23,191,208,.045) 58%, rgba(201,168,76,.075)); box-shadow: 0 10px 24px rgba(13,67,141,.07); overflow: hidden; }
+    .branch-field { position: relative; margin-bottom: 10px; padding: 9px 10px; border: 1px solid rgba(13,67,141,.24); border-radius: 12px; background: linear-gradient(135deg, rgba(13,67,141,.055), rgba(23,191,208,.045) 58%, rgba(201,168,76,.075)); overflow: hidden; }
     .branch-field::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: 5px; background: linear-gradient(180deg, var(--navy), var(--teal), var(--gold)); }
     .branch-field[hidden] { display: none; }
     .branch-field label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; color: var(--ink); font-weight: 700; }
@@ -222,7 +170,7 @@
 
     .results { display: none; border-top: 1px solid var(--line); background: linear-gradient(180deg, rgba(13,67,141,.02), transparent); }
     .results.show { display: block; }
-    .result-inner { padding: 24px; }
+    .result-inner { padding: 14px; }
     .result-topbar { display: flex; justify-content: flex-start; margin-bottom: 14px; }
     .result-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 16px; }
     .panel { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 18px; }
@@ -305,7 +253,7 @@
 
     .confirm-overlay { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 18px; background: rgba(10,14,26,.68); backdrop-filter: blur(8px); }
     .confirm-overlay[hidden] { display: none; }
-    .confirm-card { width: min(440px, 100%); padding: 24px; border: 1px solid rgba(197,71,71,.2); border-radius: 24px; background: #fff; box-shadow: 0 28px 70px rgba(10,14,26,.3); text-align: center; }
+    .confirm-card { width: min(440px, 100%); padding: 18px; border: 1px solid rgba(197,71,71,.2); border-radius: 20px; background: #fff; box-shadow: 0 28px 70px rgba(10,14,26,.3); text-align: center; }
     .confirm-icon { width: 52px; height: 52px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 16px; background: var(--danger-bg); color: var(--bad); }
     .confirm-icon svg { width: 26px; height: 26px; }
     .confirm-card h4 { margin: 0 0 8px; color: var(--ink); font-size: 1.2rem; }
@@ -316,21 +264,16 @@
     .toast.show { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 980px) {
-      .hero-card, .result-grid, .lists, .mode-bar { grid-template-columns: 1fr; }
-      .guide-references { grid-template-columns: 1fr; }
+      .result-grid, .lists { grid-template-columns: 1fr; }
       .facts { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 760px) {
       .site-watermark { width: 430px; height: 308px; opacity: .025; }
       .site-watermark.top { top: 150px; inset-inline-end: -135px; }
       .site-watermark.bottom { width: 370px; height: 264px; inset-inline-start: -105px; opacity: .02; }
-      .card-watermark.hero-mark { width: 360px; inset-inline-start: auto; inset-inline-end: -145px; bottom: -118px; opacity: .035; }
-      .card-watermark.tool-mark { width: 330px; inset-inline-end: -112px; top: -68px; opacity: .043; }
       .header-inner { flex-direction: column; align-items: stretch; }
       .brand img { width: 118px; height: 68px; }
-      .hero-card { grid-template-columns: 1fr; padding: 20px; }
-      .hero-logo { min-height: 210px; }
-      .tool-head, .questions-wrap, .actions, .result-inner { padding-inline: 16px; }
+      .questions-wrap, .actions, .result-inner { padding-inline: 16px; }
       .progress-zone { top: 104px; margin-inline: 8px; padding-inline: 12px; }
       .progress-zone .section-heading { gap: 10px; }
       .progress-zone .section-icon { width: 40px; height: 40px; border-radius: 12px; }
@@ -344,6 +287,87 @@
       .options.cols-2, .options.cols-3, .options.cols-4, .facts { grid-template-columns: 1fr; }
       .choice { min-height: 44px; }
       .footer-card { align-items: flex-start; }
+    }
+
+    /* رحلة البداية المكثفة والسؤال الواحد، v1.7.0 */
+    body { line-height: 1.5; }
+    .site-header { position: relative; }
+    .header-inner { min-height: 64px; padding: 7px 0; }
+    .brand { gap: 11px; }
+    .brand img { width: 94px; height: 48px; }
+    .brand-copy strong { font-size: .88rem; line-height: 1.3; }
+    .brand-copy span { max-width: 660px; margin-top: 1px; font-size: .72rem; line-height: 1.45; }
+    .platform-identity { display: flex; align-items: center; gap: 14px; padding-top: 10px; padding-bottom: 0; }
+    .platform-identity img { width: 158px; height: 72px; object-fit: contain; }
+    .platform-identity h1 { margin: 0; color: var(--ink); font-size: 1.08rem; line-height: 1.3; }
+    .platform-identity p { margin: 3px 0 0; color: var(--muted); font-size: .76rem; line-height: 1.45; }
+    .tool-section { padding: 0 0 14px; }
+    .tool-card { border-radius: 20px; box-shadow: 0 10px 28px rgba(10,14,26,.07); overflow: hidden; }
+    .assessment-workspace { display: block; }
+    .progress-zone { position: relative; top: auto; z-index: 1; margin: 0; padding: 10px 14px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; box-shadow: none; }
+    .progress-zone .section-heading { margin: 0 0 6px; padding: 0; border: 0; }
+    .section-heading { gap: 10px; }
+    .section-icon { width: 34px; height: 34px; border-radius: 10px; box-shadow: none; }
+    .section-icon svg { width: 18px; height: 18px; }
+    .section-kicker { margin-bottom: 0; font-size: .7rem; }
+    .section-heading h3 { font-size: .9rem; line-height: 1.3; }
+    .step-hint, .progress-guidance { display: none; }
+    .progress-stats { margin-inline-start: auto; gap: 6px; font-size: .7rem; }
+    .progress-stats b { font-size: .86rem; }
+    .bar-track { height: 7px; }
+    .questions-wrap { padding: 12px 14px 8px; }
+    .branch-field { display: grid; grid-template-columns: 160px minmax(0,1fr); align-items: center; gap: 8px 12px; margin-bottom: 10px; padding: 9px 10px; border-radius: 12px; box-shadow: none; }
+    .branch-field::after { width: 3px; }
+    .branch-field label { margin: 0; font-size: .78rem; }
+    .branch-field label small { padding: 2px 6px; font-size: .61rem; }
+    .branch-label svg { width: 17px; height: 17px; }
+    .branch-field p { display: none; }
+    .branch-field input { min-height: 42px; padding: 8px 10px; border-radius: 10px; font-size: .78rem; }
+    .question-list { display: block; }
+    .question-card { min-height: 0; border-radius: 14px; padding: 13px 14px; }
+    .question-head { gap: 9px; margin-bottom: 9px; }
+    .q-badge { width: 30px; height: 30px; border-radius: 9px; font-size: .76rem; }
+    .question-head h3 { font-size: 1rem; line-height: 1.35; }
+    .question-head p { margin: 3px 0 0; font-size: .76rem; line-height: 1.45; }
+    .tip-btn { width: 24px; height: 24px; }
+    .tip-box { line-height: 1.5; }
+    .options { gap: 7px; }
+    .choice { min-height: 46px; padding: 7px 9px; border-radius: 9px; align-items: center; }
+    .choice strong { font-size: .76rem; line-height: 1.35; }
+    .choice small { margin-top: 1px; font-size: .65rem; line-height: 1.35; }
+    .multi-commit { width: 100%; min-height: 44px; margin-top: 9px; border: 0; border-radius: 10px; background: #0d438d; color: #fff; font: inherit; font-size: .75rem; font-weight: 700; cursor: pointer; }
+    .actions { padding: 2px 14px 12px; border-top: 0; }
+    .actions-main { justify-content: space-between; }
+    .actions .btn { min-height: 42px; padding: 9px 15px; border-radius: 11px; font-size: .76rem; }
+    .reset-row { margin-top: 8px; }
+    .reset-row .btn-reset { padding: 5px 0; border: 0; background: transparent; font-size: .68rem; }
+    .result-inner { padding: 14px; }
+    .panel { padding: 16px; border-radius: 16px; }
+    .lists { gap: 10px; margin-top: 10px; }
+    .list-panel h5 { margin-bottom: 7px; }
+    .list-panel ul { gap: 5px; line-height: 1.55; }
+    .ai-disclaimer-result { margin: 10px 0 0; padding: 10px 11px; border: 1px solid rgba(201,168,76,.28); border-radius: 11px; background: #fffaf0; }
+    .site-footer { padding: 4px 0 20px; }
+    .footer-card { border-radius: 18px; padding: 12px 14px; box-shadow: 0 8px 22px rgba(10,14,26,.06); }
+
+    @media (max-width: 760px) {
+      .header-inner { flex-direction: row; align-items: center; }
+      .brand img { width: 82px; height: 44px; }
+      .brand-copy span { font-size: .66rem; }
+      .platform-identity { gap: 9px; padding-top: 7px; }
+      .platform-identity img { width: 116px; height: 56px; }
+      .platform-identity h1 { font-size: .9rem; }
+      .platform-identity p { font-size: .68rem; }
+      .progress-zone { margin: 0; padding: 9px 11px; }
+      .progress-zone .section-icon { width: 32px; height: 32px; }
+      .progress-zone .progress-stats { font-size: .66rem; }
+      .questions-wrap, .actions, .result-inner { padding-inline: 11px; }
+      .branch-field { grid-template-columns: 1fr; gap: 5px; }
+      .question-card { padding: 12px; }
+      .options.cols-2, .options.cols-3, .options.cols-4 { grid-template-columns: 1fr; }
+      .choice { min-height: 44px; }
+      .lists { grid-template-columns: 1fr; }
+      .footer-card { padding: 11px; }
     }
   </style>
 </head>
@@ -370,104 +394,76 @@
 
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="brand" href="#top">
-        <img src="tawassu-logo.png" alt="شعار توسّع">
+      <a class="brand" href="#top" aria-label="العودة إلى بداية توسع">
+        <img src="naif-logo-v2.png" alt="نايف المحمدي">
         <div class="brand-copy">
-          <strong>أداة تقييم قرارات توسع الفروع</strong>
+          <strong>مستشار الحوكمة وتطوير الأعمال</strong>
+          <span>منصة تساعدك على قراءة فرصة الفرع ومخاطرها قبل اتخاذ القرار</span>
         </div>
       </a>
     </div>
   </header>
 
   <main id="top">
-    <section class="hero shell">
-      <div class="hero-card">
-        <svg class="card-watermark hero-mark" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M382 216 320 166 257 193 194 137 126 174 48 139" fill="none" stroke="#0d438d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-          <g fill="#0d438d"><path d="M321 38c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/><path d="M96 102c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/></g>
-          <path d="M210 72c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z" fill="#17bfd0"/>
-          <g fill="#fff"><circle cx="321" cy="74" r="12"/><circle cx="210" cy="108" r="12"/><circle cx="96" cy="138" r="12"/></g>
-          <path d="M390 243C287 249 153 209 58 63M58 63l12 28M58 63l29 7" fill="none" stroke="#c9a84c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="hero-logo">
-          <img src="tawassu-logo.png" alt="شعار توسّع">
+    <section class="platform-identity shell" aria-label="هوية منصة توسع">
+      <img src="tawassu-logo.png" alt="توسع">
+      <div>
+        <h1>أداة تقييم قرارات توسع الفروع</h1>
+        <p>تقييم استرشادي للموقع والصفقة والمبيعات والتشغيل والمخاطر</p>
+      </div>
+    </section>
+
+    <section class="assistant-entry shell" id="assistantEntry" aria-labelledby="assistantEntryTitle">
+      <div class="assistant-entry-large" id="assistantEntryLarge">
+        <div class="assistant-entry-heading">
+          <span class="assistant-entry-mark" aria-hidden="true">✦</span>
+          <div><span>مساعد توسع الذكي</span><h2 id="assistantEntryTitle">ما فرصة الفرع التي تريد تقييمها؟</h2></div>
         </div>
-        <div class="hero-copy">
-          <h1>تقييم استرشادي لمخاطر واشتراطات الفرع الجديد</h1>
-          <p>أجب عن الأسئلة، ودع الأداة تساهم في توضيح الصورة الكاملة وتحدد مؤشر الخطر وأهم النقاط الواجب البت فيها.</p>
-          <div class="hero-actions">
-            <button class="btn btn-primary" type="button" data-jump="tool">ابدأ الآن</button>
-          </div>
+        <p>صف الفرصة بطريقتك، وسأرتب معك التقييم والخطوة التالية.</p>
+        <form class="assistant-entry-form" id="assistantEntryForm">
+          <input id="assistantEntryInput" type="text" maxlength="1800" autocomplete="off" placeholder="مثال: عندي مقهى وعرض علي موقع جديد داخل محطة وقود والإيجار مرتفع">
+          <button class="assistant-entry-voice" type="button" id="assistantEntryVoice" aria-label="ابدأ محادثة صوتية ذكية مع خبير توسع عبر Gemini">
+            <span class="assistant-entry-voice-icon" aria-hidden="true"><b>✦</b><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"></path><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"></path></svg></span>
+            <span><strong>تحدث مع خبير توسع</strong><small>محادثة صوتية ذكية · Gemini</small></span>
+          </button>
+          <button class="assistant-entry-submit" type="submit"><span aria-hidden="true">✦</span> تنفيذ</button>
+        </form>
+        <div class="assistant-entry-actions" id="assistantEntryActions" aria-label="إجراءات مقترحة">
+          <button type="button" data-entry-action="start">ابدأ التقييم مباشرة</button>
+          <button type="button" data-entry-action="resume" hidden>أكمل التقييم الحالي</button>
+          <button type="button" data-entry-action="new" hidden>ابدأ تقييما جديدا</button>
+          <button type="button" data-entry-action="explain">اشرح المنصة</button>
         </div>
+        <p class="ai-disclaimer ai-disclaimer-start">يقدّم مساعد توسع تحليلا استرشاديا مدعوما بالذكاء الاصطناعي بناء على المعلومات التي تدخلها، ولا يعد توصية استثمارية أو ضمانا لنجاح المشروع.</p>
+      </div>
+
+      <div class="assistant-entry-compact" id="assistantEntryCompact" hidden>
+        <button class="assistant-compact-main" type="button" id="assistantCompactOpen" aria-expanded="false">
+          <span aria-hidden="true">✦</span>
+          <span><strong>خبير توسع</strong><small id="assistantCompactStatus">الخطوة التالية: نوع النشاط</small></span>
+        </button>
+        <button class="assistant-compact-voice" type="button" id="assistantCompactVoice" aria-label="ابدأ محادثة صوتية ذكية مع خبير توسع"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"></path><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"></path></svg><span>Gemini</span></button>
+      </div>
+
+      <div class="assistant-chat-panel" id="assistantChatPanel" hidden>
+        <div id="assistantVoiceHost"></div>
+        <div class="assistant-state" id="assistantState"><span></span><b>جاهز</b></div>
+        <div class="assistant-current" id="assistantCurrentQuestion"></div>
+        <div class="assistant-conversation" id="assistantConversation" aria-live="polite"></div>
+        <div class="assistant-confirm" id="assistantConfirm" hidden></div>
+        <div class="assistant-suggestions" id="assistantSuggestions"></div>
+        <div class="assistant-transcript" id="assistantTranscript" hidden></div>
+        <div class="assistant-notice" id="assistantNotice" hidden></div>
+        <form class="assistant-compose" id="assistantForm">
+          <input id="assistantInput" type="text" maxlength="1800" autocomplete="off" placeholder="اكتب إجابتك أو سؤالك">
+          <button class="assistant-send" type="submit" id="assistantSend">إرسال</button>
+        </form>
+        <div class="assistant-footer-actions"><button type="button" id="assistantPrevious">السؤال السابق</button><button type="button" id="assistantExplain">اشرح هذا السؤال</button><button type="button" id="assistantCloseChat">إغلاق المحادثة</button></div>
       </div>
     </section>
 
     <section class="tool-section shell" id="tool">
       <div class="tool-card">
-        <div class="tool-head">
-          <svg class="card-watermark tool-mark" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M382 216 320 166 257 193 194 137 126 174 48 139" fill="none" stroke="#0d438d" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-            <g fill="#0d438d"><path d="M321 38c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/><path d="M96 102c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z"/></g>
-            <path d="M210 72c-22 0-35 16-35 36 0 27 35 61 35 61s35-34 35-61c0-20-13-36-35-36Z" fill="#17bfd0"/>
-            <g fill="#fff"><circle cx="321" cy="74" r="12"/><circle cx="210" cy="108" r="12"/><circle cx="96" cy="138" r="12"/></g>
-            <path d="M390 243C287 249 153 209 58 63M58 63l12 28M58 63l29 7" fill="none" stroke="#c9a84c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <h2>محرك تقييم قرار الفرع</h2>
-          <p>اختر الإجابة الأقرب لواقع الفرع في كل سؤال. الأسئلة تتكيّف مع طبيعة النشاط ونمط المبيعات ونوع الموقع. بعد ذلك ستحصل على قراءة حسب شدة المخاطر.</p>
-          <div class="mode-bar">
-            <div class="mode-pill active">
-              <div class="current-badge">النسخة الحالية</div>
-              <strong>أداة توسّع</strong>
-              <span>المسار الأساسي لتقييم قرار فرع واحد</span>
-            </div>
-            <button class="mode-pill locked" type="button" id="advancedModeBtn" aria-label="النسخة المتقدمة، قيد التطوير">
-              <span class="lock-badge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                قيد التطوير
-              </span>
-              <strong>النسخة المتقدمة</strong>
-              <span>تحليل أوسع يساعدك على فهم الجدوى والمخاطر واتخاذ قرار أدق.</span>
-            </button>
-          </div>
-        </div>
-
-        <section class="assessment-mode-picker" id="assessmentModePicker" aria-labelledby="assessmentModeTitle">
-          <div class="assessment-mode-heading">
-            <span class="assessment-mode-mark" aria-hidden="true">✦</span>
-            <div>
-              <span>مساعد توسع الذكي</span>
-              <h3 id="assessmentModeTitle">صف فرصة الفرع بطريقتك، وسأقيّمها معك خطوة بخطوة</h3>
-            </div>
-            <button class="assessment-mode-change" id="assessmentModeChange" type="button" hidden>تغيير الطريقة</button>
-          </div>
-          <div class="assessment-mode-options">
-            <article class="assessment-mode-option assessment-mode-voice">
-              <span class="assessment-mode-icon" aria-hidden="true"><span class="assessment-mode-spark">✦</span><svg viewBox="0 0 32 32"><path d="M16 4.5a8.5 8.5 0 0 0-8.5 8.5c0 6.4 8.5 14 8.5 14s8.5-7.6 8.5-14A8.5 8.5 0 0 0 16 4.5Z"></path><path class="mode-sound" d="M12 15v2m4-5v8m4-6v4"></path></svg></span>
-              <strong>حاورني وقيّمني</strong>
-              <small>محادثة صوتية ذكية تكمل التقييم معك</small>
-              <button class="assessment-mode-action assessment-mode-voice-action" type="button" data-assistant-mode="guided" data-start-live-voice>
-                <span class="assessment-mode-action-copy"><b>تحدث مع خبير توسع</b><em>محادثة صوتية ذكية · Gemini</em></span>
-                <span class="assessment-mode-wave" aria-hidden="true"><i></i><i></i><i></i></span>
-              </button>
-            </article>
-            <article class="assessment-mode-option assessment-mode-think">
-              <span class="assessment-mode-icon" aria-hidden="true">◈</span>
-              <strong>ساعدني أفكر</strong>
-              <small>ناقش الفرصة معي وحدد المعلومات والمخاطر</small>
-              <form class="assessment-think-form" id="assessmentThinkForm">
-                <input id="assessmentThinkInput" type="text" maxlength="1200" autocomplete="off" placeholder="احك لي عن الفرصة وما الذي يحيرك">
-                <button type="submit" data-assistant-mode="think">ناقش الفرصة</button>
-              </form>
-            </article>
-            <article class="assessment-mode-option assessment-mode-manual">
-              <span class="assessment-mode-icon" aria-hidden="true">✓</span>
-              <strong>أعبئ النموذج بنفسي</strong>
-              <small>استخدم النموذج واحصل على شرح عند الحاجة</small>
-              <button class="assessment-mode-action assessment-mode-manual-action" type="button" data-assistant-mode="manual">ابدأ التعبئة</button>
-            </article>
-          </div>
-        </section>
-
         <div class="assessment-workspace" id="assessmentWorkspace">
           <div class="assessment-main">
         <div class="progress-zone">
@@ -489,44 +485,6 @@
         </div>
 
         <div class="questions-wrap">
-          <details class="pre-assessment-guide" id="preAssessmentGuide" aria-labelledby="preAssessmentGuideTitle">
-            <summary class="guide-heading">
-              <span class="guide-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"></path><path d="M4 5.5v16"></path><path d="M8 7h8"></path><path d="M8 11h7"></path></svg>
-              </span>
-              <span class="guide-title" id="preAssessmentGuideTitle">معلومات تساعدك قبل التقييم</span>
-              <svg class="guide-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-            </summary>
-            <p class="guide-copy">تختلف المتطلبات البلدية بحسب كود النشاط ونوع الموقع ورخصة البناء. تتضمن التوضيحات داخل الأسئلة أمثلة مختارة من الوثائق والأدلة المنشورة من وزارة البلديات والإسكان؛ لمساعدتك على اكتشاف المتطلبات التي تحتاج إلى تحقق قبل توقيع العقد.</p>
-            <p class="guide-copy">اعتمد في التحقق على اسم النشاط وكوده التفصيلي في منصة بلدي، وراجع رخصة البناء، واستعن بمكتب هندسي عند تقييم الجاهزية الفنية للموقع.</p>
-            <div class="guide-reference-title">المراجع المستخدمة في الأداة</div>
-            <div class="guide-references">
-              <article class="guide-reference">
-                <a href="https://balady.gov.sa/ar/اشتراطات-المطاعم" target="_blank" rel="noopener noreferrer">«اشتراطات المطاعم»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"></path><path d="m10 14 11-11"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
-                <ul>
-                  <li><b>نوع الوثيقة:</b> اشتراطات معتمدة بقرار وزاري</li>
-                  <li><b>الجهة المصدرة:</b> وزارة البلديات والإسكان</li>
-                  <li><b>تاريخ نشر المستند:</b> 11/11/2025</li>
-                  <li><b>نطاق الوثيقة:</b> المطاعم مع الخدمة، والمطاعم بدون خدمة، والمقاهي، والمطابخ السحابية، والأكشاك الغذائية</li>
-                </ul>
-              </article>
-              <article class="guide-reference">
-                <a href="https://momah.gov.sa/ar/node/15712" target="_blank" rel="noopener noreferrer">«دليل المداخن للأنشطة التجارية»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"></path><path d="m10 14 11-11"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
-                <ul>
-                  <li><b>نوع الوثيقة:</b> دليل</li>
-                  <li><b>الجهة المصدرة:</b> وزارة البلديات والإسكان</li>
-                  <li><b>تاريخ الإصدار:</b> 23/11/2025</li>
-                </ul>
-              </article>
-              <article class="guide-reference">
-                <a href="https://apps.balady.gov.sa/LicenseStandard/Default?sid=7010" target="_blank" rel="noopener noreferrer">«خدمة الاستعلام عن تفاصيل الأنشطة»<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"></path><path d="m10 14 11-11"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
-                <ul>
-                  <li><b>الجهة المقدمة:</b> منصة بلدي التابعة لوزارة البلديات والإسكان</li>
-                  <li><b>الغرض:</b> البحث باسم النشاط أو كوده والاطلاع على اشتراطات الموقع والاشتراطات الخاصة المرتبطة بالنشاط</li>
-                </ul>
-              </article>
-            </div>
-          </details>
           <div class="branch-field" id="branchNameWrap">
             <label for="branchName">
               <span class="branch-label">
@@ -550,49 +508,6 @@
             <button class="btn btn-reset" type="button" id="resetInlineBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v6h6"></path></svg>ابدأ من جديد</button>
           </div>
         </div>
-          </div>
-
-          <aside class="tawassu-assistant" id="tawassuAssistant" aria-label="مساعد توسع" hidden>
-            <div class="tawassu-assistant-head">
-              <div class="tawassu-assistant-identity">
-                <span class="tawassu-assistant-orb" aria-hidden="true">✦</span>
-                <div><strong>خبير توسع</strong><small id="assistantModeLabel">مساعد تقييم الفرع</small></div>
-              </div>
-              <div class="tawassu-assistant-head-actions">
-                <button type="button" id="assistantSoundToggle" aria-label="كتم صوت خبير توسع" aria-pressed="true"><span aria-hidden="true">◖))</span></button>
-                <button type="button" id="assistantEnd" aria-label="إنهاء المحادثة الصوتية"><span aria-hidden="true">■</span></button>
-                <button type="button" id="assistantMinimize" aria-label="تصغير لوحة المساعد" aria-expanded="true">⌄</button>
-              </div>
-            </div>
-            <div class="tawassu-assistant-body" id="assistantBody">
-              <div id="assistantVoiceHost"></div>
-              <div class="assistant-state" id="assistantState"><span></span><b>جاهز</b></div>
-              <div class="assistant-current" id="assistantCurrentQuestion"></div>
-              <div class="assistant-conversation" id="assistantConversation" aria-live="polite"></div>
-              <div class="assistant-confirm" id="assistantConfirm" hidden></div>
-              <div class="assistant-suggestions" id="assistantSuggestions"></div>
-              <div class="assistant-transcript" id="assistantTranscript" hidden></div>
-              <div class="assistant-notice" id="assistantNotice" hidden></div>
-              <form class="assistant-compose" id="assistantForm">
-                <button class="assistant-mic" type="button" id="assistantMic" aria-label="ابدأ محادثة صوتية ذكية مع خبير توسع" data-state="ready">
-                  <span class="voice-icon" aria-hidden="true">
-                    <svg viewBox="0 0 32 32" focusable="false">
-                      <circle class="voice-halo" cx="16" cy="16" r="13"></circle>
-                      <path class="voice-pin" d="M16 4.5 18.4 12 26 16l-7.6 4L16 27.5 13.6 20 6 16l7.6-4Z"></path>
-                      <g class="voice-bars"><path d="M12 15v2"></path><path d="M16 12.5v7"></path><path d="M20 14v4"></path></g>
-                      <path class="voice-slash" d="m9 9 14 14"></path>
-                    </svg>
-                  </span>
-                </button>
-                <input id="assistantInput" type="text" maxlength="1800" autocomplete="off" placeholder="اكتب إجابتك أو سؤالك">
-                <button class="assistant-send" type="submit" id="assistantSend">إرسال</button>
-              </form>
-              <div class="assistant-footer-actions">
-                <button type="button" id="assistantPrevious">السؤال السابق</button>
-                <button type="button" id="assistantExplain">اشرح هذا السؤال</button>
-              </div>
-            </div>
-          </aside>
         </div>
 
         <section class="results" id="results">
@@ -677,6 +592,8 @@
               </div>
             </section>
 
+            <p class="ai-disclaimer ai-disclaimer-result">أعدت هذه النتيجة بمساعدة الذكاء الاصطناعي وبناء على إجابات المستخدم والبيانات المتاحة. وهي نتيجة استرشادية تساعد على فهم الفرصة والمخاطر، ولا تغني عن التحقق الميداني أو الاستشارة المالية والقانونية والتشغيلية المتخصصة. تبقى القرارات النهائية ومسؤولية تنفيذها على المستخدم.</p>
+
             <div class="result-actions">
               <div class="result-actions-main">
                 <div class="result-primary-actions">
@@ -703,6 +620,7 @@
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
           <span class="footer-version" id="footerVersion">الإصدار 1.4.0</span>
+          <span class="footer-version">النسخة المتقدمة قيد التطوير</span>
         </div>
       </div>
       <div class="footer-social">
@@ -758,9 +676,9 @@
       const STORAGE_KEY = 'tawassu_assessment_pro_v6';
       const LEGACY_STORAGE_KEY = 'tawassu_assessment_pro_v5';
       const OLDER_STORAGE_KEY = 'tawassu_assessment_pro_v4';
-      const APP_VERSION = '1.6.0';
+      const APP_VERSION = '1.7.2';
       const STATE_SCHEMA_VERSION = '1.5.1';
-      const state = { step: 1, totalSteps: 3, branchName: '', answers: {}, result: null, preparedImage: null };
+      const state = { step: 1, totalSteps: 3, currentQuestionId: '', branchName: '', answers: {}, result: null, preparedImage: null };
       let resetReturnFocus = null;
       const $ = s => document.querySelector(s);
       const $$ = s => [...document.querySelectorAll(s)];
@@ -974,37 +892,63 @@
         return 'cols-4';
       }
 
+      function questionStep(questionId) {
+        return Number(Object.entries(QUESTIONS).find(([,items]) => items.some(item => item.id === questionId))?.[0]) || 1;
+      }
+
+      function currentQuestion() {
+        const list = allVisibleQuestions();
+        return list.find(item => item.id === state.currentQuestionId) || list.find(item => !isAnswered(item)) || list[0] || null;
+      }
+
+      function focusQuestion(questionId, { scroll=true }={}) {
+        const question = allVisibleQuestions().find(item => item.id === questionId);
+        if (!question) return false;
+        state.currentQuestionId = question.id;
+        state.step = questionStep(question.id);
+        saveState();
+        renderStep();
+        emitAssessmentChange('step', { questionId:question.id, source:'navigation' });
+        if (scroll) requestAnimationFrame(() => document.getElementById('questionList')?.scrollIntoView({ behavior:'smooth', block:'center' }));
+        return true;
+      }
+
       function renderStep() {
+        const list = allVisibleQuestions();
+        let question = currentQuestion();
+        if (question) {
+          state.currentQuestionId = question.id;
+          state.step = questionStep(question.id);
+        }
         const copy = STEP_COPY[state.step];
+        const index = Math.max(0, list.findIndex(item => item.id === question?.id));
         $('#stepHint').textContent = copy.hint;
-        $('#sectionKicker').textContent = copy.sectionKicker;
+        $('#sectionKicker').textContent = question ? `السؤال ${index + 1} من ${list.length}` : 'اكتمل التقييم';
         $('#sectionTitle').textContent = copy.sectionTitle;
         $('#sectionIcon').innerHTML = copy.icon;
         $('#stepIntro').textContent = copy.intro;
-        $('#preAssessmentGuide').hidden = state.step !== 1;
-        $('#branchNameWrap').hidden = state.step !== 1;
+        $('#branchNameWrap').hidden = !question || question.id !== 'serviceChannels';
         $('#branchName').value = state.branchName;
-        $('#prevBtn').style.display = state.step === 1 ? 'none' : 'inline-flex';
-        $('#nextBtn').textContent = state.step === state.totalSteps ? 'اعرض النتيجة' : 'التالي';
-        renderQuestions();
+        $('#prevBtn').style.display = index === 0 ? 'none' : 'inline-flex';
+        $('#nextBtn').textContent = question && index === list.length - 1 ? 'اعرض النتيجة' : 'التالي';
+        renderQuestions(question, index, list.length);
         updateProgress();
       }
 
-      function renderQuestions() {
-        const list = visibleQuestions(state.step);
-        const html = list.map((q, i) => {
+      function renderQuestions(question=currentQuestion(), index=0, total=allVisibleQuestions().length) {
+        const list = question ? [question] : [];
+        const html = list.map(q => {
           const options = questionOptions(q);
           return `
             <article class="question-card" data-id="${q.id}">
               <div class="question-head">
-                <div class="q-badge">${i+1}</div>
+                <div class="q-badge">${index + 1}</div>
                 <div style="flex:1;min-width:0;">
                   <div class="question-title-row">
                     <h3>${q.title}</h3>
                     ${QUESTION_TIPS[q.id] ? `<span class="tip-wrap"><button class="tip-btn" type="button" aria-label="تعليمات السؤال" data-tip-toggle>؟</button><span class="tip-box">${QUESTION_TIPS[q.id]}</span></span>` : ''}
                   </div>
                   ${q.help ? `<p>${q.help}</p>` : ''}
-                  <button class="manual-assistant-help" type="button" data-ask-expert="${q.id}"><span aria-hidden="true">✦</span> اسأل خبير توسع عن هذا السؤال</button>
                 </div>
               </div>
               <div class="options ${optionCols(options.length)}">
@@ -1018,6 +962,7 @@
                   </button>
                 `).join('')}
               </div>
+              ${q.multi ? '<button class="multi-commit" type="button" data-multi-commit>اعتماد والانتقال</button>' : ''}
             </article>`;
         }).join('');
         $('#questionList').innerHTML = html;
@@ -1036,9 +981,7 @@
 
       function updateProgress() {
         const { done, total } = answeredStats();
-        const completedSteps = state.step - 1;
-        const currentQuestions = visibleQuestions(state.step);
-        const overall = Math.round(((completedSteps + (total ? (currentQuestions.filter(isAnswered).length / currentQuestions.length) : 0)) / state.totalSteps) * 100);
+        const overall = total ? Math.round(done / total * 100) : 0;
         $('#progressPercent').textContent = overall + '%';
         $('#progressCount').textContent = `${done} من ${total}`;
         $('#barFill').style.width = overall + '%';
@@ -1094,6 +1037,7 @@
         saveState();
         renderStep();
         emitAssessmentChange('answer', { questionId, value, answer: state.answers[questionId] });
+        if (question && !question.multi) moveQuestion(1, { automatic:true });
       }
 
       function setAnswer(questionId, value) {
@@ -1115,8 +1059,9 @@
         }
         state.result = null;
         state.preparedImage = null;
-        const targetStep = Number(Object.entries(QUESTIONS).find(([,items]) => items.some(item => item.id === questionId))?.[0]) || state.step;
+        const targetStep = questionStep(questionId);
         state.step = targetStep;
+        state.currentQuestionId = questionId;
         saveState();
         renderStep();
         emitAssessmentChange('answer', { questionId, answer: state.answers[questionId], source:'assistant' });
@@ -1131,28 +1076,28 @@
         return visibleQuestions(step).every(isAnswered);
       }
 
-      function nextStep() {
-        if (!stepValid(state.step)) return toast('أكمل جميع الأسئلة الظاهرة قبل المتابعة.');
-        if (state.step < state.totalSteps) {
-          state.step += 1;
-          saveState();
-          renderStep();
-          emitAssessmentChange('step', { direction:'next' });
-          document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
-          return;
+      function moveQuestion(direction, { automatic=false }={}) {
+        const list = allVisibleQuestions();
+        const current = currentQuestion();
+        const index = list.findIndex(item => item.id === current?.id);
+        if (direction > 0 && current && !isAnswered(current)) {
+          if (!automatic) toast(current.multi ? 'اختر خيارا واحدا على الأقل ثم اعتمد الإجابة.' : 'اختر إجابة قبل الانتقال.');
+          return false;
         }
-        calculateResult();
+        if (direction > 0) {
+          const target = list.slice(index + 1).find(item => !isAnswered(item));
+          if (target) return focusQuestion(target.id, { scroll:!automatic });
+          const missing = list.find(item => !isAnswered(item));
+          if (missing) return focusQuestion(missing.id, { scroll:true });
+          calculateResult();
+          return true;
+        }
+        const previous = list[index - 1];
+        return previous ? focusQuestion(previous.id, { scroll:true }) : false;
       }
 
-      function prevStep() {
-        if (state.step > 1) {
-          state.step -= 1;
-          saveState();
-          renderStep();
-          emitAssessmentChange('step', { direction:'previous' });
-          document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
-        }
-      }
+      function nextStep() { return moveQuestion(1); }
+      function prevStep() { return moveQuestion(-1); }
 
       function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
       function clamp(n,min,max) { return Math.max(min, Math.min(max, n)); }
@@ -1333,7 +1278,7 @@
       }
 
       function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: STATE_SCHEMA_VERSION, step: state.step, branchName: state.branchName, answers: state.answers, result: state.result }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: STATE_SCHEMA_VERSION, step: state.step, currentQuestionId:state.currentQuestionId, branchName: state.branchName, answers: state.answers, result: state.result }));
       }
 
       function restoreState() {
@@ -1347,6 +1292,7 @@
           if (!hasAnswers && !hasBranchName) return false;
           if (typeof saved.branchName === 'string') state.branchName = saved.branchName.slice(0, 70);
           if (saved.answers) state.answers = saved.answers;
+          if (typeof saved.currentQuestionId === 'string') state.currentQuestionId = saved.currentQuestionId;
           const allowedChannels = ['dineIn', 'pickupInside', 'driveThru', 'delivery'];
           const validChannels = Array.isArray(state.answers.serviceChannels) && state.answers.serviceChannels.length > 0 && state.answers.serviceChannels.every(channel => allowedChannels.includes(channel));
           const needsMigration = !currentRaw || saved.version !== STATE_SCHEMA_VERSION;
@@ -1390,7 +1336,9 @@
       function editAnswers() {
         $('.tool-card').classList.remove('completed');
         $('#results').classList.remove('show');
-        state.step = 3;
+        const list = allVisibleQuestions();
+        state.currentQuestionId = list[list.length - 1]?.id || '';
+        state.step = questionStep(state.currentQuestionId);
         renderStep();
         document.getElementById('tool').scrollIntoView({ behavior:'smooth', block:'start' });
       }
@@ -1412,7 +1360,7 @@
       function resetAll() {
         $('#resetConfirm').hidden = true;
         document.body.style.overflow = '';
-        state.step = 1; state.branchName = ''; state.answers = {}; state.result = null; state.preparedImage = null;
+        state.step = 1; state.currentQuestionId = ''; state.branchName = ''; state.answers = {}; state.result = null; state.preparedImage = null;
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem(LEGACY_STORAGE_KEY);
         localStorage.removeItem(OLDER_STORAGE_KEY);
@@ -1684,7 +1632,11 @@
           const noticeLines = getWrappedLines(measureCtx, noticeText, 824, '600 18px "IBM Plex Sans Arabic"');
           const noticeY = secondRowY + rowTwoHeight + 22;
           const noticeHeight = Math.max(68, 34 + noticeLines.length * 26);
-          const footerY = noticeY + noticeHeight + 42;
+          const aiReportNotice = `أعدت هذه النتيجة بمساعدة الذكاء الاصطناعي وبناء على إجابات المستخدم والبيانات المتاحة. وهي نتيجة استرشادية تساعد على فهم الفرصة والمخاطر، ولا تغني عن التحقق الميداني أو الاستشارة المالية والقانونية والتشغيلية المتخصصة. تبقى القرارات النهائية ومسؤولية تنفيذها على المستخدم. تاريخ إعداد التقييم: ${d}`;
+          const aiReportLines = getWrappedLines(measureCtx, aiReportNotice, 824, '500 14px "IBM Plex Sans Arabic"');
+          const aiReportY = noticeY + noticeHeight + 16;
+          const aiReportHeight = Math.max(76, 30 + aiReportLines.length * 22);
+          const footerY = aiReportY + aiReportHeight + 36;
           const cardBottom = footerY + 66;
           const canvasHeight = cardBottom + 44;
 
@@ -1780,6 +1732,12 @@
             drawWrappedLines(ctx, noticeLines, 960, noticeY + 39, 26, '600 18px "IBM Plex Sans Arabic"', '#1f8b5f');
           }
 
+          ctx.fillStyle = '#fffaf0';
+          ctx.strokeStyle = 'rgba(201,168,76,.34)';
+          ctx.lineWidth = 1;
+          roundRect(ctx, 84, aiReportY, 912, aiReportHeight, 14, true, true);
+          drawWrappedLines(ctx, aiReportLines, 960, aiReportY + 29, 22, '500 14px "IBM Plex Sans Arabic"', '#746c58');
+
           ctx.strokeStyle = 'rgba(13,67,141,.16)'; ctx.lineWidth = 1;
           ctx.beginPath(); ctx.moveTo(84, footerY - 22); ctx.lineTo(996, footerY - 22); ctx.stroke();
           ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 2;
@@ -1844,6 +1802,7 @@
         if (!e.target.closest('.tip-wrap')) document.querySelectorAll('.tip-wrap.open').forEach(x=>x.classList.remove('open','open-up'));
         const choice = e.target.closest('.choice');
         if (choice) { choose(choice.dataset.question, choice.dataset.value); return; }
+        if (e.target.closest('[data-multi-commit]')) { nextStep(); return; }
         const jump = e.target.closest('[data-jump]');
         if (jump) {
           const id = jump.dataset.jump;
@@ -1861,14 +1820,6 @@
       $('#resetInlineBtn').addEventListener('click', requestReset);
       $('#cancelResetBtn').addEventListener('click', closeResetConfirm);
       $('#confirmResetBtn').addEventListener('click', resetAll);
-      $('#advancedModeBtn').addEventListener('click', e => {
-        const card = e.currentTarget;
-        card.classList.remove('is-tapped');
-        void card.offsetWidth;
-        card.classList.add('is-tapped');
-        window.setTimeout(() => card.classList.remove('is-tapped'), 650);
-        toast('النسخة المتقدمة قيد التطوير.');
-      });
       $('#branchName').addEventListener('input', e => { state.branchName = e.target.value.slice(0, 70); saveState(); emitAssessmentChange('branch', { branchName:state.branchName, source:'manual' }); });
       $('#closePreviewBtn').addEventListener('click', closePreview);
       $('#downloadBtn').addEventListener('click', downloadPrepared);
@@ -1888,14 +1839,15 @@
 
       window.TawassuApp = {
         version: APP_VERSION,
-        getState: () => ({ step:state.step, totalSteps:state.totalSteps, branchName:state.branchName, answers:{...state.answers}, result:state.result }),
+        getState: () => ({ step:state.step, totalSteps:state.totalSteps, currentQuestionId:state.currentQuestionId, branchName:state.branchName, answers:{...state.answers}, result:state.result }),
         getQuestion: id => { const q=getQuestion(id),step=Number(Object.entries(QUESTIONS).find(([,items])=>items.some(item=>item.id===id))?.[0]); return q ? { ...q, step, options:questionOptions(q).map(option=>({...option})) } : null; },
         getQuestions: () => allVisibleQuestions().map(q => ({ ...q, step:Number(Object.entries(QUESTIONS).find(([,items])=>items.includes(q))?.[0]), options:questionOptions(q).map(option=>({...option})) })),
-        getCurrentQuestion: () => { const q=visibleQuestions(state.step).find(item=>!isAnswered(item)) || visibleQuestions(state.step)[0] || null; return q ? { ...q, step:state.step, options:questionOptions(q).map(option=>({...option})) } : null; },
+        getCurrentQuestion: () => { const q=currentQuestion(); return q ? { ...q, step:questionStep(q.id), options:questionOptions(q).map(option=>({...option})) } : null; },
         getQuestionGuide: id => ({ html:QUESTION_TIPS[id] || '', text:(QUESTION_TIPS[id] || '').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim() }),
         setAnswer,
         choose,
-        goToStep: step => { if(step>=1&&step<=state.totalSteps){state.step=step;saveState();renderStep();emitAssessmentChange('step',{source:'assistant'});return true}return false },
+        focusQuestion: id => focusQuestion(id),
+        goToStep: step => { const q=visibleQuestions(step).find(item=>!isAnswered(item)) || visibleQuestions(step)[0]; return q ? focusQuestion(q.id) : false },
         nextStep,
         previousStep: prevStep,
         getProgress: answeredStats,
@@ -1908,9 +1860,9 @@
       emitAssessmentChange('ready');
     })();
   </script>
-  <script type="module" src="tawassu-voice-appcheck.js?v=1.6.0"></script>
-  <script type="module" src="tawassu-text-ai.js?v=1.6.0"></script>
-  <script type="module" src="tawassu-assistant.js?v=1.6.0"></script>
-  <script type="module" src="tawassu-voice.js?v=1.6.0"></script>
+  <script type="module" src="tawassu-voice-appcheck.js?v=1.7.2"></script>
+  <script type="module" src="tawassu-text-ai.js?v=1.7.2"></script>
+  <script type="module" src="tawassu-assistant.js?v=1.7.2"></script>
+  <script type="module" src="tawassu-voice.js?v=1.7.2"></script>
 </body>
 </html>
