@@ -7,6 +7,7 @@ const ACTIVE_STORE='tawassu_assistant_active_live_v1';
 const MODE_STORE='tawassu_assistant_mode_live_v1';
 const SECTION_LABELS={1:'تعريف الفرع',2:'الموقع والسوق',3:'الصفقة والجاهزية'};
 const MODE_LABELS={guided:'حوار وتقييم مباشر',think:'نقاش الفرصة',manual:'شرح عند الحاجة'};
+const NEEDS_VERIFICATION_VALUES=new Set(['unknown','pending']);
 
 let app=null,mode='',activeQuestionId='',history=[],answerMeta={},pendingProposals=[],chatBusy=false,aiUnavailable=false,currentConversationId='';
 
@@ -16,6 +17,7 @@ function state(){return app?.getState?.()||{step:1,branchName:'',answers:{},resu
 function questions(){return app?.getQuestions?.()||[]}
 function question(id){return app?.getQuestion?.(id)||null}
 function optionLabels(q,values){const wanted=new Set(Array.isArray(values)?values:[values]);return (q?.options||[]).filter(item=>wanted.has(item.value)).map(item=>item.label)}
+function sameValues(a=[],b=[]){const left=[...new Set((Array.isArray(a)?a:[]).map(String))].sort(),right=[...new Set((Array.isArray(b)?b:[]).map(String))].sort();return left.length===right.length&&left.every((value,index)=>value===right[index])}
 function currentQuestion(){return question(activeQuestionId)||app?.getCurrentQuestion?.()||null}
 function missingIds(){return app?.getMissingAnswers?.()||[]}
 function missingQuestions(){const missing=new Set(missingIds());return questions().filter(item=>missing.has(item.id))}
@@ -32,9 +34,12 @@ function questionContext(q){
 function getAssessmentContext(){
   const s=state(),all=questions(),missing=new Set(missingIds()),progress=app.getProgress?.()||{done:0,total:all.length},current=currentQuestion()||all.find(item=>missing.has(item.id))||null;
   const completed=all.filter(item=>!missing.has(item.id)).map(questionContext),pending=all.filter(item=>missing.has(item.id)).map(item=>({id:item.id,section:item.step,title:item.title}));
-  const confirmed=completed.filter(item=>item.certainty==='confirmed'),estimated=completed.filter(item=>item.certainty==='estimated');
+  const needsVerification=completed.filter(item=>item.answer_values.some(value=>NEEDS_VERIFICATION_VALUES.has(value)));
+  const assumptions=completed.filter(item=>item.certainty==='assumed');
+  const estimated=completed.filter(item=>item.certainty==='estimated'&&!needsVerification.includes(item));
+  const confirmed=completed.filter(item=>item.certainty==='confirmed'&&!needsVerification.includes(item));
   const result=s.result?{score:s.result.score,band:s.result.band,band_title:s.result.bandTitle,decision:s.result.decision,summary:s.result.summary,priority:s.result.priority,axis_scores:s.result.axisScores,strengths:(s.result.strengths||[]).map(item=>item.text||item),risks:(s.result.risks||[]).map(item=>item.text||item),blockers:(s.result.blockers||[]).map(item=>item.text||item),recommendations:s.result.recommendations||[]}:null;
-  return {platform_id:'tawassu',platform:'توسع',assistant_name:'خبير توسع',conversation_id:currentConversationId,mode,current_section:s.step,section_label:SECTION_LABELS[s.step]||'',branch_name:s.branchName||'',activity_type:s.answers.activityType||'',service_channels:s.answers.serviceChannels||[],location_type:s.answers.locationType||'',answers:completed,completed_questions:completed.map(item=>item.id),missing_questions:pending,current_question:current?questionContext(current):null,completion:{done:progress.done,total:progress.total,percent:progress.total?Math.round(progress.done/progress.total*100):0},confirmed_data:confirmed,estimates:estimated,pending_proposals:pendingProposals.map(item=>({...item})),result};
+  return {platform_id:'tawassu',platform:'توسع',assistant_name:'خبير توسع',conversation_id:currentConversationId,mode,current_section:s.step,section_label:SECTION_LABELS[s.step]||'',branch_name:s.branchName||'',activity_type:s.answers.activityType||'',service_channels:s.answers.serviceChannels||[],location_type:s.answers.locationType||'',answers:completed,completed_questions:completed.map(item=>item.id),missing_questions:pending,current_question:current?questionContext(current):null,completion:{done:progress.done,total:progress.total,percent:progress.total?Math.round(progress.done/progress.total*100):0},confirmed_data:confirmed,estimates:estimated,assumptions,needs_verification:needsVerification,pending_proposals:pendingProposals.map(item=>({...item})),result};
 }
 
 function markFocus(questionId){
@@ -69,14 +74,16 @@ function proposeAssessmentAnswer(questionId,values,interpretation='',certainty='
 function setAssessmentAnswer(questionId,values,{confirmed=false,certainty='confirmed',source='assistant'}={}){
   const q=question(questionId);if(!q)return {ok:false,error:'question-not-found'};if(!confirmed)return {ok:false,error:'explicit-confirmation-required'};
   const allowed=new Set((q.options||[]).map(item=>item.value)),valid=(Array.isArray(values)?values:[]).filter(value=>allowed.has(value));if(!valid.length||(!q.multi&&valid.length!==1))return {ok:false,error:'answer-not-allowed'};
-  const pending=pendingProposals.find(item=>item.question_id===q.id);if(pending&&!pending.user_confirmed)return {ok:false,error:'confirmation-not-received'};
+  const pending=pendingProposals.find(item=>item.question_id===q.id);
+  if(pending&&!pending.user_confirmed)return {ok:false,error:'confirmation-not-received'};
+  if(pending&&!sameValues(valid,pending.answer_values))return {ok:false,error:'confirmed-value-mismatch'};
   const result=app.setAnswer(q.id,q.multi?valid:valid[0]);if(!result?.ok)return result||{ok:false,error:'set-answer-failed'};
-  const stored=state().answers[q.id],storedValues=Array.isArray(stored)?stored:[stored],verified=valid.every(value=>storedValues.includes(value));if(!verified)return {ok:false,error:'answer-not-persisted'};
+  const stored=state().answers[q.id],storedValues=Array.isArray(stored)?stored:[stored],verified=sameValues(valid,storedValues);if(!verified)return {ok:false,error:'answer-not-persisted'};
   answerMeta[q.id]={certainty:certainty==='estimated'?'estimated':'confirmed',source,updatedAt:Date.now()};pendingProposals=pendingProposals.filter(item=>item.question_id!==q.id);activeQuestionId=q.id;renderCurrentQuestion(q);saveConversation();
   requestAnimationFrame(()=>{const card=markFocus(q.id);card?.scrollIntoView({behavior:'smooth',block:'center'})});
   return {ok:true,persisted:true,question_id:q.id,answer_values:storedValues,answer_labels:optionLabels(q,storedValues),certainty:answerMeta[q.id].certainty};
 }
-function noteUserMessage(text){const value=String(text||'').trim();if(!pendingProposals.length||!value)return {ok:false,reason:'no-pending-proposal'};if(/^(لا|مو|ليس|غير موافق|لا تعتمد)/.test(value)){pendingProposals.forEach(item=>item.user_confirmed=false);return {ok:true,confirmed:false}}if(/^(نعم|ايه|ايوه|أيوه|موافق|اعتمد|اعتمده|تمام|صح|صحيح|توكل)/.test(value)){pendingProposals.forEach(item=>item.user_confirmed=true);saveConversation();return {ok:true,confirmed:true,count:pendingProposals.length}}return {ok:false,reason:'confirmation-not-detected'}}
+function noteUserMessage(text){const value=String(text||'').trim();if(!pendingProposals.length||!value)return {ok:false,reason:'no-pending-proposal'};if(/^(لا|مو|ليس|غير موافق|لا تعتمد)/.test(value)){pendingProposals.forEach(item=>item.user_confirmed=false);saveConversation();return {ok:true,confirmed:false}}if(/^(نعم|ايه|ايوه|أيوه|موافق|اعتمد|اعتمده|تمام|صح|صحيح|توكل)/.test(value)){pendingProposals.forEach(item=>item.user_confirmed=true);saveConversation();return {ok:true,confirmed:true,count:pendingProposals.length}}return {ok:false,reason:'confirmation-not-detected'}}
 function goToNextQuestion(){const missing=missingQuestions();if(!missing.length)return {ok:true,complete:true,result_available:!!state().result};const currentIndex=questions().findIndex(item=>item.id===activeQuestionId),next=missing.find(item=>questions().findIndex(q=>q.id===item.id)>currentIndex)||missing[0];return focusAssessmentQuestion(next.id,'السؤال التالي')}
 function goToPreviousQuestion(){const list=questions(),index=list.findIndex(item=>item.id===activeQuestionId),previous=list[Math.max(0,index-1)];return previous?focusAssessmentQuestion(previous.id,'السؤال السابق'):{ok:false,error:'previous-question-unavailable'}}
 function getMissingAnswers(){return {ok:true,missing:missingQuestions().map(item=>questionContext(item)),count:missingIds().length}}
