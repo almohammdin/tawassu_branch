@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0a0e1a">
+  <meta name="theme-color" content="#061f56">
   <title>توسّع | تقييم مخاطر واشتراطات الفرع الجديد</title>
   <meta name="description" content="أداة تفاعلية توضح مخاطر واشتراطات الفرع الجديد، وتحدد مؤشر الخطر وأهم النقاط الواجب البت فيها.">
   <link rel="canonical" href="https://almohammdin.github.io/tawassu_branch/">
@@ -26,9 +26,6 @@
   <meta name="twitter:image:alt" content="شعار توسّع وأداة تقييم قرارات توسع الفروع">
   <link rel="icon" type="image/png" sizes="256x256" href="favicon-v3.png">
   <link rel="apple-touch-icon" href="favicon-v3.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tawassu-assistant.css?v=1.7.4">
   <meta name="tawassu-assistant-enabled" content="true">
   <style>
@@ -62,7 +59,7 @@
       position: relative;
       isolation: isolate;
       overflow-x: hidden;
-      font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+      font-family: 'Thmanyah Sans', system-ui, sans-serif;
       background:
         radial-gradient(circle at top left, rgba(23,191,208,.08), transparent 24%),
         radial-gradient(circle at bottom right, rgba(201,168,76,.08), transparent 22%),
@@ -371,6 +368,7 @@
       .footer-card { padding: 11px; }
     }
   </style>
+<link rel="stylesheet" href="hatta.css?v=1">
 </head>
 <body>
   <div class="accent"></div>
@@ -396,7 +394,7 @@
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="#top" aria-label="العودة إلى بداية توسع">
-        <img src="naif-logo-v2.png" alt="نايف المحمدي">
+        <svg class="hatta-wordmark" viewBox="134 149 746 269" role="img" aria-label="حتى لحلول الأعمال"><image href="https://almohammdin.github.io/hatta-brand-guide/assets/hatta-logo.webp" width="1000" height="526"/></svg>
         <div class="brand-copy">
           <strong>مستشار الحوكمة وتطوير الأعمال</strong>
           <span>منصة تساعدك على قراءة فرصة الفرع ومخاطرها قبل اتخاذ القرار</span>
@@ -613,9 +611,9 @@
   </main>
 
   <footer class="site-footer">
-    <div class="shell footer-card">
+    <div class="shell footer-card"><a class="hatta-home" href="https://almohammdin.github.io/services/" aria-label="حتى لحلول الأعمال"><svg class="hatta-wordmark" viewBox="134 149 746 269" role="img" aria-label="حتى لحلول الأعمال"><image href="https://almohammdin.github.io/hatta-brand-guide/assets/hatta-logo.webp" width="1000" height="526"/></svg></a>
       <div class="footer-main">
-        <img src="naif-logo-v2.png" alt="نايف المحمدي">
+        <span class="naif-wordmark"><img src="https://almohammdin.github.io/hatta-brand-guide/assets/naif-signature.webp" alt="نايف المحمدي"></span>
         <div class="footer-copy">
           <strong>تطوير وإشراف نايف المحمدي</strong>
           <span>توسّع | أداة تقييم قرارات توسع الفروع</span>
@@ -623,8 +621,8 @@
           <span class="footer-version">النسخة المتقدمة قيد التطوير</span>
         </div>
       </div>
-      <div class="footer-social">
-        <strong>Almohammdin</strong>
+      <div class="footer-social" dir="ltr">
+        <strong>@almohammdin</strong>
         <a href="https://x.com/almohammdin" target="_blank" rel="noopener" aria-label="X">
           <svg viewBox="0 0 24 24"><path d="M18.2 2H22l-8.3 9.5L23.5 22h-7.7l-6-7.9L2.9 22H-.9l8.9-10.2L-1.4 2h7.9l5.4 7.2L18.2 2Zm-1.3 18h2.1L5.4 3.9H3.2L16.9 20Z"/></svg>
         </a>
@@ -1514,10 +1512,10 @@
         ctx.textAlign = 'center';
         ctx.direction = 'rtl';
         ctx.fillStyle = '#0d438d';
-        ctx.font = '700 60px "IBM Plex Sans Arabic"';
+        ctx.font = '700 60px "Thmanyah Sans"';
         ctx.fillText(String(score), centerX, centerY + 18);
         ctx.fillStyle = '#6b7486';
-        ctx.font = '600 14px "IBM Plex Sans Arabic"';
+        ctx.font = '600 14px "Thmanyah Sans"';
         ctx.fillText('من 100', centerX, centerY + 46);
         ctx.restore();
       }
@@ -1574,7 +1572,7 @@
         const btn = $('#previewBtn'); const old = btn.textContent; btn.disabled = true; btn.textContent = 'جارٍ تجهيز الصورة...';
         try {
           if (document.fonts) {
-            await Promise.all([400, 500, 600, 700].map(weight => document.fonts.load(`${weight} 32px "IBM Plex Sans Arabic"`)));
+            await Promise.all([400, 500, 600, 700].map(weight => document.fonts.load(`${weight} 32px "Thmanyah Sans"`)));
             await document.fonts.ready;
           }
           const [logo, sign] = await Promise.all([loadImage('tawassu-logo.png'), loadImage('naif-logo-v2.png')]);
@@ -1590,7 +1588,7 @@
           const measureCanvas = document.createElement('canvas');
           const measureCtx = measureCanvas.getContext('2d');
           measureCtx.direction = 'rtl';
-          const panelFont = '400 18px "IBM Plex Sans Arabic"';
+          const panelFont = '400 18px "Thmanyah Sans"';
           const panelWidth = 444;
           const panelTextWidth = 350;
           const panels = [
@@ -1606,11 +1604,11 @@
           });
           const rowOneHeight = Math.max(panels[0].height, panels[1].height);
           const rowTwoHeight = Math.max(panels[2].height, panels[3].height);
-          const primaryMetaFont = branchName ? '600 20px "IBM Plex Sans Arabic"' : '400 19px "IBM Plex Sans Arabic"';
+          const primaryMetaFont = branchName ? '600 20px "Thmanyah Sans"' : '400 19px "Thmanyah Sans"';
           const primaryMetaLines = getWrappedLines(measureCtx, branchName ? `اسم الفرع: ${branchName}` : 'أداة تقييم قرارات توسع الفروع', 720, primaryMetaFont);
-          const serviceLines = serviceLabel ? getWrappedLines(measureCtx, serviceLabel, 720, '500 16px "IBM Plex Sans Arabic"') : [];
-          const decisionLines = getWrappedLines(measureCtx, state.result.decision, 500, '700 30px "IBM Plex Sans Arabic"');
-          const summaryLines = getWrappedLines(measureCtx, state.result.summary, 500, '400 19px "IBM Plex Sans Arabic"');
+          const serviceLines = serviceLabel ? getWrappedLines(measureCtx, serviceLabel, 720, '500 16px "Thmanyah Sans"') : [];
+          const decisionLines = getWrappedLines(measureCtx, state.result.decision, 500, '700 30px "Thmanyah Sans"');
+          const summaryLines = getWrappedLines(measureCtx, state.result.summary, 500, '400 19px "Thmanyah Sans"');
 
           let metaY = 274;
           const primaryMetaY = metaY;
@@ -1629,11 +1627,11 @@
           const noticeText = state.result.blockers.length
             ? 'يلزم معالجة: ' + state.result.blockers.map(x=>x.text).slice(0,1).join(' • ')
             : 'المعطيات الحالية تسمح باستكمال التحقق قبل اتخاذ القرار.';
-          const noticeLines = getWrappedLines(measureCtx, noticeText, 824, '600 18px "IBM Plex Sans Arabic"');
+          const noticeLines = getWrappedLines(measureCtx, noticeText, 824, '600 18px "Thmanyah Sans"');
           const noticeY = secondRowY + rowTwoHeight + 22;
           const noticeHeight = Math.max(68, 34 + noticeLines.length * 26);
           const aiReportNotice = `أعدت هذه النتيجة بمساعدة الذكاء الاصطناعي وبناء على إجابات المستخدم والبيانات المتاحة. وهي نتيجة استرشادية تساعد على فهم الفرصة والمخاطر، ولا تغني عن التحقق الميداني أو الاستشارة المالية والقانونية والتشغيلية المتخصصة. تبقى القرارات النهائية ومسؤولية تنفيذها على المستخدم. تاريخ إعداد التقييم: ${d}`;
-          const aiReportLines = getWrappedLines(measureCtx, aiReportNotice, 824, '500 14px "IBM Plex Sans Arabic"');
+          const aiReportLines = getWrappedLines(measureCtx, aiReportNotice, 824, '500 14px "Thmanyah Sans"');
           const aiReportY = noticeY + noticeHeight + 16;
           const aiReportHeight = Math.max(76, 30 + aiReportLines.length * 22);
           const footerY = aiReportY + aiReportHeight + 36;
@@ -1670,11 +1668,11 @@
 
           drawContainImage(ctx, logo, 394, 64, 292, 134);
           ctx.textAlign = 'center';
-          ctx.fillStyle = '#0a0e1a'; ctx.font = '600 32px "IBM Plex Sans Arabic"'; ctx.fillText('نتيجة تقييم الفرع', 540, 226);
-          ctx.fillStyle = '#9b7b25'; ctx.font = '600 12px "IBM Plex Sans Arabic"'; ctx.fillText('تقرير تنفيذي لقرار التوسع', 540, 248);
+          ctx.fillStyle = '#0a0e1a'; ctx.font = '600 32px "Thmanyah Sans"'; ctx.fillText('نتيجة تقييم الفرع', 540, 226);
+          ctx.fillStyle = '#9b7b25'; ctx.font = '600 12px "Thmanyah Sans"'; ctx.fillText('تقرير تنفيذي لقرار التوسع', 540, 248);
           drawWrappedLines(ctx, primaryMetaLines, 540, primaryMetaY, 27, primaryMetaFont, branchName ? '#0d438d' : '#6b7486');
-          if (serviceLines.length) drawWrappedLines(ctx, serviceLines, 540, serviceY, 24, '500 16px "IBM Plex Sans Arabic"', '#14879a');
-          ctx.fillStyle = '#566270'; ctx.font = '600 17px "IBM Plex Sans Arabic"'; ctx.fillText(d, 540, dateY);
+          if (serviceLines.length) drawWrappedLines(ctx, serviceLines, 540, serviceY, 24, '500 16px "Thmanyah Sans"', '#14879a');
+          ctx.fillStyle = '#566270'; ctx.font = '600 17px "Thmanyah Sans"'; ctx.fillText(d, 540, dateY);
           ctx.textAlign = 'right';
 
           ctx.strokeStyle = 'rgba(13,67,141,.17)'; ctx.lineWidth = 1;
@@ -1687,18 +1685,18 @@
           ctx.fillStyle = chipFg; roundRect(ctx, 988, resultY + 30, 4, 112, 2, true, false);
           ctx.fillStyle = chipBg; roundRect(ctx, 746, resultY + 26, 196, 42, 21, true, false);
           ctx.textAlign = 'center';
-          ctx.fillStyle = chipFg; ctx.font = '700 21px "IBM Plex Sans Arabic"'; ctx.fillText(state.result.bandTitle, 844, resultY + 53);
+          ctx.fillStyle = chipFg; ctx.font = '700 21px "Thmanyah Sans"'; ctx.fillText(state.result.bandTitle, 844, resultY + 53);
           drawScoreSeal(ctx, 844, resultY + 164, state.result.score, chipFg);
-          ctx.fillStyle = '#6b7486'; ctx.font = '600 14px "IBM Plex Sans Arabic"'; ctx.fillText('مؤشر الخطر • الأقل أفضل', 844, resultY + 278);
+          ctx.fillStyle = '#6b7486'; ctx.font = '600 14px "Thmanyah Sans"'; ctx.fillText('مؤشر الخطر • الأقل أفضل', 844, resultY + 278);
           ctx.textAlign = 'right';
 
           const decisionY = resultY + 70;
-          const decisionBottom = drawWrappedLines(ctx, decisionLines, 650, decisionY, 38, '700 30px "IBM Plex Sans Arabic"', '#0a0e1a');
+          const decisionBottom = drawWrappedLines(ctx, decisionLines, 650, decisionY, 38, '700 30px "Thmanyah Sans"', '#0a0e1a');
           const summaryY = decisionBottom + 45;
-          const summaryBottom = drawWrappedLines(ctx, summaryLines, 650, summaryY, 30, '400 19px "IBM Plex Sans Arabic"', '#6b7486');
+          const summaryBottom = drawWrappedLines(ctx, summaryLines, 650, summaryY, 30, '400 19px "Thmanyah Sans"', '#6b7486');
           const priorityY = summaryBottom + 28;
           ctx.fillStyle = 'rgba(201,168,76,.11)'; roundRect(ctx, 152, priorityY - 21, 498, 42, 13, true, false);
-          ctx.fillStyle = '#8b6a18'; ctx.font = '600 16px "IBM Plex Sans Arabic"'; ctx.fillText(`الأولوية الآن: ${state.result.priority}`, 626, priorityY + 6);
+          ctx.fillStyle = '#8b6a18'; ctx.font = '600 16px "Thmanyah Sans"'; ctx.fillText(`الأولوية الآن: ${state.result.priority}`, 626, priorityY + 6);
 
           const scaleY = resultY + resultHeight - 58;
           const grad = ctx.createLinearGradient(650, scaleY + 7, 150, scaleY + 7);
@@ -1706,7 +1704,7 @@
           ctx.fillStyle = grad; roundRect(ctx, 150, scaleY, 500, 14, 7, true, false);
           const px = 650 - (500 * state.result.score / 100);
           ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, scaleY + 7, 10, 0, Math.PI*2); ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = '#0a0e1a'; ctx.stroke();
-          ctx.fillStyle = '#6b7486'; ctx.font = '400 14px "IBM Plex Sans Arabic"';
+          ctx.fillStyle = '#6b7486'; ctx.font = '400 14px "Thmanyah Sans"';
           ctx.fillText('منخفض', 650, scaleY + 36); ctx.textAlign = 'center'; ctx.fillText('متوسط', 400, scaleY + 36); ctx.textAlign = 'left'; ctx.fillText('مرتفع', 150, scaleY + 36); ctx.textAlign = 'right';
 
           panels.forEach((p, index) => {
@@ -1714,7 +1712,7 @@
             ctx.fillStyle = '#fff'; ctx.strokeStyle = '#e1e6ee'; ctx.lineWidth = 1.2; roundRect(ctx, p.x, p.y, panelWidth, panelHeight, 22, true, true);
             ctx.save(); ctx.globalAlpha = .26; ctx.fillStyle = p.color; roundRect(ctx, p.x + 24, p.y + 1, panelWidth - 48, 3, 1.5, true, false); ctx.restore();
             drawPanelIcon(ctx, p.type, p.x+panelWidth-40, p.y+34, p.color, p.bg);
-            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 22px "IBM Plex Sans Arabic"'; ctx.fillText(p.title, p.x+panelWidth-62, p.y+41);
+            ctx.fillStyle = '#0a0e1a'; ctx.font = '700 22px "Thmanyah Sans"'; ctx.fillText(p.title, p.x+panelWidth-62, p.y+41);
             let ly = p.y + 92;
             p.itemLines.forEach(lines => {
               ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x+panelWidth-27, ly-7, 4.5, 0, Math.PI*2); ctx.fill();
@@ -1725,30 +1723,30 @@
           if (state.result.blockers.length) {
             ctx.fillStyle = '#fff2f2'; roundRect(ctx, 84, noticeY, 912, noticeHeight, 16, true, false);
             ctx.fillStyle = '#c54747'; roundRect(ctx, 984, noticeY + 12, 4, noticeHeight - 24, 2, true, false);
-            drawWrappedLines(ctx, noticeLines, 960, noticeY + 39, 26, '600 18px "IBM Plex Sans Arabic"', '#9a2f2f');
+            drawWrappedLines(ctx, noticeLines, 960, noticeY + 39, 26, '600 18px "Thmanyah Sans"', '#9a2f2f');
           } else {
             ctx.fillStyle = '#eef8f2'; roundRect(ctx, 84, noticeY, 912, noticeHeight, 16, true, false);
             ctx.fillStyle = '#1f8b5f'; roundRect(ctx, 984, noticeY + 12, 4, noticeHeight - 24, 2, true, false);
-            drawWrappedLines(ctx, noticeLines, 960, noticeY + 39, 26, '600 18px "IBM Plex Sans Arabic"', '#1f8b5f');
+            drawWrappedLines(ctx, noticeLines, 960, noticeY + 39, 26, '600 18px "Thmanyah Sans"', '#1f8b5f');
           }
 
           ctx.fillStyle = '#fffaf0';
           ctx.strokeStyle = 'rgba(201,168,76,.34)';
           ctx.lineWidth = 1;
           roundRect(ctx, 84, aiReportY, 912, aiReportHeight, 14, true, true);
-          drawWrappedLines(ctx, aiReportLines, 960, aiReportY + 29, 22, '500 14px "IBM Plex Sans Arabic"', '#746c58');
+          drawWrappedLines(ctx, aiReportLines, 960, aiReportY + 29, 22, '500 14px "Thmanyah Sans"', '#746c58');
 
           ctx.strokeStyle = 'rgba(13,67,141,.16)'; ctx.lineWidth = 1;
           ctx.beginPath(); ctx.moveTo(84, footerY - 22); ctx.lineTo(996, footerY - 22); ctx.stroke();
           ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 2;
           ctx.beginPath(); ctx.moveTo(84, footerY - 22); ctx.lineTo(238, footerY - 22); ctx.stroke();
           ctx.fillStyle = '#8b93a3';
-          ctx.font = '500 10px "IBM Plex Sans Arabic"';
+          ctx.font = '500 10px "Thmanyah Sans"';
           ctx.fillText(`الإصدار ${APP_VERSION}`, 968, footerY);
           ctx.direction = 'ltr';
           ctx.textAlign = 'left';
           ctx.fillStyle = '#0d438d';
-          ctx.font = '600 16px "IBM Plex Sans Arabic"';
+          ctx.font = '600 16px "Thmanyah Sans"';
           drawContainImage(ctx, sign, 84, footerY + 12, 124, 35);
           drawSnapchatIcon(ctx, 238, footerY + 32, 18);
           drawSvgIcon(ctx, 'M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 13.9c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.2v-2H9.1V22h3.6v-7c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22H22v-8.1Z', 274, footerY + 32, 18);
