@@ -52,7 +52,7 @@ button,input,select,textarea,table,.choice strong{font-family:"Thmanyah Sans",sa
 .section-kicker,.progress-stats b{color:#8a5b20}
 .section-heading,.branch-field{background:#fbfaf7}
 .branch-field::after{background:var(--gold)}
-.progress-zone{top:80px;box-shadow:none}
+.progress-zone{top:auto;box-shadow:none}
 .site-footer{padding:8px 0 12px}
 .footer-card{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:8px 0;gap:8px 18px;align-items:center}
 .footer-main{gap:10px;flex:1;flex-wrap:nowrap}
@@ -67,6 +67,14 @@ button,input,select,textarea,table,.choice strong{font-family:"Thmanyah Sans",sa
 .footer-social a:hover{border-color:#e6d2ae;background:#f6f1e8}
 .footer-social svg{width:16px;height:16px}
 :focus-visible{outline:3px solid #8a5b20;outline-offset:3px}
-@media(max-width:640px){.brand{gap:12px}.brand-copy strong{font-size:13px}.brand-copy span{font-size:10px}.header-inner{padding:8px 0}.progress-zone{top:80px}.footer-card{padding:8px 0;align-items:center}.footer-main{min-width:160px}.footer-social{width:100%;justify-content:flex-end}.footer-social strong{margin-right:auto}}
+@media(max-width:640px){.brand{gap:12px}.brand-copy strong{font-size:13px}.brand-copy span{font-size:10px}.header-inner{padding:8px 0}.progress-zone{top:auto}.footer-card{padding:8px 0;align-items:center}.footer-main{min-width:160px}.footer-social{width:100%;justify-content:flex-end}.footer-social strong{margin-right:auto}}
 @media(max-width:380px){.brand-copy strong{font-size:12px}.brand-copy span{line-height:1.5}.footer-main{min-width:0}.footer-card{gap:8px 12px}}
 @media print{.site-footer,.site-header{display:none!important}}
+
+.assistant-entry-large,.assistant-entry-compact,.assistant-chat-panel{background:#fff;border-color:#e0e3e9;box-shadow:0 8px 24px rgba(6,31,86,.05)}
+.assistant-entry-large::before{background:var(--gold)}
+.assistant-entry-mark,.assistant-entry-voice,.assistant-compact-voice{background:var(--navy)}
+.assistant-entry-mark{color:#e6d2ae}
+.assistant-entry-heading div>span{color:#8a5b20}
+.assistant-entry-actions button,.assistant-entry-submit{color:var(--navy)}
+.assistant-entry-submit{background:#f6f1e8}
